@@ -433,7 +433,7 @@ To be implemented when the idea has been developed further in coordination with 
 ## Communication Protocol
 The communication protocol will facilitate the exchange of data between the web-client and the database-server. In this development stage, the available data related to the physical house were analyzed in order to extract the data necessary to outline a first image of the useful data to be obtained from the database, in order to be represented in the web GUI.
 After this analysis, a first Interface proposal was outlined, which includes the method statements. These statements show the data that was considered as input, and the data that is expected as response, from the server.
-These dates were forwarded to the two managers to outline the expectations of our subgroup and to help develop a communication protocol used by the entire group.
+These data was forwarded to the two managers, to outline the expectations of the web-based interface subgroup, and to help develop a communication protocol used by the entire group.
 ## GUI Logic
 ## Graphical Art&Display
 ## Other research
