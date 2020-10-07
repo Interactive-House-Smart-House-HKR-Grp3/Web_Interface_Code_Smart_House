@@ -434,6 +434,20 @@ To be implemented when the idea has been developed further in coordination with 
 The communication protocol will facilitate the exchange of data between the web-client and the database-server. In this development stage, the available data related to the physical house were analyzed in order to extract the data necessary to outline a first image of the useful data to be obtained from the database, in order to be represented in the web GUI.
 After this analysis, a first Interface proposal was outlined, which includes the method statements. These statements show the data that was considered as input, and the data that is expected as response, from the server.
 These data was forwarded to the two managers, to outline the expectations of the web-based interface subgroup, and to help develop a communication protocol used by the entire group.
+<br>
+![Server-WebClient-interaction.png](Images/Server-WebClient-interaction.png)
+<br>
+**Figure 1.** *Interface between web-client and server*<br>
+In order to develop the communication protocol were used different diagrams that describe the web application's view towards its relation with the server and the physical house, as *Figure2* and *Figure3* shows.
+<br>
+![Web-Client-Actions.png](Images/Web-Client-Actions.png)
+<br>
+**Figure 2.** *Actions that can be taken by an user*
+<br>
+![Web-Interface-Structural-Interaction.png](Images/Web-Interface-Structural-Interaction.png)
+<br>
+**Figure 3.** *Web interface internal structural interaction between modules*
+<br>
 ## GUI Logic
 ## Graphical Art&Display
 ## Other research
