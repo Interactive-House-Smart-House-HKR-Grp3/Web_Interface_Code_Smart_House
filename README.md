@@ -437,7 +437,7 @@ These data was forwarded to the two managers, to outline the expectations of the
 <br>
 ![Server-WebClient-interaction.png](Images/Server-WebClient-interaction.png)
 <br>
-**Figure 1.** *Interface between web-client and server*<br>
+**Figure 1.** *<a href="https://github.com/Interactive-House-Smart-House-HKR-Grp3/Web_Interface_Code_Smart_House/blob/master/src/data/data_server_interface/DataServerServices_Proposal.java">Interface</a> between web-client and server*<br>
 In order to develop the communication protocol were used different diagrams that describe the web application's view towards its relation with the server and the physical house, as *Figure2* and *Figure3* shows.
 <br>
 ![Web-Client-Actions.png](Images/Web-Client-Actions.png)
