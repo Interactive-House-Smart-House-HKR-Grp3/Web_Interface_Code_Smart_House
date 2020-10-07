@@ -395,9 +395,15 @@ JUnit testing for retrieval of correct data from the mock database.
 To be implemented when the idea has been developed further in coordination with other subgroups. 
 
 # Create the Development Environment
-## IntelliJ Project
-## Github Repository
-## DiscordManagement
+## IntelliJ Project<p>
+<img src="Images/IntelliJ-logo.png" height="30"/>
+  
+## Github Repository<p>
+<img src="Images/Git-logo.png" height="30"/>
+  
+## DiscordManagement<p>
+<img src="Images/Discord-logo.png" height="30"/>
+  
 # RUP Development  
 ## Iteration 1
 ### Meetings
