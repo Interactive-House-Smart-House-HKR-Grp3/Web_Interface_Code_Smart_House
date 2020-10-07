@@ -403,12 +403,13 @@ To be implemented when the idea has been developed further in coordination with 
 ### Meetings
 1. ~~Group 3 meetings~~
 2. ~~Subgroup web meetings~~
+3. ~~Meeting 1.~~
 ### Tasks
-1. ~~Research the project and course requirements ~~
-2. ~~Split the development in three parts that can be assign to each of the development team members~~
-3. ~~Create Use Case and UML diagrams to help undesrtand the requirements and the different approaches that are possible~~
-4. ~~Create a first draft of artifacts~~
-5. ~~Update the artifacts according to the feedback received during the first meeting~~
+- [x] Research the project and course requirements
+- [x] Split the development in three parts that can be assign to each of the development team members
+- [x] Create Use Case and UML diagrams to help undesrtand the requirements and the different approaches that are possible
+- [x] Create a first draft of artifacts
+- [x] Update the artifacts according to the feedback received during the first meeting
 ## Iteration 2
 ### Meetings
 1. ~~Group 3 meeting. September 28th. Artifacts updates, new requirements~~
@@ -416,13 +417,17 @@ To be implemented when the idea has been developed further in coordination with 
 3. ~~Subgroup meeting. October 2nd. Data structures and representation. Physical house study. WEb-services discussion. Server-services discussion. Server-services requirements.~~
 4. ~~Group 3 meeting. October 6th. Interface Server-Services proposal. Artifacts.~~
 5. ~~Subgroup meeting. October 7th. Artifacts. Diagrams. Design. Communication protocol~~
+6. Meeting 2.
 ### Tasks
-1. ~~Study the physical house documentation (provided by the physical house subgroup).~~ 
-2. ~~Create an Interface proposal that reflects the data structures and the services used by the web U.I.~~
-3. ~~Create diagrams to reflect the development stage of the project~~ 
-4. ~~Update the readme.file with the development of the project. Create a structure that can be used to document the further stages~~
-5. ~~Update the artifacts and upload them before the deadline~~
-6. ~~Research~~
+- [x] Study the physical house documentation (provided by the physical house subgroup). 
+- [x] Create an Interface proposal that reflects the data structures and the services used by the web U.I.
+- [x] Create diagrams to reflect the development stage of the project
+- [x] Update the readme.file with the development of the project. Create a structure that can be used to document the further stages
+- [x] Update the artifacts and upload them before the deadline
+- [x] Research
+- [x] Data Communication Diagram
+- [ ] Logical Module Diagram
+- [ ] Graphycal Design Diagram
 ## Iteration 3
 ### Meetings
 ### Tasks
