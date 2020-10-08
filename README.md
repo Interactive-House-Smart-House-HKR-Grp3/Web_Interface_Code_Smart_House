@@ -461,6 +461,37 @@ In order to develop the communication protocol were used different diagrams that
 <br>
 ## GUI Logic
 ## Graphical Art&Display
+**The following are concept arts that were made throught the development of the project, in order to act as guidelines for the group to coordinate a look and feel of the website.**
+<br>
+<br>
+![Concept_diagram.png](Images/Concept_diagram.png)
+<br>
+**Flow Chart:** *A simple flowchart of how the three pages should be interconnected and function*
+<br>
+<br>
+The flow chart shows primitive design showing key concepts of each page as well as page interaction and flow of the user. The different expected datatypes are also shown on the left of the flow chart 
+<br>
+<br>
+**The Homepage:**
+<br>
+should act as a hub for the other pages including the secure login and registration page. The hompage should promote new users to sign up to the smart home service including the andoird app. The hompage should also feature the top toolbar that is present on all other pages which includes a menu containing links to the statistcs, dashboard, and the homepage. The toolbar also contains the user account icon that acts as a menu/button that takes the user to the account managment page.
+<br>
+<br>
+**Statistics Page**
+<br>
+The statistics page should simply present different statistics to the user about their devices in their home. The user should be able to see the statistics with user defined time restrictions, for example the electricity consumption of the past day/week/month would be shown in accordance to what the user chose. It would also be desirable if the user can then compare their own statistics to that of other users.
+<br>
+<br>
+**Dashboard Page**
+<br>
+The dashboard is where the user would interact with their own devices.
+<br>
+<br>
+![](Images/Concept_DEMO_Homepage.gif)
+<br>
+**Homepage Demo:** *First rendition of how the hompage should be presented to the user*
+<br>
+
 ## Other research
 # Results
 ## First Iteration
