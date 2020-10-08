@@ -432,8 +432,9 @@ To be implemented when the idea has been developed further in coordination with 
 - [x] Update the artifacts and upload them before the deadline
 - [x] Research
 - [x] Data Communication Diagram
-- [ ] Logical Module Diagram
-- [ ] Graphycal Design Diagram
+- [x] Logical Module Diagram
+- [x] Graphycal Design Diagram
+- [ ] Attend Meeting 3
 ## Iteration 3
 ### Meetings
 ### Tasks
@@ -447,6 +448,7 @@ After this analysis, a first Interface proposal was outlined, which includes the
 These data was forwarded to the two managers, to outline the expectations of the web-based interface subgroup, and to help develop a communication protocol used by the entire group.
 <br>
 ![Server-WebClient-interaction.png](Images/Server-WebClient-interaction.png)
+![Serv-Interface-Gif.gif](Images/Serv-Interface-Gif.gif)
 <br>
 **Figure 1.** *<a href="https://github.com/Interactive-House-Smart-House-HKR-Grp3/Web_Interface_Code_Smart_House/blob/master/src/data/data_server_interface/DataServerServices_Proposal.java">Interface</a> between web-client and server*<br>
 In order to develop the communication protocol were used different diagrams that describe the web application's view towards its relation with the server and the physical house, as *Figure2* and *Figure3* shows.
