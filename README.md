@@ -489,7 +489,7 @@ In order to develop the communication protocol were used different diagrams that
 ## GUI Logic
 **The following designs are concepts of how the servlets will be designed and are used as a guide for the group to coordinate and work together on creating the web application.**
 
-![ServletConceptUML.png](Images/ServletConceptUML.png)
+![ServletConceptUML.PNG](Images/ServletConceptUML.PNG)
 
 **Servlet UML:** *A basic IML diagram displaying the concept of how the front-end will be communicating with the back-end of our application*
 <br>
