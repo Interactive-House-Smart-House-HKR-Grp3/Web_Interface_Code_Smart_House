@@ -477,7 +477,7 @@ These data was forwarded to the two managers, to outline the expectations of the
 
 **Figure 1.** *<a href="https://github.com/Interactive-House-Smart-House-HKR-Grp3/Web_Interface_Code_Smart_House/blob/master/src/data/data_server_interface/DataServerServices_Proposal.java">Interface</a> between web-client and server*<br>
 In order to develop the communication protocol were used different diagrams that describe the web application's view towards its relation with the server and the physical house, as *Figure2* and *Figure3* shows.
-<br>
+
 ![Web-Client-Actions.png](Images/Web-Client-Actions.png)
 
 **Figure 2.** *Actions that can be taken by an user*
@@ -492,9 +492,9 @@ In order to develop the communication protocol were used different diagrams that
 ## Graphical Art&Display
 **The following are concept arts that were made throught the development of the project, in order to act as guidelines for the group to coordinate a look and feel of the website.**
 
-<br>
+
 ![Concept_diagram.png](Images/Concept_diagram.png)
-<br>
+
 **Flow Chart:** *A simple flowchart of how the three pages should be interconnected and function*
 <br>
 <br>
