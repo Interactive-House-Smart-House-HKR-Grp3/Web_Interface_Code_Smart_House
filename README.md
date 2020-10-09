@@ -487,7 +487,15 @@ In order to develop the communication protocol were used different diagrams that
 **Figure 3.** *Web interface internal structural interaction between modules*
 
 ## GUI Logic
+**The following designs are concepts of how the servlets will be designed and are used as a guide for the group to coordinate and work together on creating the web application.**
 
+![ServletConceptUML.PNG](Images/ServletConceptUML.PNG)
+
+**Servlet UML:** *A basic IML diagram displaying the concept of how the front-end will be communicating with the back-end of our application*
+<br>
+<br>
+The UML displays the initial concept where we will have the users requests from the web browser being processed by specific servlets to call the appropriate java functions that correlate with what was requested. Simply creating a layered interaction where we can keep the project organized and have an easier time working the three separate layers in an efficient manner.
+<br>
 
 ## Graphical Art&Display
 **The following are concept arts that were made throught the development of the project, in order to act as guidelines for the group to coordinate a look and feel of the website.**
