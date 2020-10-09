@@ -54,15 +54,15 @@
 
 
 <br>
-<br>
+
 # Introduction
-<br>
+
 # Aim and Purpose
-<br>
+
 # Artifacts
-<br>
+
 ## Vision
-<br>
+
 **Table 1. Vision Documentation, Revision History**
 
 |Date |Version |Description |Author |  
@@ -70,16 +70,16 @@
 | 2020-09-20 |   1.0.   | Description of desires from the stakeholders, PM and RM.   |Peter Tenghamn, Öjvind Nilsson, Alex Oachesu|
 | 2020-09-28 |   1.1.   | Added a group title |Peter Tenghamn, Öjvind Nilsson, Alex Oachesu|
 | 2020-10-06 |   1.2.   | Update the features           |Peter Tenghamn, Öjvind Nilsson, Alex Oachesu|
-<br>
+
 ### Product Overview
-<br>
+
 #### Web-based Interface Concept
 ##### Stakeholders
 Stakeholders are the HKR University and the teachers of the DA326A HT20 course. This product is not going to have a commercial release and will not make the object of a customer evalion, or future maintenance.
 
 ##### Introduction
 The Web Application is going to be a web-based interface which performs as a part of a project that approaches Smart-Home Control Development. The Web Application will be able to perform multi-user operations, allow users to login, interact with different devices and retrieve statistics that concern the global use of the application. 
-<br>
+
 #### Web-based Interface Concept
 ##### Application Functions
 The application will allow users to:
@@ -96,7 +96,7 @@ Once logged in, the user will be able to see it’s devices and their current st
 
 ##### Present statistics
 The user will be presented different statistics of their devices, ex). the time that the lamp was on., these statistics should be retrieved from their own database. The statistics can also be compared to the average user which is a collection of the entire website's users statistics. 
-<br>
+
 #### Web-based Interface Concept
 Application Technicalities
 
@@ -114,7 +114,7 @@ A list of devices such as the apple.id website which shows the user a list of th
 
 ##### Statistics
 The application will retrieve local or global statistics, and make them available for the user. For the local ones, the user’s devices data for a certain period, will be used. For the global statistics, all user's data will be used. 
-<br>
+
 #### Web-based Interface Concept
 ##### Basic requirements
 We here list a set of basic requirements and desires from the stakeholders. Some of the items listed here may also be found at the documents for requirements and supplementary requirements.
@@ -128,7 +128,7 @@ The website’s user should be able to communicate with the devices by UI elemen
 
 ##### Account Management 
 The user of the website should make an account which could be logged in to. This account will be used to update the user’s device’s states and track the user’s specific statistics.
-<br> 
+
 ## Design
 **Table 2. Design Documentation, Revision History**
 |Date |Version |Description |Author |  
@@ -162,7 +162,7 @@ Displayed information for the user to give them more insight into how they have 
 
 #### D5
 A Page accessed by the user which gives information on global statistics, like how long on average people have their lights turned on within twenty-four hours.
-<br>
+
 ## Requirements
 **Table 4. Requirements Documentation, Revision History**
 |Date |Version |Description |Author |  
@@ -212,7 +212,7 @@ Display a list of connected devices assigned to the user, allowing them to view 
 
 #### R9
 A comparison of data from all users of the website, such as the average time the lamp was on for users.
-<br>
+
 ## Supplimentary Requirements
 **Table 6. Supplimentary-Requirements Documentation, Revision History**
 |Date |Version |Description |Author |  
@@ -328,14 +328,14 @@ Delays on a deadline set within the group. Someone being unresponsive to request
 
 ##### Mitigation:
 Having active communication is key to actively realizing if something is starting to go awry. Having check ups on progress and if someone is missing, having a good idea for the goal of the tasks so that others may step in to finish the task. Working incrementally on features so that the basis for other tasks is present will allow group members to always have a task available to work on, even with a delay somewhere else within the group.
-<br>
+
 ## Test Plan
 **Table 10. Test Plan Documentation. Revision History**
 |Date |Version |Description |Author |  
 | ------------------------| --------:|-----------------------------------:|------------------------------------------------:|
 | 2020-09-20 |   1.0.   |Creating initial plans for how the group will approach testing.|Peter Tenghamn, Öjvind Nilsson, Alex Oachesu|
 | 2020-09-28 |   1.1.   |Added a group title and redeveloped test cases to match to requirements|Peter Tenghamn, Öjvind Nilsson, Alex Oachesu|
-<br>
+
 ### Test Plan
 #### Offline Testing
 ##### JUnit Testing
@@ -377,16 +377,16 @@ The website will pull data from the database to show the user the available devi
 
 ###### Test Case:
 Adding mock devices and checking how they display with different input fields and that they display correctly. Assigning them to certain users in the database to check that the device does not show up for the wrong user.
+
 ##### User Details
 ###### Requirement:
 The website retrieves information that is specific to the user, such as number of attached devices, username welcome message, and other related information.
-
 ###### Test Case:
 Test to see that the data is retrieved successfully and displays correctly for the user to view.
 ##### Display Statistics
+
 ###### Requirement:
 Allow the user to set the requirements used to create the statistics; retrieve the data; make it available to be transformed in a graphical display.
-
 ###### Test Case:
 Transform data to graphical representations.
 
@@ -399,24 +399,27 @@ Create a local database to emulate the database-server, and be used to test the 
 JUnit testing for retrieval of correct data from the mock database.
 ##### Database-Server Interaction 
 To be implemented when the idea has been developed further in coordination with other subgroups. 
-<br>
+
 # Create the Development Environment
-<br>
+
 ## IntelliJ Project<p>
-<br>
+
 <img src="Images/IntelliJ-logo.png" height="30"/>
-<br> 
+
 ## Github Repository<p>
+
 <img src="Images/Git-logo.png" height="30"/>
-<br>  
+ 
 ## DiscordManagement<p>
-<br>
+
 <img src="Images/Discord-logo.png" height="30"/>
-<br> 
+
 # RUP Development  
-<br>
+
+
 ## Iteration 1
-<br>
+
+
 ### Meetings
 1. ~~Group 3 meetings~~
 2. ~~Subgroup web meetings~~
@@ -428,6 +431,7 @@ To be implemented when the idea has been developed further in coordination with 
 - [x] Create a first draft of artifacts
 - [x] Update the artifacts according to the feedback received during the first meeting
   <br>
+  
 ## Iteration 2
 ### Meetings
 1. ~~Group 3 meeting. September 28th. Artifacts updates, new requirements~~
@@ -448,40 +452,46 @@ To be implemented when the idea has been developed further in coordination with 
 - [x] Graphycal Design Diagram
 - [ ] Attend Meeting 2
 - [ ] Implement adjustments according to meeting feedback
+
 ## Iteration 3
   <br>
+  
 ### Meetings
 ### Tasks
 ## Iteration 4
   <br>
+  
 ### Meetings
 ### Tasks
 <br>
+
 # Research
 <br>
+
 ## Communication Protocol
 The communication protocol will facilitate the exchange of data between the web-client and the database-server. In this development stage, the available data related to the physical house were analyzed in order to extract the data necessary to outline a first image of the useful data to be obtained from the database, in order to be represented in the web GUI.
 After this analysis, a first Interface proposal was outlined, which includes the method statements. These statements show the data that was considered as input, and the data that is expected as response, from the server.
 These data was forwarded to the two managers, to outline the expectations of the web-based interface subgroup, and to help develop a communication protocol used by the entire group.
-<br>
+
 ![Server-WebClient-interaction.png](Images/Server-WebClient-interaction.png) <img src="Images/Serv-Interface-Gif.gif" width="500"/>
-<br>
+
 **Figure 1.** *<a href="https://github.com/Interactive-House-Smart-House-HKR-Grp3/Web_Interface_Code_Smart_House/blob/master/src/data/data_server_interface/DataServerServices_Proposal.java">Interface</a> between web-client and server*<br>
 In order to develop the communication protocol were used different diagrams that describe the web application's view towards its relation with the server and the physical house, as *Figure2* and *Figure3* shows.
 <br>
 ![Web-Client-Actions.png](Images/Web-Client-Actions.png)
-<br>
+
 **Figure 2.** *Actions that can be taken by an user*
-<br>
+
 ![Web-Interface-Structural-Interaction.png](Images/Web-Interface-Structural-Interaction.png)
-<br>
+
 **Figure 3.** *Web interface internal structural interaction between modules*
-<br>
+
 ## GUI Logic
-<br>
+
+
 ## Graphical Art&Display
 **The following are concept arts that were made throught the development of the project, in order to act as guidelines for the group to coordinate a look and feel of the website.**
-<br>
+
 <br>
 ![Concept_diagram.png](Images/Concept_diagram.png)
 <br>
@@ -490,12 +500,13 @@ In order to develop the communication protocol were used different diagrams that
 <br>
 The flow chart shows primitive design showing key concepts of each page as well as page interaction and flow of the user. The different expected datatypes are also shown on the left of the flow chart 
 <br>
-<br>
+
 **The Homepage:**
 <br>
 should act as a hub for the other pages including the secure login and registration page. The hompage should promote new users to sign up to the smart home service including the andoird app. The hompage should also feature the top toolbar that is present on all other pages which includes a menu containing links to the statistcs, dashboard, and the homepage. The toolbar also contains the user account icon that acts as a menu/button that takes the user to the account managment page.
 <br>
 <br>
+
 **Statistics Page**
 <br>
 The statistics page should simply present different statistics to the user about their devices in their home. The user should be able to see the statistics with user defined time restrictions, for example the electricity consumption of the past day/week/month would be shown in accordance to what the user chose. It would also be desirable if the user can then compare their own statistics to that of other users.
@@ -512,32 +523,32 @@ The dashboard is where the user would interact with their own devices.
 <br>
 
 ## Other research
-<br>
+
 # Results
-<br>
+
 ## First Iteration
 The artifacts received positive feedback, which was considered in their subsequent update. As a major aspect, following the feedback, the risk was restructured.
 ## Second Iteration
 ## Third Iteration
 ## Fourth Iteration
-<br>
+
 # Presentations
-<br>
+
 ## First Meeting
 ## Second Meeting
 ## Third Meeting
 ## Fourth Meeting
 ## Project Presentation
-<br>
+
 # Conclusions
 ## Iteration 1
 ## Iteration 2
 ## Iteration 3
 ## Iteration 4
-<br>
+
 # Ethical and Social Considerations
-<br>
+
 # References
-<br>
+
 # Appendices and Enclosures
-<br>
+
