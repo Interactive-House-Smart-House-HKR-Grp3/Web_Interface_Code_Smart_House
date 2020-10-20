@@ -439,7 +439,7 @@ To be implemented when the idea has been developed further in coordination with 
 3. ~~Subgroup meeting. October 2nd. Data structures and representation. Physical house study. WEb-services discussion. Server-services discussion. Server-services requirements.~~
 4. ~~Group 3 meeting. October 6th. Interface Server-Services proposal. Artifacts.~~
 5. ~~Subgroup meeting. October 7th. Artifacts. Diagrams. Design. Communication protocol~~
-6. Meeting 2.
+6. ~~Meeting 2.~~
 ### Tasks
 - [x] Study the physical house documentation (provided by the physical house subgroup). 
 - [x] Create an Interface proposal that reflects the data structures and the services used by the web U.I.
@@ -450,33 +450,61 @@ To be implemented when the idea has been developed further in coordination with 
 - [x] Data Communication Diagram
 - [x] Logical Module Diagram
 - [x] Graphycal Design Diagram
-- [ ] Attend Meeting 2
-- [ ] Implement adjustments according to meeting feedback
+- [x] Attend Meeting 2
+- [x] Implement adjustments according to meeting feedback
 
 ## Iteration 3
-  <br>
-  
 ### Meetings
+1. ~~Group 3 meeting. October 12th. General ...~~
+2. ~~Subgroup meeting. October 15th. Artifacts updates, new requirements, design~~
+3. Meeting 3.
 ### Tasks
+- [x] Create diagrams to reflect the development stage of the project
+- [x] Update the readme.file with the development of the project. Create a structure that can be used to document the further stages
+- [x] Update the artifacts and upload them before the deadline
+- [x] Research
+- [x] Data Communication Diagram
+- [x] Logical Module Diagram
+- [x] Graphycal Design Diagram
+- [ ] Finish a Communication Protocol
+- [ ] Attend Meeting 3
+- [ ] Implement adjustments according to meeting feedback
+
 ## Iteration 4
-  <br>
-  
 ### Meetings
 ### Tasks
-<br>
 
 # Research
-<br>
 
 ## Communication Protocol
-The communication protocol will facilitate the exchange of data between the web-client and the database-server. In this development stage, the available data related to the physical house were analyzed in order to extract the data necessary to outline a first image of the useful data to be obtained from the database, in order to be represented in the web GUI.
-After this analysis, a first Interface proposal was outlined, which includes the method statements. These statements show the data that was considered as input, and the data that is expected as response, from the server.
-These data was forwarded to the two managers, to outline the expectations of the web-based interface subgroup, and to help develop a communication protocol used by the entire group.
+The communication protocol will facilitate the exchange of data between the web-client and the database-server. In this development stage, the available data related to the physical house was analyzed in order to extract the necessary information to outline the required data to be obtained from the database, in order to be represented in the web GUI.
+After this analysis, a first Interface proposal was outlined. These statements show the data provided as input, and the data that is expected as response, from the server.
+All this was forwarded to the two managers, to help develop a communication protocol used between the two modules.
+
+**Obs!: At this point we had no interaction related to the communication protocol, and if this situation continues for the next week, it might be considered as a risk of ambiguous or one sided communication ptotocol.**
+
+Next image presents a structural logic considdered for the web interface design.
+
+![](Images/Screen%20Shot%202020-10-18%20at%204.38.18%20PM.png)
+
+**Figure _.** *Web interface structural logic.*
 
 ![Server-WebClient-interaction.png](Images/Server-WebClient-interaction.png) <img src="Images/Serv-Interface-Gif.gif" width="500"/>
 
 **Figure 1.** *<a href="https://github.com/Interactive-House-Smart-House-HKR-Grp3/Web_Interface_Code_Smart_House/blob/master/src/data/data_server_interface/DataServerServices_Proposal.java">Interface</a> between web-client and server*<br>
 In order to develop the communication protocol were used different diagrams that describe the web application's view towards its relation with the server and the physical house, as *Figure2* and *Figure3* shows.
+
+![](Images/Screen%20Shot%202020-10-18%20at%205.48.19%20PM.png)
+
+**Figure _.** *Web interface attributes.*
+
+![](Images/Screen%20Shot%202020-10-18%20at%205.48.31%20PM.png)
+
+**Figure _.** *Web interface methods.*
+
+![](Images/Screen%20Shot%202020-10-18%20at%205.09.24%20PM.png)
+
+**Figure _.** *Web interface structural composition.*
 
 ![Web-Client-Actions.png](Images/Web-Client-Actions.png)
 
