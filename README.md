@@ -483,7 +483,6 @@ All this was forwarded to the two managers, to help develop a communication prot
 
 **Obs!: At this point we had no interaction related to the communication protocol, and if this situation continues for the next week, it might be considered as a risk of ambiguous or one sided communication ptotocol.**
 
-Next image presents a structural logic considdered for the web interface design.
 
 ![](Images/Screen%20Shot%202020-10-18%20at%204.38.18%20PM.png)
 
