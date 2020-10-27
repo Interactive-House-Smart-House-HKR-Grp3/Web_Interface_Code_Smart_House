@@ -1,4 +1,4 @@
-package data;
+package data.test;
 
 import data.services.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;

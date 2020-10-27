@@ -6,7 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class MQTTListener implements IMqttMessageListener {
 
     @Override
-    public void messageArrived(String var1, MqttMessage var2) throws Exception {
+    public void messageArrived(String var1, MqttMessage var2){
 
         switch (var1){
             case "smart_house/indoor_light":
