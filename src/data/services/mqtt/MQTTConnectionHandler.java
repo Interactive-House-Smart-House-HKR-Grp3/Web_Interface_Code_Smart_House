@@ -1,22 +1,23 @@
-package data.services;
-
+package data.services.mqtt;
 
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class MQTTConnectionHandler {
     private MqttClient client;
-    private static final ArrayList<String> TOPICS = new ArrayList<>(
-            Arrays.asList("indoor_light", "outdoor_light", "alarm",
-                    "fan", "heating_indoor", "heating_wind", "door"));
-    private final static String PREFIX = "smart_house/";
+    private Topics topics;
 
     private final MqttConnectOptions CONNECTION_OPTIONS = new MqttConnectOptions(); //Creating the options
+
+    public MQTTConnectionHandler() throws MqttException, InterruptedException {
+        connectMqtt();
+        while (client.isConnected()) {
+            changeStatesToClose();
+            Thread.sleep(5000);
+        }
+    }
 
     public void connectMqtt() {
 
@@ -30,38 +31,24 @@ public class MQTTConnectionHandler {
 
             client.connect(CONNECTION_OPTIONS);
             System.out.println("broker: " + broker + " Connected");
-            subscribeToTopics(client);
+            subscribeToTopics();
             //client.publish("smart_house/indoor_temperature", new M);
         } catch (MqttException e) {
             e.printStackTrace();
         }
     }
 
-    public void subscribeToTopics(MqttClient client) throws MqttException {
-        for (String s : TOPICS) {
-            String topic = PREFIX + s;
-            client.subscribe(topic, new MQTTListener());
-            System.out.println("subscribed to: " + topic);
+    public void subscribeToTopics() throws MqttException {
+        for (Topics topic : Topics.values()) {
+            client.subscribe(topic.getTopicRegisteredName(), new MQTTListener());
+            System.out.println("subscribed to: " + topic.getTopicRegisteredName());
         }
     }
-
-    public MQTTConnectionHandler() throws MqttException, InterruptedException {
-
-        connectMqtt();
-        while (client.isConnected()) {
-            changeStatesToClose();
-            Thread.sleep(5000);
-        }
-    }
-
     private void changeStatesToClose() throws MqttException {
-        publish(PREFIX + TOPICS.get(0), "false");
-        publish(PREFIX + TOPICS.get(1), "false");
-        publish(PREFIX + TOPICS.get(2), "false");
-        publish(PREFIX + TOPICS.get(3), "false");
-        publish(PREFIX + TOPICS.get(4), "false");
-        publish(PREFIX + TOPICS.get(5), "false");
-        publish(PREFIX + TOPICS.get(6), "false");
+        for (Topics topic : Topics.values()) {
+            publish(topic.getTopicRegisteredName(), "false");
+            System.out.println("State changed to 'false' on : " + topic.getTopicRegisteredName());
+        }
     }
 
     public void publish(String topic, String message) throws MqttException {
@@ -70,4 +57,3 @@ public class MQTTConnectionHandler {
         }
     }
 }
-
