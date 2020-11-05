@@ -10,17 +10,15 @@ import java.util.List;
 public interface DataLogic {
 
     /**State related*/
-    void changeStateTo(Devices device, boolean onOrOpen);
-    void changeStateTo(boolean onOrOpen);
+    void changeStateTo(Devices device, boolean toOpen);
 
-    Devices.State getStateOfDevice();
     Devices.State getStateOfDevice(Devices device);
 
     List<Devices.State> getStateOfDevices();
     List<Devices.State> getStateOfDevices(List<Devices> devicesList);
 
     /**Data Statistics related*/
-    HashMap<Devices /*device*/, StatisticsData /* statistics data*/> getStatistics
+    HashMap<Devices /*the device*/, StatisticsData /*it's statistics data*/> getStatistics
             (List<Devices> devicesList, Date from, Date until);
 
     StatisticsData /* statistics data*/ getStatistics
