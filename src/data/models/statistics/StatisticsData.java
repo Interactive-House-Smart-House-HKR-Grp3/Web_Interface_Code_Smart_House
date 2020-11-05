@@ -1,49 +1,55 @@
 package data.models.statistics;
 
-import data.models.devices.Devices;
-
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
- * All the devices are represented and each can store the data required
- * for the device-specific statistics display.
+ * All the devices are represented and each
+ * can store the data required for the 
+ * device-specific statistics display.
  */
 public enum StatisticsData {
-    /*1*/  FIRE_ALARM,               // event based
-    /*2*/  HOUSEBREAKING_ALARM,      // event based
-    /*3*/  WATER_LEAKAGE,            // event based
-    /*4*/  INDOOR_TEMPERATURE,       // avg data
-    /*5*/  OUTDOOR_TEMPERATURE,      // avg data
-    /*6*/  WINDOW,                   // event based
-    /*7*/  DOOR,                     // event based
-    /*8*/  ELECTRICITY_CONSUMPTION,  // avg data
-    /*9*/  TWILIGHT,                 // event based
-    /*10*/ POWER_CUT,                // event based
-    /*11*/ INDOOR_LIGHT,             // avg data
-    /*12*/ OUTDOOR_LIGHT             // avg data
-    ;
 
-    private Date startingWith;
-    private Date untilIncluding;
+    /*1*/  FIRE_ALARM(0, Type.EVENT_BASED, null, null, null),                // Map<Date, Devices.State>
+    /*2*/  BURGLAR_ALARM(0, Type.EVENT_BASED, null, null, null),             // Map<Date, Devices.State>
+    /*3*/  WATER_LEAKAGE(0, Type.EVENT_BASED, null, null, null),             // Map<Date, Devices.State>
+    /*4*/  INDOOR_TEMPERATURE(0, Type.AVERAGE_DATA, null, null, null),       // Map<Date, Double>
+    /*5*/  OUTDOOR_TEMPERATURE(0, Type.AVERAGE_DATA, null, null, null),      // Map<Date, Double>
+    /*6*/  WINDOW(0, Type.EVENT_BASED, null, null, null),                    // Map<Date, Devices.State>
+    /*7*/  DOOR(0, Type.EVENT_BASED, null, null, null),                      // Map<Date, Devices.State>
+    /*8*/  STOVE(0, Type.EVENT_BASED, null, null, null),                     // Map<Date, Devices.State>
+    /*9*/  FAN(0, Type.EVENT_BASED, null, null, null),                       // Map<Date, Devices.State>
+    /*10*/ ELECTRICITY_CONSUMPTION(0, Type.AVERAGE_DATA, null, null, null),  // Map<Date, Integer>
+    /*11*/ INDOOR_HEATING(0, Type.EVENT_BASED, null, null, null),            // Map<Date, Devices.State>
+    /*12*/ LOFT_HEATING(0, Type.EVENT_BASED, null, null, null),              // Map<Date, Devices.State>
+    /*13*/ TWILIGHT(0, Type.EVENT_BASED, null, null, null),                  // Map<Date, Devices.State>
+    /*14*/ POWER_CUT(0, Type.EVENT_BASED, null, null, null),                 // Map<Date, Devices.State>
+    /*15*/ INDOOR_LIGHT(0, Type.EVENT_BASED, null, null, null),              // Map<Date, Devices.State>
+    /*16*/ OUTDOOR_LIGHT(0, Type.EVENT_BASED, null, null, null),             // Map<Date, Devices.State>
+    /*17*/ AUTO_MODE(0, Type.EVENT_BASED, null, null, null),                 // Map<Date, Devices.State>
+   ;
+
+    private int forPeriod; // [1] = last day, [2] = last week, [3] = last month.
     private Type type;
-    private HashMap<Date, Integer> averageDataStatistics;
-    private HashMap<Date, Devices.State> eventBasedStatistics;
+    private Map<Date, Integer> averageIntegerStatistics;
+    private Map<Date, Double> averageDoubleStatistics;
+    private Map<Date, Integer> eventBasedStatistics; // 1 = ON; 2 = OFF; 3 = Triggered
 
-    public Date getStartingWith() {
-        return startingWith;
+    StatisticsData(int forPeriod, Type type, Map<Date, Integer> averageIntegerStatistics,
+                   Map<Date, Double> averageDoubleStatistics, Map<Date, Integer> eventBasedStatistics) {
+        this.forPeriod = forPeriod;
+        this.type = type;
+        this.averageIntegerStatistics = averageIntegerStatistics;
+        this.averageDoubleStatistics = averageDoubleStatistics;
+        this.eventBasedStatistics = eventBasedStatistics;
     }
 
-    public void setStartingWith(Date startingWith) {
-        this.startingWith = startingWith;
+    public int getForPeriod() {
+        return forPeriod;
     }
 
-    public Date getUntilIncluding() {
-        return untilIncluding;
-    }
-
-    public void setUntilIncluding(Date untilIncluding) {
-        this.untilIncluding = untilIncluding;
+    public void setForPeriod(int forPeriod) {
+        this.forPeriod = forPeriod;
     }
 
     public Type getType() {
@@ -54,23 +60,31 @@ public enum StatisticsData {
         this.type = type;
     }
 
-    public HashMap<Date, Integer> getAverageDataStatistics() {
-        return averageDataStatistics;
+    public Map<Date, Integer> getAverageIntegerStatistics() {
+        return averageIntegerStatistics;
     }
 
-    public void setAverageDataStatistics(HashMap<Date, Integer> averageDataStatistics) {
-        this.averageDataStatistics = averageDataStatistics;
+    public void setAverageIntegerStatistics(Map<Date, Integer> averageIntegerStatistics) {
+        this.averageIntegerStatistics = averageIntegerStatistics;
     }
 
-    public HashMap<Date, Devices.State> getEventBasedStatistics() {
+    public Map<Date, Double> getAverageDoubleStatistics() {
+        return averageDoubleStatistics;
+    }
+
+    public void setAverageDoubleStatistics(Map<Date, Double> averageDoubleStatistics) {
+        this.averageDoubleStatistics = averageDoubleStatistics;
+    }
+
+    public Map<Date, Integer> getEventBasedStatistics() {
         return eventBasedStatistics;
     }
 
-    public void setEventBasedStatistics(HashMap<Date, Devices.State> eventBasedStatistics) {
+    public void setEventBasedStatistics(Map<Date, Integer> eventBasedStatistics) {
         this.eventBasedStatistics = eventBasedStatistics;
     }
 
-    enum Type {
+    public enum Type {
         EVENT_BASED,
         AVERAGE_DATA
     }

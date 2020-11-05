@@ -3,6 +3,8 @@ package data.services.local;
 import data.interfaces.data_logic.DataLogic;
 import data.models.devices.Devices;
 import data.models.statistics.StatisticsData;
+import data.services.mqtt.MQTTConnectionHandler;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -10,19 +12,15 @@ import java.util.List;
 
 public class DeviceController implements DataLogic {
 
-    public static DeviceController deviceController;
+    MQTTConnectionHandler mqttConnectionHandler = new MQTTConnectionHandler();
 
-    public DeviceController() {
+    public DeviceController() throws MqttException {
         setDevices();
         // ...
     }
 
-    public static DeviceController getInstance(){
-        deviceController = (deviceController == null ? new DeviceController() : deviceController);
-        return deviceController;
-    }
-
     private void setDevices() {
+        // read all input topics from smart house, and set the devices data. State + value (where one exists).
 
     }
 
@@ -30,20 +28,6 @@ public class DeviceController implements DataLogic {
     public void changeStateTo(Devices device, boolean onOrOpen) {
         // call MQTT client obj and publish
         // the required new state for the device.
-    }
-
-    @Override
-    public void changeStateTo(boolean onOrOpen) {
-        // call MQTT client obj and publish
-        // the required new state for the device.
-    }
-
-    @Override
-    public Devices.State getStateOfDevice() {
-        // call MQTT client obj and read the topic
-        // related to this.device, and convert + return
-        // it's state value (in local format)
-        return null;
     }
 
     @Override
