@@ -10,12 +10,9 @@ import java.io.IOException;
 @WebServlet(name = "UserPageServlet", urlPatterns = "/userPage")
 public class UserPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // include a check to see that user login exists for this page to load, otherwise redirect to the home page?
-        //if (request.getAttribute("authUser") == null)
-        //    response.sendRedirect("/home.jsp");
 
-        // TODO: this should be switched out with a response, but need a way to keep user authentication checked on sub directories
-        // response.sendRedirect("/user.jsp");
+        // TODO: Retrieve the devices and assign them as parameters to use on the user page.
+
         request.getRequestDispatcher("/user.jsp").forward(request, response);
     }
 
