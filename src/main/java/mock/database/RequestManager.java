@@ -1,4 +1,4 @@
-package main.java.database;
+package main.java.mock.database;
 
 import main.java.mock.DBInterface;
 import main.java.mock.Data;
@@ -26,12 +26,7 @@ public class RequestManager implements DBInterface {
     }
 
     @Override
-    public List<Device> getDevices(User user) {
-        for (User u : data.getUsers()){
-            if (user.equals(u)){
-                return u.devices;
-            }
-        }
-        return null;
+    public List<Device> getDevices() {
+        return data.getMockDevices();
     }
 }

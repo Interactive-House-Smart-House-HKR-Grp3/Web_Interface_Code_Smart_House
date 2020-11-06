@@ -1,5 +1,4 @@
-<%@ page import="main.java.mock.data.Device" %>
-<%@ page import="main.java.mock.data.User" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Peter
   Date: 2020-10-30

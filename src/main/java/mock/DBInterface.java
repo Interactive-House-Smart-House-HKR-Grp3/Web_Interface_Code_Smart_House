@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface DBInterface {
     public User authenticateUser(String name, String password);
-    public List<Device> getDevices(User user);
+    public List<Device> getDevices();
 }
