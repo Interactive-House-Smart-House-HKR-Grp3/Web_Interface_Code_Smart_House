@@ -26,6 +26,21 @@ public class RequestManager implements DBInterface {
     }
 
     @Override
+    public User registerNewUser(String name, String password) {
+        return data.addNewUser(name, password);
+    }
+
+    @Override
+    public boolean isUserTaken(String name) {
+        for (User users : data.getUsers()){
+            if (users.name.equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public List<Device> getDevices() {
         return data.getMockDevices();
     }

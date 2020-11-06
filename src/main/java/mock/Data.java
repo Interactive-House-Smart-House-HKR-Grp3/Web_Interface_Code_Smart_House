@@ -48,8 +48,18 @@ public class Data {
         mockDevices.add(new Device(Device.Type.AUTO_MODE, true, false, 0));
     }
 
-    public List<User> getUsers() { return users; }
+    public User addNewUser(String name, String password) {
+        User newUser = new User(name, password);
+        users.add(newUser);
+        return newUser;
+    }
 
-    public List<Device> getMockDevices() { return mockDevices; }
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public List<Device> getMockDevices() {
+        return mockDevices;
+    }
 
 }

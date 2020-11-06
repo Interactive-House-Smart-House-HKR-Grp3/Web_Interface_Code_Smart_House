@@ -78,10 +78,10 @@
                 Password: <input type="password" name="password">
             </div>
 
-            <button class="btn_login_register" name="btn_login_register" type="submit" value="register">
+            <button class="btn_login_register" name="btn_request" type="submit" value="register">
                 Register
             </button>
-            <button class="btn_login_login" name="btn_login_login" type="submit" value="login">
+            <button class="btn_login_login" name="btn_request" type="submit" value="login">
                 Login
             </button>
 

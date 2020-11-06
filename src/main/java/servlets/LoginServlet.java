@@ -14,16 +14,33 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestManager rm = new RequestManager();
-
-        // Authenticate the user then send them to their destination with the user attached
-        User result = rm.authenticateUser(request.getParameter("username"), request.getParameter("password"));
-        if (result != null) {
-            // Send the user to their destination
-            request.setAttribute("authUser", result);
-            request.getRequestDispatcher("/userPage").forward(request, response);
+        String function = request.getParameter("btn_request");
+        if (function.equalsIgnoreCase("login")) {
+            // Authenticate the user then send them to their destination with the user attached
+            User result = rm.authenticateUser(request.getParameter("username"), request.getParameter("password"));
+            if (result != null) {
+                // Send the user to their destination
+                request.setAttribute("authUser", result);
+                request.getRequestDispatcher("/userPage").forward(request, response);
+            } else {
+                System.err.println("Incorrect Username or Password!");
+                request.getRequestDispatcher("/homePage").forward(request, response);
+            }
         } else {
-            System.err.println("Incorrect Username or Password!");
-            response.sendRedirect(request.getContextPath() + "/home.jsp");
+            if (request.getParameter("username").length() > 0 && request.getParameter("password").length() > 0) {
+                if (!rm.isUserTaken(request.getParameter("username"))){
+                    // Send the new user to their destination
+                    User result = rm.registerNewUser(request.getParameter("username"), request.getParameter("password"));
+                    request.setAttribute("authUser", result);
+                    request.getRequestDispatcher("/userPage").forward(request, response);
+                } else {
+                    System.err.println("Username is already take!");
+                    request.getRequestDispatcher("/homePage").forward(request, response);
+                }
+            } else {
+                System.err.println("Empty Username or Password!");
+                request.getRequestDispatcher("/homePage").forward(request, response);
+            }
         }
     }
 
