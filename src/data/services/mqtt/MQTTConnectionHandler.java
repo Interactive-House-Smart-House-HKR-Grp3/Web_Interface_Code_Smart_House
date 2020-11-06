@@ -16,7 +16,7 @@ public class MQTTConnectionHandler {
     //Creating the options
     private final MqttConnectOptions CONNECTION_OPTIONS = new MqttConnectOptions();
 
-    public MQTTConnectionHandler() throws MqttException{
+    public MQTTConnectionHandler() throws MqttException {
         connectMqtt();
 
         subscribeToSHTopics();
@@ -24,6 +24,7 @@ public class MQTTConnectionHandler {
 
         // Testing read / publish  ...
         while (client.isConnected()) {
+            System.out.println("1]    Test Mqtt\n2]    Quit");
             if (new Scanner(System.in).nextInt() == 1) {
                 changeStatesToClose();
 
@@ -52,6 +53,8 @@ public class MQTTConnectionHandler {
                                 System.out.println(str[1]);
                                 System.out.println(str[2]);
                                 break;*/
+            } else {
+                client.close();
             }
         }
     }
@@ -74,20 +77,21 @@ public class MQTTConnectionHandler {
     }
 
     private void subscribeToSHTopics() throws MqttException {
-        for (SMHSubscribedTopics topic: SMHSubscribedTopics.values()) {
+        for (SMHSubscribedTopics topic : SMHSubscribedTopics.values()) {
             client.subscribe(topic.getTopicRegisteredName(), new MQTTSHListener());
             System.out.println("Subscribed to: " + topic.getTopicRegisteredName());
         }
     }
+
     private void subscribeToServerTopics() throws MqttException {
-        for (ServerSubscribedTopics topic: ServerSubscribedTopics.values()) {
+        for (ServerSubscribedTopics topic : ServerSubscribedTopics.values()) {
             client.subscribe(topic.getTopicRegisteredName(), new MQTTServerListener());
             System.out.println("Subscribed to: " + topic.getTopicRegisteredName());
         }
     }
 
     private void changeStatesToClose() throws MqttException {
-        for (SMHSubscribedTopics topic: SMHSubscribedTopics.values()) {
+        for (SMHSubscribedTopics topic : SMHSubscribedTopics.values()) {
             publish(topic.getTopicRegisteredName(), "false");
             System.out.println("State changed to 'false' on : " + topic.getTopicRegisteredName());
         }

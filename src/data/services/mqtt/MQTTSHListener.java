@@ -4,8 +4,6 @@ import data.models.devices.Devices;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.util.List;
-
 import static data.models.devices.Devices.*;
 
 public class MQTTSHListener implements IMqttMessageListener {
@@ -62,18 +60,10 @@ public class MQTTSHListener implements IMqttMessageListener {
     }
 
     private void updateDeviceState(Devices device, boolean isON) {
-        if (List.of(STOVE, WINDOW).contains(device)) {
-            device.setDeviceCurrentState(isON ? State.OPEN : State.CLOSED);
-            System.out.println("For: " + device.name() + ", new value is -> " + (isON ? "OPEN" : "CLOSED"));
+
+            device.setDeviceCurrentState(isON ? 1 : 2);
+            System.out.println("For: " + device.name() + ", new state is -> " + device.getDeviceCurrentState());
             System.out.println("Device check:\n" + device.toString());
-        } else if (List.of(BURGLAR_ALARM, FIRE_ALARM).contains(device)) {
-            device.setDeviceCurrentState(isON ? State.ARMED : State.OFF);
-            System.out.println("For: " + device.name() + ", new value is -> " + (isON ? "ARMED" : "OFF"));
-            System.out.println("Device check:\n" + device.toString());
-        } else {
-            device.setDeviceCurrentState(isON ? State.ON : State.OFF);
-            System.out.println("For: " + device.name() + ", new value is -> " + (isON ? "ON" : "OFF"));
-            System.out.println("Device check:\n" + device.toString());
-        }
+
     }
 }

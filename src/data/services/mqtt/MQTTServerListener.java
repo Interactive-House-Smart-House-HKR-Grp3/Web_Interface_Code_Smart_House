@@ -1,7 +1,6 @@
 package data.services.mqtt;
 
 import com.google.gson.Gson;
-import data.models.mqtt_topics.server_database.ServerSubscribedTopics;
 import data.models.statistics.StatisticsData;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;

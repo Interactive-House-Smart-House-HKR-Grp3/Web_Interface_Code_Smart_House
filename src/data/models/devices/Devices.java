@@ -1,5 +1,7 @@
 package data.models.devices;
 
+import java.util.List;
+
 /**
  * These devices are representing the mechanisms or the actions that are taken/performed.
  * Example: The device 'window' does not represent the window itself but the actions ->
@@ -78,8 +80,10 @@ public enum Devices {
         return deviceCurrentState;
     }
 
-    public void setDeviceCurrentState(State deviceCurrentState) {
-        this.deviceCurrentState = deviceCurrentState;
+    public void setDeviceCurrentState(int deviceCurrentState) {
+        this.deviceCurrentState = deviceCurrentState == 1 ?
+                (List.of(DOOR, WINDOW).contains( this) ? State.OPEN : List.of(BURGLAR_ALARM, FIRE_ALARM).contains(this) ?  State.ARMED : State.OFF) :
+                (List.of(DOOR, WINDOW).contains( this) ? State.CLOSED : State.OFF);
     }
 
     public StatisticsFormat getStatisticsFormat() {
