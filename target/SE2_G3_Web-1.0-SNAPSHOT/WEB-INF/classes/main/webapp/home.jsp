@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Höme</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html" charset="ISO-8859-1"/>
-    <meta name="description" content="width= device-width, initial-scale=1.0,
-    Höme® is an enchanced new home, A home that is controllable from right here on the website or the comfort of your android device.">
+    <meta name="viewport" content="width= device-width, initial-scale=1.0">
+    <meta name="description" content="Höme® is an enchanced new home, A home that is controllable from right here on the website or the comfort of your android device.">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Höme</title>
 
     <!-- Dependencies -->
     <link rel="stylesheet" href="./css/all.css">
@@ -14,13 +15,9 @@
     <!-- Stylesheet reference -->
     <link rel="stylesheet" href="./css/homepage.css">
 
-    <!-- Popup Script has to be preloaded -->
-    <script src="./js/homepage_popup.js"></script>
-
     <!-- Jquery Java Script Extension -->
     <script src="./js/Jquery3.5.1.min.js"></script>
 </head>
-<body>
 <header>
     <!-- ------------- NAVIGATION ------------- -->
     <nav class="nav">
@@ -56,13 +53,15 @@
                 </ul>
             </div>
 
-            <button data-modal-target="#login" class="user">
+            <button data-modal-target="#modal" class="user">
                 <i class="fas fa-user-circle"></i>
             </button>
         </div>
     </nav>
 </header>
-
+<!-- The Java Script file that controls the header-->
+<script src="./js/homepage_header.js"></script>
+<body>
 <!-- ------------- Login Pop-up  ------------- -->
 <div class="modal" id="modal">
     <div class="modal-header">
@@ -89,6 +88,9 @@
     </div>
 </div>
 <div id="overlay"></div>
+
+<!-- Popup Script -->
+<script src="./js/popup.js"></script>
 
 <main>
     <section class="title">
@@ -147,7 +149,5 @@
     </ul>
 </footer>
 
-<!-- The Java Script file that controls the header-->
-<script src="./js/homepage_header.js"></script>
 </body>
 </html>
