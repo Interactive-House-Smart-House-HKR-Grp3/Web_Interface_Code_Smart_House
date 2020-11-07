@@ -12,12 +12,6 @@
 </head>
 <body>
     <%
-        String test = (String) request.getAttribute("test");
-    %>
-    Here's the attribute "test": <%=test%>
-    <br/>
-    <br/>
-    <%
         String query = (String) request.getAttribute("queryResult");
     %>
     Here's the attribute "query": <%=query%>
