@@ -10,15 +10,27 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static data.models.user.UserAccount.USER;
 
+/**
+ * Create mock data that reflects the real data types, and fill the enumerations with it.
+ */
 public class MockData {
-
+    /**
+     * Used concurrently with a mqtt connection.
+     * @param accountName login
+     * @param password login
+     */
     public MockData(String accountName, String password) {
         // Simulates the login and sets the user account with mock data.
         setUserAccount(accountName, password);
     }
 
     /**
-     * Used when no mqtt connection is used.
+     * Creates mock data for all purposes.
+     * @param accountName login
+     * @param password login
+     * @param statisticsPeriod 1 = last 24h,
+     *                         2 = last week,
+     *                         3 = last 30 days.
      */
     public MockData(String accountName, String password, int statisticsPeriod) {
         // Create mock data to fill the devices enum.
@@ -85,7 +97,8 @@ public class MockData {
         Map<Date, Integer> statistics = new HashMap<>();
 
         // get all dates for the period
-        Date[] dates = getAllHourlyDates(days);
+        List<Date> dates = getAllHourlyDates(days);
+        Collections.sort(dates);
 
         // Add random values and fill the Map with mock data
         for (Date date : dates) {
@@ -113,7 +126,8 @@ public class MockData {
         Map<Date, Double> statistics = new HashMap<>();
 
         // get all dates for the period
-        Date[] dates = getAllHourlyDates(days);
+        List<Date> dates = getAllHourlyDates(days);
+        Collections.sort(dates);
 
         // Add random values and fill the Map with mock data
         for (Date date : dates) {
@@ -143,12 +157,13 @@ public class MockData {
         int days = forPeriod == 1 ? -1 : forPeriod == 2 ? -6 : forPeriod == 3 ? -29 : 0;
         Map<Date, Integer> statistics = new HashMap<>();
 
-        // get all dates for the period
-        Date[] dates = getAllHourlyDates(days);
+        // get all dates for the period and sort them
+        List<Date> dates = getAllHourlyDates(days);
+        Collections.sort(dates);
 
         // Add random values and fill the Map with mock data
-        for (int i = 0; i < dates.length; i++) {
-            statistics.put(dates[i], ThreadLocalRandom.current().nextInt(1, bound));
+        for (Date date : dates) {
+            statistics.put(date, ThreadLocalRandom.current().nextInt(1, bound));
         }
         return statistics;
     }
@@ -160,12 +175,12 @@ public class MockData {
      * @param startingFrom the number of days back, to start from.
      * @return an array of every hour of the period, in a Date format.
      */
-    private Date[] getAllHourlyDates(int startingFrom) {
+    private List<Date> getAllHourlyDates(int startingFrom) {
         List<Date> dates = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(Calendar.getInstance().getTime()); // set current date
         calendar.add(Calendar.DATE, startingFrom); // move the date to where is the statistic's starting point
-        Date startingDate = calendar.getTime(); // convert the info to Date format
+        Date startingDate =  calendar.getTime(); // convert the info to Date format
 
         boolean notCurrentTimeYet = true;
         while (notCurrentTimeYet) { // if current time is reached -> false
@@ -176,7 +191,7 @@ public class MockData {
             startingDate = new Date(nextHour); // convert the next hour's millis to Date format
             notCurrentTimeYet = new Date().getTime() > startingDate.getTime(); // stop if current time is reached
         }
-        return dates.toArray(new Date[0]);
+        return dates;
     }
 
     /**
@@ -201,24 +216,30 @@ public class MockData {
      */
     private void setStartingDevices() {
         for (Devices device : Devices.values()) {
-            if (device == Devices.INDOOR_TEMPERATURE || device == Devices.OUTDOOR_TEMPERATURE) {
-                device.setDoubleValue(ThreadLocalRandom.current().nextDouble(0, 30));
+            if (List.of(Devices.INDOOR_TEMPERATURE, Devices.OUTDOOR_TEMPERATURE).contains(device)) {
+                device.setDoubleValue(ThreadLocalRandom.current().nextDouble(1, 30));
+                device.setDeviceCurrentState(ThreadLocalRandom.current().nextInt(1, 2));
             } else if (device == Devices.FAN) {
                 device.setIntValue(ThreadLocalRandom.current().nextInt(1, 5));
+                device.setDeviceCurrentState(ThreadLocalRandom.current().nextInt(1, 3));
             } else if (device == Devices.ELECTRICITY_CONSUMPTION) {
                 device.setIntValue(ThreadLocalRandom.current().nextInt(1, 100));
+                device.setDeviceCurrentState(1);
             } else if (device == Devices.TWILIGHT) {
                 if (Calendar.getInstance().getTime().getHours() < 17
                         && Calendar.getInstance().getTime().getHours() > 7) {
                     device.setIntValue(ThreadLocalRandom.current().nextInt(40, 100));
+                    device.setDeviceCurrentState(1); // is day
                 } else {
                     device.setIntValue(ThreadLocalRandom.current().nextInt(0, 39));
+                    device.setDeviceCurrentState(2); // is night
                 }
+            }else if (List.of(Devices.BURGLAR_ALARM, Devices.FIRE_ALARM).contains(device)){
+                device.setDeviceCurrentState(ThreadLocalRandom.current().nextInt(1, 4));
+            }else{
+                device.setDeviceCurrentState(ThreadLocalRandom.current().nextInt(1, 3));
             }
-            device.setDeviceCurrentState(List.of(Devices.BURGLAR_ALARM, Devices.FIRE_ALARM).contains(device) ?
-                    ThreadLocalRandom.current().nextInt(0, 4) :
-                    ThreadLocalRandom.current().nextInt(0, 3)
-            );
+
         }
     }
 }

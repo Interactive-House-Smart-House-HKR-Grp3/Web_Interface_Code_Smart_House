@@ -6,7 +6,7 @@ import data.services.login.Login;
 import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import java.util.Scanner;
+import java.util.*;
 
 import static data.models.devices.Devices.*;
 import static data.models.user.UserAccount.USER;
@@ -27,9 +27,9 @@ public class TestMQTTConnection {
             testMQTTConnectionHandler();
         } else if (testingOption == 2) {
             testUsingMockData();
-        } else if(testingOption == 3){
+        } else if (testingOption == 3) {
             registerNewUserAccount();
-        }else{
+        } else {
             System.exit(0);
         }
     }
@@ -39,15 +39,15 @@ public class TestMQTTConnection {
      * if valid data, the new account will be created.
      * The user will be automatically logged in, and the mock data created.
      */
-    private static void registerNewUserAccount(){
+    private static void registerNewUserAccount() {
         boolean validAccount;
-        do{
+        do {
             Scanner in = new Scanner(System.in);
             System.out.println("Enter an account name: ");
             String account = in.nextLine();
             validAccount = Login.registerNewAccount(account, null, null);
             System.out.println(!validAccount ? "Please try another account name." : "Valid registration!");
-        }while(!validAccount);
+        } while (!validAccount);
         displayMockData();
         System.err.println("Connection closed!");
     }
@@ -83,8 +83,8 @@ public class TestMQTTConnection {
 
         boolean flag = true;
         while (flag) {
-            for (Devices device: Devices.values()){
-                System.out.println("For device " + device.name() + ", the value is: " +device.getDeviceCurrentState());
+            for (Devices device : Devices.values()) {
+                System.out.println("For device " + device.name() + ", the value is: " + device.getDeviceCurrentState());
             }
 
             System.out.println("\n\nCHOOSE ACTION:\n1]    Get FAN current state" +
@@ -119,15 +119,12 @@ public class TestMQTTConnection {
                         + WINDOW.getDeviceCurrentState() + "\u001B[0m");
                 case 7 -> System.out.println("\u001B[34m" + INDOOR_LIGHT.name()
                         + " -> " + INDOOR_LIGHT.getDeviceCurrentState() + "\u001B[0m");
-                case 8 -> System.out.println("\u001B[34m" + USER.toString());
+                case 8 -> System.out.println("\u001B[34m" + USER.toString() + "\u001B[0m");
                 case 9 -> System.out.println("\u001B[34m" + BURGLAR_ALARM.toString()
                         + BURGLAR_ALARM.getDeviceCurrentState() + "\u001B[0m");
-                case 10 -> System.out.println("\u001B[34m" + StatisticsData.BURGLAR_ALARM.toString()
-                        + StatisticsData.BURGLAR_ALARM.getEventBasedStatistics() + "\u001B[0m");
-                case 11 -> System.out.println("\u001B[34m" + StatisticsData.OUTDOOR_TEMPERATURE.toString()
-                        + StatisticsData.OUTDOOR_TEMPERATURE.getAverageDoubleStatistics() + "\u001B[0m");
-                case 12 -> System.out.println("\u001B[34m" + StatisticsData.DOOR.toString()
-                        + StatisticsData.DOOR.getEventBasedStatistics() + "\u001B[0m");
+                case 10 -> printSortedStatistics(StatisticsData.BURGLAR_ALARM);
+                case 11 -> printSortedStatistics(StatisticsData.OUTDOOR_TEMPERATURE);
+                case 12 -> printSortedStatistics(StatisticsData.DOOR);
                 case 13 -> changeState(DOOR, 1);
                 case 14 -> changeState(DOOR, 2);
                 case 15 -> changeState(BURGLAR_ALARM, 1);
@@ -136,6 +133,46 @@ public class TestMQTTConnection {
         }
     }
 
+    /**
+     * Prints specific type statistics, based on the Device.
+     * @param statisticsData for a specific device.
+     */
+    private static void printSortedStatistics(StatisticsData statisticsData) {
+        List<Date> dates = new ArrayList<>();
+        int type = statisticsData.getEventBasedStatistics() != null ? 1 :
+                statisticsData.getAverageDoubleStatistics() != null ? 2 : 3;
+        System.out.println("\u001B[35mStatistics for " + statisticsData.name() + "\u001B[0m");
+        if (type == 1) {
+            Map<Date, Integer> eventBasedStatistics = statisticsData.getEventBasedStatistics();
+            dates.addAll(eventBasedStatistics.keySet());
+            Collections.sort(dates);
+            for (Date date : dates) {
+                System.out.println("\u001B[34mFor: " + date + ", value >>> " + statisticsData.getEventBasedStatistics().get(date) + "\u001B[0m");
+            }
+        } else if (type == 2) {
+            Map<Date, Double> averageDoubleStatistics = statisticsData.getAverageDoubleStatistics();
+            dates.addAll(averageDoubleStatistics.keySet());
+            Collections.sort(dates);
+            for (Date date : dates) {
+                System.out.println("\u001B[34mFor: " + date + ", value >>> " + statisticsData.getAverageDoubleStatistics().get(date) + "\u001B[0m");
+            }
+        } else {
+            Map<Date, Integer> averageIntegerStatistics = statisticsData.getAverageIntegerStatistics();
+            dates.addAll(averageIntegerStatistics.keySet());
+            Collections.sort(dates);
+            for (Date date : dates) {
+                System.out.println("\u001B[34mFor: " + date + ", value >>> " + statisticsData.getAverageIntegerStatistics().get(date) + "\u001B[0m");
+            }
+        }
+        System.out.println();
+    }
+
+    /**
+     * @param device    to modify state
+     * @param stateCode new state
+     *                  1 = on,
+     *                  2 = off.
+     */
     private static void changeState(Devices device, int stateCode) {
         device.setDeviceCurrentState(stateCode);
         System.out.println("\u001B[34m" + device.name() + " state is: " + device.getDeviceCurrentState() + "\u001B[0m");
@@ -156,11 +193,7 @@ public class TestMQTTConnection {
         new Login(account, pass);
         System.out.println(USER.getName());
 
-     /*for (Devices device: Devices.values()){
-            if(device == DOOR){
-            }
-            label.setText(device.getDeviceCurrentState().toString());
-        }*/   new MQTTConnectionHandler();
+        new MQTTConnectionHandler();
 
         System.err.println("Connection closed!");
     }
