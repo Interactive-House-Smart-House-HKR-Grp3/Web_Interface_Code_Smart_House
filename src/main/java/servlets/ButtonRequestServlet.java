@@ -1,6 +1,6 @@
 package main.java.servlets;
 
-import main.java.database.RequestManager;
+import main.java.mock.database.RequestManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

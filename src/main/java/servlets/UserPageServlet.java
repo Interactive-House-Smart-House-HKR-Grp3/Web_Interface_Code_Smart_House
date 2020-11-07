@@ -1,5 +1,8 @@
 package main.java.servlets;
 
+import data.mock_data.MockData;
+import data.models.devices.Devices;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,12 +13,18 @@ import java.io.IOException;
 @WebServlet(name = "UserPageServlet", urlPatterns = "/userPage")
 public class UserPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // include a check to see that user login exists for this page to load, otherwise redirect to the home page?
-        //if (request.getAttribute("authUser") == null)
-        //    response.sendRedirect("/home.jsp");
 
-        // TODO: this should be switched out with a response, but need a way to keep user authentication checked on sub directories
-        // response.sendRedirect("/user.jsp");
+        // TODO: Retrieve the devices and assign them as parameters to use on the user page.
+
+        // Query for the devices
+        // Devices.values();
+        StringBuilder string = new StringBuilder();
+        for (Devices device : Devices.values()){
+            // set attribute of the devices
+            string.append(device.getDeviceCurrentState().toString());
+        }
+        request.setAttribute("queryResult", string.toString());
+
         request.getRequestDispatcher("/user.jsp").forward(request, response);
     }
 
