@@ -11,6 +11,19 @@
     <title>User's homepage</title>
 </head>
 <body>
+    <%
+        String test = (String) request.getAttribute("test");
+    %>
+    Here's the attribute "test": <%=test%>
+    <br/>
+    <br/>
+    <%
+        String query = (String) request.getAttribute("queryResult");
+    %>
+    Here's the attribute "query": <%=query%>
+    <br/>
+    <br/>
+
     <t1>User's Devices</t1>
     <form action="${pageContext.request.contextPath}/button" method="post">
         <button name="button" type="submit" value="statistics">Statistics</button>

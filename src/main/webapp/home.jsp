@@ -78,13 +78,20 @@
                 Password: <input type="password" name="password">
             </div>
 
-            <button class="btn_login_register" name="btn_request" type="submit" value="register">
-                Register
-            </button>
             <button class="btn_login_login" name="btn_request" type="submit" value="login">
                 Login
             </button>
 
+            <div>
+                Name: <input type="text" name="name">
+            </div>
+            <div>
+                Email: <input type="text" name="email">
+            </div>
+
+            <button class="btn_login_register" name="btn_request" type="submit" value="register">
+                Register
+            </button>
         </form>
     </div>
 </div>
