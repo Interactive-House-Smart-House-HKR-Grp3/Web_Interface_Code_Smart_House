@@ -49,6 +49,7 @@ public class TestMQTTConnection {
             System.out.println(!validAccount ? "Please try another account name." : "Valid registration!");
         }while(!validAccount);
         displayMockData();
+        System.err.println("Connection closed!");
     }
 
     /**
