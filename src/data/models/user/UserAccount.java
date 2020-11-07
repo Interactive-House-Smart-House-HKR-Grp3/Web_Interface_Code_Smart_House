@@ -1,14 +1,12 @@
 package data.models.user;
 
-public class UserAccount {
+public enum UserAccount {
+    USER;
 
     private String accountName;
     private String password;
     private String name;
     private String emailAddress;
-
-    public UserAccount() {
-    }
 
     public String getAccountName() {
         return accountName;

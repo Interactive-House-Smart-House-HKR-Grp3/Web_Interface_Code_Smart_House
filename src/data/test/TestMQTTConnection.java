@@ -9,6 +9,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import java.util.Scanner;
 
 import static data.models.devices.Devices.*;
+import static data.models.user.UserAccount.USER;
 
 /**
  * Test if the client object can connect to the broker and read/update from/to topics
@@ -19,16 +20,36 @@ public class TestMQTTConnection {
         System.out.println("H E L L O !\n" +
                 "\n1]    Test using mock user and mqtt connection" +
                 "\n2]    Test using mock user,devices, statistics" +
-                "\n3]    EXIT!");
+                "\n3]    Register new account" +
+                "\n5]    EXIT!");
         int testingOption = new Scanner(System.in).nextInt();
         if (testingOption == 1) {
             testMQTTConnectionHandler();
         } else if (testingOption == 2) {
             testUsingMockData();
-        } else {
+        } else if(testingOption == 3){
+            registerNewUserAccount();
+        }else{
             System.exit(0);
         }
+    }
 
+    /**
+     * The user will be ask to provide credentials for a new account, and
+     * if valid data, the new account will be created.
+     * The user will be automatically logged in, and the mock data created.
+     */
+    private static void registerNewUserAccount(){
+        boolean validAccount;
+        do{
+            Scanner in = new Scanner(System.in);
+            System.out.println("Enter an account name: ");
+            String account = in.nextLine();
+            validAccount = Login.registerNewAccount(account, null, null);
+            System.out.println(!validAccount ? "Please try another account name." : "Valid registration!");
+        }while(!validAccount);
+        displayMockData();
+        System.err.println("Connection closed!");
     }
 
     /**
@@ -49,9 +70,7 @@ public class TestMQTTConnection {
         displayMockData();
 
         /*
-
         HERE CAN BE ADDED MORE LOGIC THAT NEEDS TO BE TESTED USING THE MOCK DATA
-
         */
 
         System.err.println("Connection closed!");
@@ -64,6 +83,10 @@ public class TestMQTTConnection {
 
         boolean flag = true;
         while (flag) {
+            for (Devices device: Devices.values()){
+                System.out.println("For device " + device.name() + ", the value is: " +device.getDeviceCurrentState());
+            }
+
             System.out.println("\n\nCHOOSE ACTION:\n1]    Get FAN current state" +
                     "\n2]    Get FAN speed value" +
                     "\n3]    Get ELECTRICITY_CONSUMPTION value" +
@@ -96,7 +119,7 @@ public class TestMQTTConnection {
                         + WINDOW.getDeviceCurrentState() + "\u001B[0m");
                 case 7 -> System.out.println("\u001B[34m" + INDOOR_LIGHT.name()
                         + " -> " + INDOOR_LIGHT.getDeviceCurrentState() + "\u001B[0m");
-                case 8 -> System.out.println("\u001B[34m" + Login.user.toString());
+                case 8 -> System.out.println("\u001B[34m" + USER.toString());
                 case 9 -> System.out.println("\u001B[34m" + BURGLAR_ALARM.toString()
                         + BURGLAR_ALARM.getDeviceCurrentState() + "\u001B[0m");
                 case 10 -> System.out.println("\u001B[34m" + StatisticsData.BURGLAR_ALARM.toString()
@@ -131,9 +154,13 @@ public class TestMQTTConnection {
         System.out.println("Enter password: ");
         String pass = in.nextLine();
         new Login(account, pass);
-        System.out.println(Login.user);
+        System.out.println(USER.getName());
 
-        new MQTTConnectionHandler();
+     /*for (Devices device: Devices.values()){
+            if(device == DOOR){
+            }
+            label.setText(device.getDeviceCurrentState().toString());
+        }*/   new MQTTConnectionHandler();
 
         System.err.println("Connection closed!");
     }
