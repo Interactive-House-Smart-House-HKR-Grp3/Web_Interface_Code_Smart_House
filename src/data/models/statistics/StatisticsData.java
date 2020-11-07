@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * All the devices are represented and each
- * can store the data required for the 
+ * can store the data required for the
  * device-specific statistics display.
  */
 public enum StatisticsData {
@@ -27,7 +27,7 @@ public enum StatisticsData {
     /*15*/ INDOOR_LIGHT(0, Type.EVENT_BASED, null, null, null),              // Map<Date, Devices.State>
     /*16*/ OUTDOOR_LIGHT(0, Type.EVENT_BASED, null, null, null),             // Map<Date, Devices.State>
     /*17*/ AUTO_MODE(0, Type.EVENT_BASED, null, null, null),                 // Map<Date, Devices.State>
-   ;
+    ;
 
     private int forPeriod; // [1] = last day, [2] = last week, [3] = last month.
     private Type type;
@@ -60,29 +60,44 @@ public enum StatisticsData {
         this.type = type;
     }
 
-    public Map<Date, Integer> getAverageIntegerStatistics() {
-        return averageIntegerStatistics;
-    }
-
     public void setAverageIntegerStatistics(Map<Date, Integer> averageIntegerStatistics) {
         this.averageIntegerStatistics = averageIntegerStatistics;
-    }
-
-    public Map<Date, Double> getAverageDoubleStatistics() {
-        return averageDoubleStatistics;
     }
 
     public void setAverageDoubleStatistics(Map<Date, Double> averageDoubleStatistics) {
         this.averageDoubleStatistics = averageDoubleStatistics;
     }
 
-    public Map<Date, Integer> getEventBasedStatistics() {
-        return eventBasedStatistics;
-    }
-
     public void setEventBasedStatistics(Map<Date, Integer> eventBasedStatistics) {
         this.eventBasedStatistics = eventBasedStatistics;
     }
+
+    ///////////////////
+    public Map<Date, Integer> getEventBasedStatistics() {
+        // connect to mqtt broker
+
+        // publish the request on the corresponding topic
+
+        // wait for the listener to provide new data on the subscribed corresponding topic
+
+        // format the data ...... HashMap<Date, int[stateCode, value]>
+
+        // set the statistics
+
+        // return the statistics.
+
+
+        return eventBasedStatistics;
+    }
+
+    public Map<Date, Integer> getAverageIntegerStatistics() {
+        return averageIntegerStatistics;
+    }
+
+    public Map<Date, Double> getAverageDoubleStatistics() {
+        return averageDoubleStatistics;
+    }
+    ///////////////////
 
     public enum Type {
         EVENT_BASED,

@@ -77,10 +77,24 @@ public enum Devices {
     }
 
     public State getDeviceCurrentState() {
+        // connect to mqtt broker
+
+        // read topic for that specific device
+
+        // set current state
+
+        // return this.device.current state
+
         return deviceCurrentState;
     }
 
     public void setDeviceCurrentState(int deviceCurrentState) {
+        // connect to the mqtt broker
+
+        // publish on the corresponding topic the new state
+
+        // set the new state.
+
         this.deviceCurrentState = deviceCurrentState == 1 ?
                 (List.of(DOOR, WINDOW).contains( this) ? State.OPEN : List.of(BURGLAR_ALARM, FIRE_ALARM).contains(this) ?  State.ARMED : State.OFF) :
                 (List.of(DOOR, WINDOW).contains( this) ? State.CLOSED : State.OFF);

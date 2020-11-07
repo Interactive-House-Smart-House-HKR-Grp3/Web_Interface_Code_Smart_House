@@ -6,6 +6,6 @@ import main.java.mock.data.User;
 import java.util.List;
 
 public interface DBInterface {
-    public User authenticateUser(String name, String password);
-    public List<Device> getDevices(User user);
+    User authenticateUser(String name, String password);
+    List<Device> getDevices(User user);
 }

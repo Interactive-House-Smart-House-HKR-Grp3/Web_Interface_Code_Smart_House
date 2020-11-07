@@ -8,6 +8,8 @@ import data.services.login.Login;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static data.models.user.UserAccount.USER;
+
 public class MockData {
 
     public MockData(String accountName, String password) {
@@ -145,8 +147,8 @@ public class MockData {
         Date[] dates = getAllHourlyDates(days);
 
         // Add random values and fill the Map with mock data
-        for (Date date : dates) {
-            statistics.put(date, ThreadLocalRandom.current().nextInt(1, bound));
+        for (int i = 0; i < dates.length; i++) {
+            statistics.put(dates[i], ThreadLocalRandom.current().nextInt(1, bound));
         }
         return statistics;
     }
@@ -186,11 +188,10 @@ public class MockData {
     private void setUserAccount(String accountName, String password) {
         for (MockUserAccount account : MockUserAccount.values()) {
             if (account.getACCOUNT_NAME().equals(accountName) && account.getPASSWORD().equals(password)) {
-                Login.user = new UserAccount();
-                Login.user.setAccountName(account.getACCOUNT_NAME());
-                Login.user.setEmailAddress(account.getEMAIL());
-                Login.user.setName(account.getNAME());
-                Login.user.setPassword(account.getPASSWORD());
+                USER.setAccountName(account.getACCOUNT_NAME());
+                USER.setEmailAddress(account.getEMAIL());
+                USER.setName(account.getNAME());
+                USER.setPassword(account.getPASSWORD());
             }
         }
     }

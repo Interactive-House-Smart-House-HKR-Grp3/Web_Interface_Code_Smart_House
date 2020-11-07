@@ -12,15 +12,17 @@ public class Data {
     private User loggedInUser;
 
     List<User> users = new ArrayList<>();
+    List<Device> deviceList = new ArrayList<>();
 
     public Data(){
         generateTestData();
     }
 
     private void generateTestData(){
-        List<Device> deviceList = new ArrayList<>();
+        deviceList.add(new Device("", ""));
         deviceList.add(new Device("Door", "The door should have an on and off state..."));
         users.add(new User("test", "pass", deviceList));
+
         deviceList = new ArrayList<>();
         deviceList.add(new Device("Window", "The Window should have an on and off state..."));
         deviceList.add(new Device("Temp", "The temperature should be able to vary?"));
