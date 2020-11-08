@@ -7,29 +7,46 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.util.*;
-
 public class MQTTConnectionHandler {
+
+    private static MQTTConnectionHandler connectionHandler;
 
     private MqttClient client;
 
     //Creating the options
     private final MqttConnectOptions CONNECTION_OPTIONS = new MqttConnectOptions();
 
+    public static MQTTConnectionHandler getInstance() throws MqttException {
+        return (connectionHandler == null ? new MQTTConnectionHandler() : connectionHandler);
+    }
+
     public MQTTConnectionHandler() throws MqttException {
         connectMqtt();
 
         subscribeToSHTopics();
         subscribeToServerTopics();
-
+/*
         // Testing read / publish  ...
+        //changeStatesToClose();
         while (client.isConnected()) {
             System.out.println("1]    Test Mqtt\n2]    Quit");
             if (new Scanner(System.in).nextInt() == 1) {
-                changeStatesToClose();
+               *//* boolean flag = true;
+                while (flag) {
+                    System.out.println("1] Turn indoor light ON\n2] Turn indoor light OFF");
+                    Scanner in = new Scanner(System.in);
+                    int cmd = in.nextInt();
+                    flag = List.of(1, 2).contains(cmd);
+                    client.publish(SMHOutputTopics.INDOOR_LIGHT.getTopicRegisteredName(),
+                            new MqttMessage(( cmd == 1 ? "true" : cmd == 2 ? "false" : "").getBytes()));
+                }*//*
+
+
+
+
 
                 // Testing Json objects over MQTT
-                /*Gson gson = new Gson();
+                *//*Gson gson = new Gson();
                 Map<Date, Date> hash_map_test = new HashMap<>();
                 Date now = Calendar.getInstance().getTime();
                 Thread.sleep(5000);
@@ -46,17 +63,17 @@ public class MQTTConnectionHandler {
                                 System.out.println("test");
                                 Gson gson = new Gson();
                                 String[] str = gson.fromJson(var2.toString(), String[].class);
-                               Map<Date, Date> retMap = gson.fromJson(var2.toString(), Map.class);
+                                Map<Date, Date> retMap = gson.fromJson(var2.toString(), Map.class);
 
                                 System.out.println(Arrays.toString(str));
                                 System.out.println(str[0]);
                                 System.out.println(str[1]);
                                 System.out.println(str[2]);
-                                break;*/
+                                break;*//*
             } else {
                 client.close();
             }
-        }
+        }*/
     }
 
     public void connectMqtt() {
@@ -101,5 +118,9 @@ public class MQTTConnectionHandler {
         if (client.isConnected()) {
             client.publish(topic, new MqttMessage(message.getBytes()));
         }
+    }
+
+    public MqttClient getClient() {
+        return client;
     }
 }

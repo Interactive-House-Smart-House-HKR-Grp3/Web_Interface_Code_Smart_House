@@ -32,6 +32,9 @@ public enum ServerRequestsTopics {
     /*15*/ INDOOR_LIGHT("indoor_light"),
     /*16*/ OUTDOOR_LIGHT("outdoor_light"),
     /*17*/ AUTO_MODE("auto_mode"),
+
+    /*18*/ USER("user"),
+    /*19*/ CREATE_NEW_USER("create_new_user")
     ;
 
     private final static String WEB_RESPONSE= "web/request/";
@@ -40,12 +43,12 @@ public enum ServerRequestsTopics {
     ServerRequestsTopics(String topicRegisteredName) {
         this.topicRegisteredName = WEB_RESPONSE + topicRegisteredName;
     }
-/*
+
+    public static String getWebResponse() {
+        return WEB_RESPONSE;
+    }
+
     public String getTopicRegisteredName() {
         return topicRegisteredName;
     }
-
-    public void setTopicRegisteredName(String topicRegisteredName) {
-        this.topicRegisteredName = topicRegisteredName;
-    }*/
 }

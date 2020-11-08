@@ -2,8 +2,6 @@ package data.mock_data;
 
 import data.models.devices.Devices;
 import data.models.statistics.StatisticsData;
-import data.models.user.UserAccount;
-import data.services.login.Login;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,6 +12,7 @@ import static data.models.user.UserAccount.USER;
  * Create mock data that reflects the real data types, and fill the enumerations with it.
  */
 public class MockData {
+
     /**
      * Used concurrently with a mqtt connection.
      * @param accountName login
@@ -58,7 +57,8 @@ public class MockData {
     private void setStatisticsData(int statisticsPeriod) {
         if (List.of(1, 2, 3).contains(statisticsPeriod)){
             // 1 or 2 states
-            for (StatisticsData statisticsData : List.of(StatisticsData.WATER_LEAKAGE, StatisticsData.WINDOW, StatisticsData.STOVE,
+            for (StatisticsData statisticsData :
+                    List.of(StatisticsData.WATER_LEAKAGE, StatisticsData.WINDOW, StatisticsData.STOVE,
                     StatisticsData.DOOR, StatisticsData.FAN, StatisticsData.ELECTRICITY_CONSUMPTION, StatisticsData.INDOOR_HEATING,
                     StatisticsData.LOFT_HEATING, StatisticsData.TWILIGHT, StatisticsData.POWER_CUT, StatisticsData.INDOOR_LIGHT,
                     StatisticsData.OUTDOOR_LIGHT, StatisticsData.AUTO_MODE)) {

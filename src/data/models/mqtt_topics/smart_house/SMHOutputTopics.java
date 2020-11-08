@@ -35,8 +35,6 @@ public enum SMHOutputTopics {
     // The value should be between 5 and 30, and will be used as
     // a condition when auto mode is on.
     AUTO_MODE_TEMPERATURE_MARK("am_temp_value") /*int*/
-
-
     ;
     private final static String SMART_HOUSE_CMD = "smart_house/cmd/";
     private String topicRegisteredName;

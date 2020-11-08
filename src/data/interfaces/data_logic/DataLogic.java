@@ -2,25 +2,14 @@ package data.interfaces.data_logic;
 
 import data.models.devices.Devices;
 import data.models.statistics.StatisticsData;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 public interface DataLogic {
 
     /**State related*/
-    void changeStateTo(Devices device, boolean toOpen);
-
-    Devices.State getStateOfDevice(Devices device);
-
-    List<Devices.State> getStateOfDevices();
-    List<Devices.State> getStateOfDevices(List<Devices> devicesList);
+    void changeStateTo(Devices device, int nextState) throws MqttException;
 
     /**Data Statistics related*/
-    HashMap<Devices /*the device*/, StatisticsData /*it's statistics data*/> getStatistics
-            (List<Devices> devicesList, Date from, Date until);
-
-    StatisticsData /* statistics data*/ getStatistics
-            (Devices device, Date from, Date until);
+    StatisticsData /* statistics data*/ requestStatistics
+            (StatisticsData type, int periodCode) throws MqttException;
 }
