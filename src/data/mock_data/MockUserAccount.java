@@ -7,6 +7,7 @@ public enum MockUserAccount {
     MOCK_USER_4("Test4", "pass4", "Name4", "Email4@web-Interface"),
     MOCK_USER_5("Test5", "pass5", "Name5", "Email5@web-Interface")
     ;
+
     private String ACCOUNT_NAME;
     private String PASSWORD;
     private String NAME;

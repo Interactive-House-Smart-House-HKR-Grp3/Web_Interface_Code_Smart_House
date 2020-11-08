@@ -66,6 +66,7 @@ public class MQTTServerListener implements IMqttMessageListener {
             case EVENT_BASED -> updateEventBasedStatistics(device, statisticsData);
             case AVERAGE_DATA -> updateAverageDataBasedStatistics(device, statisticsData);
         }
+        device.setNewStatisticsArrived(true);
     }
 
     private void updateEventBasedStatistics(StatisticsData device, MqttMessage statisticsData) {

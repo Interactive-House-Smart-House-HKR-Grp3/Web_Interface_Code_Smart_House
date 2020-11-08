@@ -2,12 +2,16 @@ package data.services.login;
 
 import data.mock_data.MockData;
 import data.mock_data.MockUserAccount;
+import data.services.local.DeviceController;
+import data.services.mqtt.MQTTConnectionHandler;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.Scanner;
 
 import static data.mock_data.MockUserAccount.MOCK_USER_5;
 
 public class Login {
+
     public Login() {
     }
 
@@ -18,11 +22,12 @@ public class Login {
      * @param account  login credentials
      * @param password login credentials
      */
-    public Login(String account, String password) {
+    public Login(String account, String password) throws MqttException {
 
         int flag = 0;
         while (flag < 3) {// Three possible tries to login.
             if (loginValidation(account, password)) {
+                MQTTConnectionHandler connectionHandler = MQTTConnectionHandler.getInstance();
                 break;
             } else {
                 System.out.println("Didn't work.\nTry it again!");
@@ -55,14 +60,6 @@ public class Login {
                 password = in.nextLine();
             }
         }
-/*
-        // Using mock user and mqtt sourced data
-        if (loginValidation(account, password)) {
-            //deviceController = new DeviceController();
-        } else {
-            // set a flag that says that the validation failed
-        }*/
-
     }
 
     private boolean loginValidation(String account, String password) {
@@ -102,7 +99,7 @@ public class Login {
     public static boolean registerNewAccount(String accountName, String name, String emailAddress) {
         Scanner in = new Scanner(System.in);
         // check if the user is already taken
-        boolean validData = false;
+        boolean validData;
         for (MockUserAccount user : MockUserAccount.values()) {
             validData = user.getACCOUNT_NAME().equals(accountName);
             if (validData)

@@ -3,7 +3,6 @@ package data.test;
 import data.models.devices.Devices;
 import data.models.statistics.StatisticsData;
 import data.services.login.Login;
-import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.*;
@@ -16,6 +15,7 @@ import static data.models.user.UserAccount.USER;
  * that are currently open by the physical-house.
  */
 public class TestMQTTConnection {
+
     public static void main(String[] args) throws MqttException {
         System.out.println("H E L L O !\n" +
                 "\n1]    Test using mock user and mqtt connection" +
@@ -102,6 +102,8 @@ public class TestMQTTConnection {
                     "\n13]   Set DOOR status to On(Open)" +
                     "\n14]   Set DOOR status to Off(Closed)" +
                     "\n15]   ARM the BURGLAR_ALARM" +
+                    "\n16]   Turn OFF the indoor light" +
+                    "\n17]   Turn ONN the indoor light" +
                     "\nFor testing you can add multiple option programmatically.." +
                     "\n\n Any other value (integer) will close this loop."
             );
@@ -128,6 +130,8 @@ public class TestMQTTConnection {
                 case 13 -> changeState(DOOR, 1);
                 case 14 -> changeState(DOOR, 2);
                 case 15 -> changeState(BURGLAR_ALARM, 1);
+                case 16 -> changeState(INDOOR_LIGHT, 2);
+                case 17 -> changeState(INDOOR_LIGHT, 1);
                 default -> flag = false;
             }
         }
@@ -192,8 +196,6 @@ public class TestMQTTConnection {
         String pass = in.nextLine();
         new Login(account, pass);
         System.out.println(USER.getName());
-
-        new MQTTConnectionHandler();
 
         System.err.println("Connection closed!");
     }

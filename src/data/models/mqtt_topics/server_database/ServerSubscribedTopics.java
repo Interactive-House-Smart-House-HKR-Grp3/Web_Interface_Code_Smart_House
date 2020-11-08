@@ -2,7 +2,8 @@ package data.models.mqtt_topics.server_database;
 
 /**
  * These topics will be used to read inputs from the server.
- * Based on these requests, the server will return the requested data.
+ * These are the channels through which the server sends device related statistics, as a reply to a
+ *
  *
  * The server should publish a MqttMessage containing a Map<Date, Integer>
  * or a Map<Date, Double> object (depending on the topic), in a JSON format.
@@ -28,6 +29,9 @@ package data.models.mqtt_topics.server_database;
  *      "burglar_alarm", "water_leakage", "window", "door", "stove", "fan", "indoor_heating",
  *      "loft_heating", "twilight", "power_cut", "indoor_light", "outdoor_light", "auto_mode".
  *
+ *      !Obs.: state '3' is possible only for the "fire_alarm" and the "burglar_alarm" items
+ *      (it will be needed to know how to process data read(and stored) from the physical house topics).
+ *
  */
 public enum ServerSubscribedTopics {
 
@@ -48,19 +52,21 @@ public enum ServerSubscribedTopics {
     /*15*/ INDOOR_LIGHT("indoor_light"),
     /*16*/ OUTDOOR_LIGHT("outdoor_light"),
     /*17*/ AUTO_MODE("auto_mode"),
+
+    /*18*/ USER("user")
     ;
     private final static String WEB_REQUEST = "web/statistics/";
-    private String topicRegisteredName;
+    private final String topicRegisteredName;
 
     ServerSubscribedTopics(String topicRegisteredName) {
         this.topicRegisteredName = WEB_REQUEST + topicRegisteredName;
     }
 
-    public String getTopicRegisteredName() {
-        return topicRegisteredName;
+    public static String getWebRequest() {
+        return WEB_REQUEST;
     }
 
-    public void setTopicRegisteredName(String topicRegisteredName) {
-        this.topicRegisteredName = topicRegisteredName;
+    public String getTopicRegisteredName() {
+        return topicRegisteredName;
     }
 }
