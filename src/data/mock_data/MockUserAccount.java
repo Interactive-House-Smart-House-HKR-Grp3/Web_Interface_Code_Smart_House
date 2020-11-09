@@ -1,5 +1,9 @@
 package data.mock_data;
 
+/**
+ * Emulates user accounts.
+ * Used for testing purposes as long the user feature is not implemented on the server side.
+ */
 public enum MockUserAccount {
     MOCK_USER_1("Test1", "pass1", "Name1", "Email1@web-Interface"),
     MOCK_USER_2("Test2", "pass2", "Name2", "Email2@web-Interface"),

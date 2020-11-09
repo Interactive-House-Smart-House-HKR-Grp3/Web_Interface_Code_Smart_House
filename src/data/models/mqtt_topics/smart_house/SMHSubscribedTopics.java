@@ -65,9 +65,6 @@ public enum SMHSubscribedTopics {
     // Send here true/false as a string to turn on/off the automatic indoor temperature
     // and outdoor light regulation
     AUTO_MODE("auto_mode"), /*boolean*/
-
-    //JSON_TEST("json_test")
-
     ;
     private final String SMART_HOUSE_GUI = "smart_house/gui/";
     private final String TOPIC_REGISTERED_NAME;
