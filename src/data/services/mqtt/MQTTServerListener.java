@@ -27,7 +27,6 @@ public class MQTTServerListener implements IMqttMessageListener {
      */
     @Override
     public void messageArrived(String topic, MqttMessage mqttMessage) {
-
         switch (topic) {
             /*1*/
             case "web/statistics/fire_alarm" -> updateDeviceStatistics(FIRE_ALARM, mqttMessage);

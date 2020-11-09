@@ -9,6 +9,13 @@ import java.util.concurrent.ThreadLocalRandom;
 import static data.models.user.UserAccount.USER;
 
 /**
+ * Used ONLY for testing in the incipient stages.
+ *
+ * The mock device's data, used previous to the midterm presentation.
+ *
+ * The mock User, statistics,  used until these features are implemented
+ * in the server/db side.
+ *
  * Create mock data that reflects the real data types, and fill the enumerations with it.
  */
 public class MockData {
