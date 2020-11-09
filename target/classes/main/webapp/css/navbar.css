@@ -1,0 +1,138 @@
+@import url("../css/fonts.css");
+
+/* ------- Local Variables ------- */
+
+:root {
+  /* Fonts */
+  --Abel: "Abel", cursive;
+  --Anton: "Anton", cursive;
+  --Josefin: "Josefin", cursive;
+  --Lexend: "Lexend", cursive;
+  --Livvic: "Livvic", cursive;
+
+  /*  Colors */
+  --text-grey: #3f4954;
+
+  /* Gradients */
+  --Amy-Crisp: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+}
+
+/* ------- Global Classes ------- */
+
+a {
+  text-decoration: none;
+  color: var(--text-grey);
+}
+
+ul {
+  list-style-type: none;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* ------- Navigation Bar ------- */
+
+.nav {
+  z-index: 1;
+  min-height: 88px;
+  height: 0;
+  background: white;
+  padding: 0 3rem;
+  position: fixed;
+  width: 100%;
+  transition: all 0.95s cubic-bezier(0.26, -0.01, 0, 1.01);
+}
+
+.nav .nav-bar {
+  justify-content: space-between;
+}
+
+.nav .nav-brand a {
+  font-size: 3rem;
+  padding: 1.4rem;
+  display: block;
+  font-family: var(--Lexend);
+}
+
+.nav .nav-brand .brand-logo {
+  background: none;
+  vertical-align: text-top;
+}
+
+.nav .menu {
+  position: absolute;
+  top: 0;
+  left: 80px;
+  cursor: pointer;
+  display: none;
+  font-size: 2rem;
+}
+
+/*  Used inside the Java Query homepageScript to be added when onclick is called */
+.expand {
+  height: 38rem;
+}
+
+.nav .nav-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav .nav-items .nav-link {
+  padding: 1.6rem 1rem;
+  font-family: var(--Abel);
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.nav .nav-items .nav-link:hover {
+  background-color: palegreen;
+}
+
+.nav .nav-items .nav-link:hover a {
+  color: white;
+}
+
+.nav .user {
+  color: var(--text-grey);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 1.4rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.nav .icons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem 0;
+}
+
+.nav .icons i {
+  font-size: 2.5rem;
+  color: var(--text-grey);
+}
+
+/* ------- Rezise Viewport depending on device screen -------*/
+
+/*      Called If Viewport > 883        */
+@media only screen and (max-width: 883px) {
+  .nav .nav-bar,
+  .nav .nav-items {
+    flex-direction: column;
+  }
+
+  .brand-logo{
+      visibility: hidden;
+  }
+
+  .nav .menu {
+    display: initial;
+  }
+}

@@ -1,67 +1,41 @@
-*, *::after, *::before{
-    box-sizing: border-box;
+/* ------- Highlights Carousel ------- */
+main .highlights {
+  background: url("../assets/images/background_abstract.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  height: 100vh;
+  width: 100%;
+  margin-top: 10vh;
 }
 
-/* ------- Login Pop-up ------- */
-.modal{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform:  translate(-50%, -50%) scale(0); 
-    transition: 200ms ease-in-out;
-    border: 1px solid black;
-    border-radius: 10px;
-    z-index: 10;
-    background-color: white;
-    width: 500px;
-    max-width: 80%;
+main .highlights .device-post {
+  padding-top: 6rem;
 }
 
-.modal.active {
-    transform:  translate(-50%, -50%) scale(1); 
-
+main .device-post .device-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 80%;
+  margin: 3rem 2rem;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
 }
 
-.modal-header{
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid black;
+main .device-title .form-btn {
+  display: inline-block;
 }
 
-.modal-header .title{
-    font-size: 1.25rem;
-    font-weight: bold;
+main .device-title .btn-info {
+  padding: 0;
+  color: blue;
+  background: none;
 }
 
-.modal-header .btn-login-close{
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-
-
-.modal-body{
-    padding: 10px 15px;
-}
-
-#overlay{
-    position: fixed;
-    opacity: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .5);
-    pointer-events: none;
-    transition: 200ms ease-in-out;
-}
-
-#overlay.active {
-    opacity: 1;
-    pointer-events: all;
+main .device-content .img-device {
+  width: 50%;
+  padding-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  background: none;
+  vertical-align: middle;
 }

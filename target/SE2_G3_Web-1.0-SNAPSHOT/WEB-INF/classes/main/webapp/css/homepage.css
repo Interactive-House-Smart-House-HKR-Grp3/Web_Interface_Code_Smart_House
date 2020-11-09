@@ -1,193 +1,100 @@
-*, *::after, *::before{
-    box-sizing: border-box;
+@import url("../css/fonts.css");
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
 }
 
-html,body{
-    margin: 0%;
-    box-sizing: border-box;
-    overflow: hidden;
+html {
+  margin: 0%;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0%;
 }
 
 /* ------- Local Variables ------- */
 
-:root{
-    /*  Colors */
-    --text-grey: #3f4954;
+:root {
+  /* Fonts */
+  --Abel: "Abel", cursive;
+  --Anton: "Anton", cursive;
+  --Josefin: "Josefin", cursive;
+  --Lexend: "Lexend", cursive;
+  --Livvic: "Livvic", cursive;
 
-    /* Gradients */
-    --Amy-Crisp: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  /*  Colors */
+  --text-grey: #3f4954;
+
+  /* Gradients */
+
+  /* Variables */
+  --navbar-size: 75px;
 }
 
 /* ------- Global Classes ------- */
 
-a{
-    text-decoration: none;
-    color: var(--text-grey);
+h1 {
+  font-family: var(--Lexend);
+  font-size: 2.5rem;
 }
 
-ul{
-    list-style-type: none;
+h2 {
+  font-family: var(--Lexend);
 }
 
-.flex-row{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+h3 {
+  font-family: var(--Abel);
+  font-size: 1.3rem;
 }
 
-/* ------- Navigation Bar ------- */
-
-.nav{
-    background: white;
-    padding: 0 2rem;
-    height:  0rem;
-    min-height: 90px;
-    overflow: hidden;
-    position: relative;
-    transition: all 1s cubic-bezier(0.26, -0.01, 0, 1.01);
+button.btn {
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  font-family: var(--Livvic);
+  cursor: pointer;
 }
 
-.nav .nav-bar {
-    justify-content: space-between;
+/* ------- Intro Section ------- */
+main .site-intro {
+  background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav .nav-brand a{
-    font-size: 1.3rem;
-    padding: 1rem 0;
-    display: block;
+main .site-intro .site-about {
+  padding-top: 10rem;
+  text-align: center;
+  color: white;
 }
 
-.nav .menu{
-    position: absolute;
-    top: 0%;
-    left: 92%;
-    cursor: pointer;
-    display: none;
+main .site-intro h1,
+h3 {
+  margin: 0.3rem;
 }
 
-.nav .icons{
-    display: flex;
-    justify-content: flex-end;
-    padding: 1.7rem 0;
+main .site-intro .btn {
+  margin: 1.8rem;
+  background-image: linear-gradient(
+    to top,
+    #d5d4d0 0%,
+    #d5d4d0 1%,
+    #eeeeec 31%,
+    #efeeec 75%,
+    #e9e9e7 100%
+  );
 }
 
-.nav .icons i{
-    font-size: 1.4rem;
-    color: var(--text-grey);
-}
-
-/*  Used inside the Java Query homepageScript to be added when onclick is called */
-.collapse{
-    height: 30rem;
-}
-
-.nav .nav-items {
-    display: flex;
-}
-
-.nav .nav-items .nav-link{
-    padding: 1.6rem 1rem;
-    font-size: 1.1rem;
-    position: relative;
-}
-
-.nav .nav-items .nav-link:hover{
-    background-color: palegreen;
-}
-
-
-.nav .nav-items .nav-link:hover a{
-    color: white;
-}
-
-.nav .user {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-    padding: 1.2rem;
-    text-align: center;
-    font-size: 2.5rem;
-}
-
-/* ------- Login Pop-up ------- */
-.modal{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform:  translate(-50%, -50%) scale(0); 
-    transition: 200ms ease-in-out;
-    border: 1px solid black;
-    border-radius: 10px;
-    z-index: 10;
-    background-color: white;
-    width: 500px;
-    max-width: 80%;
-}
-
-.modal.active {
-    transform:  translate(-50%, -50%) scale(1); 
-
-}
-
-.modal-header{
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid black;
-}
-
-.modal-header .title{
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-
-.modal-header .btn-login-close{
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-
-
-.modal-body{
-    padding: 10px 15px;
-}
-
-#overlay{
-    position: fixed;
-    opacity: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .5);
-    pointer-events: none;
-    transition: 200ms ease-in-out;
-}
-
-#overlay.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-/* ------- About Section ------- */
-main .title{
-    background-color: var(--Amy-Crisp);
-}
-
-/* ------- Rezise Viewport depending on device screen -------*/
-
-/*      If Viewport >= 750px        */
-@media only screen and (max-width: 750px){
-    .nav .nav-bar, .nav .nav-items{
-        flex-direction: column;
-    }
-
-    .nav .menu{
-        display: initial;
-    }
+main .site-intro .btn:hover {
+  margin: calc(1.8rem - 2px);
+  background: transparent;
+  border: 2px solid white;
+  color: white;
 }
