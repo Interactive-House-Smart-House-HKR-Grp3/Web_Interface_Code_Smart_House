@@ -109,13 +109,14 @@ public enum Devices {
      */
     public void changeStateTo(int changeStateTo) throws MqttException {
         this.setNewStateRead(false);
+        String topicName = null;
         for (SMHOutputTopics topic: SMHOutputTopics.values()){
             if (this.name().equals(topic.name())){
-                MQTTConnectionHandler.mqttClient.publish(topic.getTopicRegisteredName(),
-                        new MqttMessage((changeStateTo == 1 ? "true" : "false").getBytes()));
+                topicName = topic.getTopicRegisteredName();
             }
         }
-
+        MQTTConnectionHandler.mqttClient.publish(topicName,
+                new MqttMessage((changeStateTo == 1 ? "true" : "false").getBytes()));
     }
 
     /**
