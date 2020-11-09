@@ -61,7 +61,7 @@ public class Login {
         }
     }
 
-    private boolean loginValidation(String account, String password) {
+    public static boolean loginValidation(String account, String password) {
         // connect db, request validation for login credentials,
         // and user account data
 
@@ -95,7 +95,7 @@ public class Login {
      * @param name         of the user
      * @param emailAddress of the user
      */
-    public static boolean registerNewAccount(String accountName, String name, String emailAddress) {
+    public static boolean registerNewAccount(String accountName, String pass, String name, String emailAddress) {
         Scanner in = new Scanner(System.in);
         // check if the user is already taken
         boolean validData;
@@ -105,7 +105,7 @@ public class Login {
                 return false;
         }
         System.out.println("Enter a password: ");
-        String password = in.nextLine();
+        String password = pass == null ? in.nextLine() : pass;
         // update user Test5
         MOCK_USER_5.setACCOUNT_NAME(accountName);
         MOCK_USER_5.setPASSWORD(password);
@@ -118,5 +118,4 @@ public class Login {
         // create the mock data.
         return loginMockValidation(accountName, password, period);
     }
-
 }
