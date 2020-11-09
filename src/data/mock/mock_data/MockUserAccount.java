@@ -1,4 +1,4 @@
-package data.mock_data;
+package data.mock.mock_data;
 
 /**
  * Emulates user accounts.

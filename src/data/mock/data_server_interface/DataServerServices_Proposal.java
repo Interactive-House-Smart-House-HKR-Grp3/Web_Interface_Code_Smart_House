@@ -1,4 +1,4 @@
-package data.interfaces.data_server_interface;
+package data.mock.data_server_interface;
 
 import java.rmi.Remote;
 import java.util.Date;

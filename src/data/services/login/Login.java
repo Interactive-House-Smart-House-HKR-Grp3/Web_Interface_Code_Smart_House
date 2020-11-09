@@ -1,13 +1,13 @@
 package data.services.login;
 
-import data.mock_data.MockData;
-import data.mock_data.MockUserAccount;
+import data.mock.mock_data.MockData;
+import data.mock.mock_data.MockUserAccount;
 import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.Scanner;
 
-import static data.mock_data.MockUserAccount.MOCK_USER_5;
+import static data.mock.mock_data.MockUserAccount.MOCK_USER_5;
 
 public class Login {
 
@@ -22,7 +22,7 @@ public class Login {
      * @param password login credentials
      */
     public Login(String account, String password) throws MqttException {
-
+        // TODO: implementation with server/db, when db is set
         int flag = 0;
         while (flag < 3) { // Three possible tries to login.
             if (loginValidation(account, password)) {

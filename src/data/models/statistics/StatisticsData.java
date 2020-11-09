@@ -1,7 +1,9 @@
 package data.models.statistics;
 
-import data.services.local.RequestManager;
+import data.models.mqtt_topics.server_database.ServerRequestsTopics;
+import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.Date;
 import java.util.Map;
@@ -99,6 +101,7 @@ public enum StatisticsData {
     /**
      * This method should be used to request statistics for a particular StatisticsData
      * device-specific object.
+     *
      * @param periodIndex the period code:
      *                    1 = last 24 hours,
      *                    2 = last week,
@@ -108,11 +111,17 @@ public enum StatisticsData {
      * @throws MqttException when the mqtt connection is not working.
      */
     public StatisticsData requestStatistics(int periodIndex) throws MqttException {
+        String topicName = null;
+        for (ServerRequestsTopics topic : ServerRequestsTopics.values()) {
+            if (this.name().equals(topic.name())) {
+                topicName = topic.getTopicRegisteredName();
+            }
+        }
         this.newStatisticsArrived = false; // signal for the new statistics request.
         // It will be turned true by the listener, when the statistics are read.
-
-        RequestManager controller = RequestManager.getInstance();
-        return controller.requestStatistics(this, periodIndex);
+        MQTTConnectionHandler.mqttClient.publish(topicName, new MqttMessage(String.valueOf(periodIndex).getBytes()));
+        while (!this.isNewStatisticsArrived()) {}
+        return this;
     }
 
     public enum Type {
