@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 @WebServlet(name = "OutputRequestServlet", urlPatterns = "/outputRequest")
 public class OutputRequestServlet extends HttpServlet {
@@ -35,11 +34,6 @@ public class OutputRequestServlet extends HttpServlet {
                 System.out.print("Device state not found!");
         }
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         // Send the user back to the user page to view the devices
         request.getRequestDispatcher("/userPage").forward(request, response);
     }
