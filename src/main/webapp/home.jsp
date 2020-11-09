@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- Uncomment this when inside the jsp as it's needed for encoding -->
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,23 +13,30 @@
     <title>Höme</title>
 
     <!-- Dependencies -->
-    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./css/dependencies/owl.carousel.min.css">
+    <link rel="stylesheet" href="./css/dependencies/owl.theme.default.min.css">
+
+    <script src="./js/dependencies/Jquery3.5.1.min.js"></script>
+    <script src="./js/dependencies/owl.carousel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js"
+            integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
 
     <!-- Stylesheet reference -->
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/popup.css">
     <link rel="stylesheet" href="./css/homepage.css">
 
-    <!-- Jquery Java Script Extension -->
-    <script src="./js/Jquery3.5.1.min.js"></script>
 </head>
+
 <header>
     <!-- ------------- NAVIGATION ------------- -->
     <nav class="nav">
         <div class="nav-bar flex-row">
 
             <div class="nav-brand">
-                <a href="#" class="text-brand">
-                    <img src="Vectors/027-smart home.svg" width="50">
-                    <div>Höme</div>
+                <a href="#">
+                    <img class="brand-logo" src="./assets/vectors/simple_icons/027-smart home.svg" width="50">
+                    <span class="brand-brandname">Höme</span>
                 </a>
             </div>
 
@@ -43,13 +52,13 @@
             <div>
                 <ul class="nav-items">
                     <li class="nav-link">
-                        <a href="#">About Höme</a>
+                        <a href="#intro">About Höme</a>
                     </li>
                     <li class="nav-link">
-                        <a href="#">Features</a>
+                        <a href="#features">Features</a>
                     </li>
                     <li class="nav-link">
-                        <a href="#">Setup</a>
+                        <a href="#setup">Setup</a>
                     </li>
                 </ul>
             </div>
@@ -60,8 +69,10 @@
         </div>
     </nav>
 </header>
-<!-- The Java Script file that controls the header-->
-<script src="./js/homepage_header.js"></script>
+<!-- The Java Script file that controls the navbar-->
+<script src="./js/navbar.js"></script>
+
+
 <body>
 <!-- ------------- Login Pop-up  ------------- -->
 <div class="modal" id="modal">
@@ -100,26 +111,30 @@
 <!-- Popup Script -->
 <script src="./js/popup.js"></script>
 
+<!-- The Contents of the page -->
 <main>
-    <section class="title">
-        <div id="About">
-            <h3>Welcome to your new Höme</h3>
-            <h2>About Höme</h2>
+
+    <!-- The Intro Section -->
+    <section class="site-intro" id="intro">
+        <div class="site-about">
+            <h3>About Höme</h3>
+            <h1>Welcome to your new Höme</h1>
             <p>
                 Höme® is an enchanced new home,  A home that is controllable from right here on the website or the comfort of your android device.
                 Did you forget to check if you left the meatloaf cooking on the stove?
                 Check, and while you're at it check if you left the door open, or the lights on, or the heater on.
                 Keep updated on the status of up to 17* different devices from around your home.
                 No need to go back home to change them neither that's so last century, with Höme® you can  simply turn them all* off.
-                Use the website if your at the office or just download our app you decide!
+                Use the website if your're at the office or just download our app you decide!
                 Automate your home with advance home automation features that makes setup and control simpler than ever.
-
-
             </p>
+            <button class="btn">Learn More</button>
         </div>
     </section>
 
-    <div id="Features">
+
+    <!-- TODO: No section past this comment is visible *** MUST *** create scrollbar -->
+    <div id="features">
         <h3>Features</h3>
         <h2>Freedom of Choice</h2>
         Control your home with the device you want!
@@ -127,7 +142,7 @@
     <hr>
 
 
-    <div id="Setup">
+    <div id="setup">
         <h3>Setup & Install</h3>
         <h2>Cloud and Go!</h2>
         <p>
@@ -146,12 +161,12 @@
     <ul>
         <li>
             <a href="https://www.hkr.se/" target="_blank" rel="noopener noreferrer">>
-                <img src="Images/HKR-logga.png" width="60">
+                <img src="../assets/images/logo_hkr.png" width="60">
             </a>
         </li>
         <li>
             <a href="https://github.com/Interactive-House-Smart-House-HKR-Grp3/Web_Interface_Code_Smart_House" target="_blank" rel="noopener noreferrer">>
-                <img src="Images/github_logo.png" width="60">
+                <img src="../assets/images/logo_github.png" width="60">
             </a>
         </li>
     </ul>

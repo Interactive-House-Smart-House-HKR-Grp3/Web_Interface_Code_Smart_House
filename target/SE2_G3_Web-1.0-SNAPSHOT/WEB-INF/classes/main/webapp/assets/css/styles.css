@@ -1,0 +1,41 @@
+/* ------- Highlights Carousel ------- */
+main .highlights {
+  background: url("../assets/images/background_abstract.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  height: 100vh;
+  width: 100%;
+  margin-top: 10vh;
+}
+
+main .highlights .device-post {
+  padding-top: 6rem;
+}
+
+main .device-post .device-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 80%;
+  margin: 3rem 2rem;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+}
+
+main .device-title .form-btn {
+  display: inline-block;
+}
+
+main .device-title .btn-info {
+  padding: 0;
+  color: blue;
+  background: none;
+}
+
+main .device-content .img-device {
+  width: 50%;
+  padding-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  background: none;
+  vertical-align: middle;
+}
