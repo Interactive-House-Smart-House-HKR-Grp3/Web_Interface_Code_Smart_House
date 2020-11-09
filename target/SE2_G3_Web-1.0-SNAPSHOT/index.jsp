@@ -12,7 +12,7 @@
 </head>
 <body>
 <%
-    request.getRequestDispatcher("/home.jsp").forward(request, response);
+    request.getRequestDispatcher("/homePage").forward(request, response);
 %>
 </body>
 </html>

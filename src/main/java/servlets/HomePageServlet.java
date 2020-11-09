@@ -1,5 +1,8 @@
 package main.java.servlets;
 
+import data.services.mqtt.MQTTConnectionHandler;
+import org.eclipse.paho.client.mqttv3.MqttException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
