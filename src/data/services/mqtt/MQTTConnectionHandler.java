@@ -14,7 +14,8 @@ public class MQTTConnectionHandler {
 
     private static MQTTConnectionHandler connectionHandler; // used for handling requests
 
-    private MqttClient client;
+    public static MqttClient mqttClient;
+    private boolean subscribed = false;
 
     //Creating the options
     private final MqttConnectOptions CONNECTION_OPTIONS = new MqttConnectOptions();
@@ -24,10 +25,13 @@ public class MQTTConnectionHandler {
     }
 
     public MQTTConnectionHandler() throws MqttException {
-        connectMqtt(); // create connection
+        if (!subscribed){
+            connectMqtt(); // create connection
+            subscribeToSHTopics(); // subscribe to the smart house topics
+            subscribeToServerTopics(); // subscribe to the server topics
+        }
+        subscribed = true;
 
-        subscribeToSHTopics(); // subscribe to the smart house topics
-        subscribeToServerTopics(); // subscribe to the server topics
 
 /*  Testing area ! ->
 
@@ -81,12 +85,12 @@ public class MQTTConnectionHandler {
         try {
             final String CLIENT_ID = "Web_Interface";
             final String broker = "tcp://smart-mqtthive.duckdns.org:1883";
-            client = new MqttClient(broker, CLIENT_ID);
+            mqttClient = new MqttClient(broker, CLIENT_ID);
 
             CONNECTION_OPTIONS.setCleanSession(true);
             CONNECTION_OPTIONS.setKeepAliveInterval(180);
 
-            client.connect(CONNECTION_OPTIONS);
+            mqttClient.connect(CONNECTION_OPTIONS);
             System.out.println("Broker: " + broker + ", connected!");
         } catch (MqttException e) {
             e.printStackTrace();
@@ -100,7 +104,7 @@ public class MQTTConnectionHandler {
      */
     private void subscribeToSHTopics() throws MqttException {
         for (SMHSubscribedTopics topic : SMHSubscribedTopics.values()) {
-            client.subscribe(topic.getTopicRegisteredName(), new MQTTSHListener());
+            mqttClient.subscribe(topic.getTopicRegisteredName(), new MQTTSHListener());
             System.out.println("Subscribed to: " + topic.getTopicRegisteredName());
         }
     }
@@ -112,7 +116,7 @@ public class MQTTConnectionHandler {
      */
     private void subscribeToServerTopics() throws MqttException {
         for (ServerSubscribedTopics topic : ServerSubscribedTopics.values()) {
-            client.subscribe(topic.getTopicRegisteredName(), new MQTTServerListener());
+            mqttClient.subscribe(topic.getTopicRegisteredName(), new MQTTServerListener());
             System.out.println("Subscribed to: " + topic.getTopicRegisteredName());
         }
     }
@@ -135,8 +139,8 @@ public class MQTTConnectionHandler {
      * @throws MqttException when mqtt error.
      */
     public void publish(String topic, String message) throws MqttException {
-        if (client.isConnected()) {
-            client.publish(topic, new MqttMessage(message.getBytes()));
+        if (mqttClient.isConnected()) {
+            mqttClient.publish(topic, new MqttMessage(message.getBytes()));
         }
     }
 
@@ -145,6 +149,6 @@ public class MQTTConnectionHandler {
      * @return a valid Mqtt client object.
      */
     public MqttClient getClient() {
-        return client;
+        return mqttClient;
     }
 }

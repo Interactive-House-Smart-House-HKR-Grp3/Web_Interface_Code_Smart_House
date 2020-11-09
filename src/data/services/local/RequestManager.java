@@ -15,7 +15,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  */
 public class RequestManager implements DataLogic {
 
-    private final MQTTConnectionHandler conn = MQTTConnectionHandler.getInstance();
     private static RequestManager requestManager;
 
     public static RequestManager getInstance() throws MqttException {
@@ -37,16 +36,16 @@ public class RequestManager implements DataLogic {
     @Override
     public void changeStateTo(Devices device, int nextState) throws MqttException {
         switch (device) {
-            case INDOOR_LIGHT -> conn.getClient().publish(SMHOutputTopics.INDOOR_LIGHT.getTopicRegisteredName(),
+            case INDOOR_LIGHT -> MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.INDOOR_LIGHT.getTopicRegisteredName(),
                     new MqttMessage((nextState == 1 ? "true" : "false").getBytes()));
-            case OUTDOOR_LIGHT -> conn.getClient().publish(SMHOutputTopics.OUTDOOR_LIGHT.getTopicRegisteredName(),
+            case OUTDOOR_LIGHT -> MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.OUTDOOR_LIGHT.getTopicRegisteredName(),
                     new MqttMessage((nextState == 1 ? "true" : "false").getBytes()));
-            case FIRE_ALARM, BURGLAR_ALARM -> conn.getClient().publish(SMHOutputTopics.ARMING_ALARM.getTopicRegisteredName(),
+            case FIRE_ALARM, BURGLAR_ALARM -> MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.ARMING_ALARM.getTopicRegisteredName(),
                     new MqttMessage((nextState == 1 ? "true" : "").getBytes()));
             case FAN -> handleFanRequest(nextState);
-            case HEATING_INDOOR -> conn.getClient().publish(SMHOutputTopics.HEATING_INDOOR.getTopicRegisteredName(),
+            case HEATING_INDOOR -> MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.HEATING_INDOOR.getTopicRegisteredName(),
                     new MqttMessage((nextState == 1 ? "true" : "false").getBytes()));
-            case HEATING_LOFT -> conn.getClient().publish(SMHOutputTopics.HEATING_LOFT.getTopicRegisteredName(),
+            case HEATING_LOFT -> MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.HEATING_LOFT.getTopicRegisteredName(),
                     new MqttMessage((nextState == 1 ? "true" : "false").getBytes()));
             case AUTO_MODE -> handleAMRequest(nextState);
         }
@@ -63,10 +62,10 @@ public class RequestManager implements DataLogic {
      */
     private void handleAMRequest (int nextState) throws MqttException {
         if(nextState > 2){ // then is about the Celsius value the AM to be set at;
-            conn.getClient().publish(SMHOutputTopics.AUTO_MODE_TEMPERATURE_MARK.getTopicRegisteredName(),
+            MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.AUTO_MODE_TEMPERATURE_MARK.getTopicRegisteredName(),
                     new MqttMessage(String.valueOf(nextState).getBytes()));
         }else{ // is about setting the state
-            conn.getClient().publish(SMHOutputTopics.AUTO_MODE_TEMPERATURE_MARK.getTopicRegisteredName(),
+            MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.AUTO_MODE_TEMPERATURE_MARK.getTopicRegisteredName(),
                     new MqttMessage((nextState == 1 ? "true" : "false").getBytes()));
         }
     }
@@ -82,10 +81,10 @@ public class RequestManager implements DataLogic {
      */
     private void handleFanRequest (int nextState) throws MqttException {
         if(nextState > 2){ // then is about the speed ( 3 = speed 1; 4 = speed2; ... 7 = speed 5);
-            conn.getClient().publish(SMHOutputTopics.FAN_SPEED.getTopicRegisteredName(),
+            MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.FAN_SPEED.getTopicRegisteredName(),
                     new MqttMessage(String.valueOf(nextState - 2).getBytes()));
         }else{ // is about setting the state
-            conn.getClient().publish(SMHOutputTopics.FAN.getTopicRegisteredName(),
+            MQTTConnectionHandler.mqttClient.publish(SMHOutputTopics.FAN.getTopicRegisteredName(),
                     new MqttMessage((nextState == 1 ? "true" : "false").getBytes()));
         }
     }
@@ -105,7 +104,7 @@ public class RequestManager implements DataLogic {
     @Override
     public StatisticsData requestStatistics(StatisticsData statisticsData, int periodCode) throws MqttException {
         String topic = getServerPublishingTopic(statisticsData); // get the corresponding topic
-        conn.getClient().publish(topic, new MqttMessage(String.valueOf(periodCode).getBytes())); // publish the request
+        MQTTConnectionHandler.mqttClient.publish(topic, new MqttMessage(String.valueOf(periodCode).getBytes())); // publish the request
         // waits until the listener corresponding case
         // sets the newStatisticsArrived to true
         while(!statisticsData.isNewStatisticsArrived()){}

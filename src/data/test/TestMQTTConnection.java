@@ -1,9 +1,13 @@
 package data.test;
 
 import data.models.devices.Devices;
+import data.models.mqtt_topics.smart_house.SMHOutputTopics;
 import data.models.statistics.StatisticsData;
+import data.services.local.RequestManager;
 import data.services.login.Login;
+import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.*;
 
@@ -39,7 +43,7 @@ public class TestMQTTConnection {
      * if valid data, the new account will be created.
      * The user will be automatically logged in, and the mock data created.
      */
-    private static void registerNewUserAccount() {
+    private static void registerNewUserAccount() throws MqttException {
         boolean validAccount;
         do {
             Scanner in = new Scanner(System.in);
@@ -56,7 +60,7 @@ public class TestMQTTConnection {
      * This will generate mock user, devices, statistics data.
      * For testing, any future logic should be invoked from inside.
      */
-    private static void testUsingMockData() {
+    private static void testUsingMockData() throws MqttException {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter account name: ");
         String account = in.nextLine();
@@ -79,7 +83,7 @@ public class TestMQTTConnection {
     /**
      * Here are checked different components and their mock data.
      */
-    private static void displayMockData() {
+    private static void displayMockData() throws MqttException {
 
         boolean flag = true;
         while (flag) {
@@ -103,7 +107,7 @@ public class TestMQTTConnection {
                     "\n14]   Set DOOR status to Off(Closed)" +
                     "\n15]   ARM the BURGLAR_ALARM" +
                     "\n16]   Turn OFF the indoor light" +
-                    "\n17]   Turn ONN the indoor light" +
+                    "\n17]   Turn ON the indoor light" +
                     "\nFor testing you can add multiple option programmatically.." +
                     "\n\n Any other value (integer) will close this loop."
             );
@@ -139,6 +143,7 @@ public class TestMQTTConnection {
 
     /**
      * Prints specific type statistics, based on the Device.
+     *
      * @param statisticsData for a specific device.
      */
     private static void printSortedStatistics(StatisticsData statisticsData) {
@@ -177,8 +182,19 @@ public class TestMQTTConnection {
      *                  1 = on,
      *                  2 = off.
      */
-    private static void changeState(Devices device, int stateCode) {
-        device.setDeviceCurrentState(stateCode);
+    private static void changeState(Devices device, int stateCode) throws MqttException {
+        String topicName = null;
+
+        for (SMHOutputTopics topic: SMHOutputTopics.values()){
+            if(topic.name().equals(device.name())){
+                topicName = topic.getTopicRegisteredName();
+                break;
+            }
+        }
+        MQTTConnectionHandler.mqttClient.publish(topicName,
+                new MqttMessage((stateCode == 1 ? "true" : "false").getBytes()));
+
+        // device.changeStateTo(stateCode);
         System.out.println("\u001B[34m" + device.name() + " state is: " + device.getDeviceCurrentState() + "\u001B[0m");
     }
 
@@ -196,6 +212,7 @@ public class TestMQTTConnection {
         String pass = in.nextLine();
         new Login(account, pass);
         System.out.println(USER.getName());
+        displayMockData();
 
         System.err.println("Connection closed!");
     }
