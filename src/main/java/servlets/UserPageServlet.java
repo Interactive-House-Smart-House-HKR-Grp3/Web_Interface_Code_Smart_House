@@ -13,18 +13,33 @@ import java.io.IOException;
 @WebServlet(name = "UserPageServlet", urlPatterns = "/userPage")
 public class UserPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        // TODO: Retrieve the devices and assign them as parameters to use on the user page.
-
         // Query for the devices
-        // Devices.values();
-        StringBuilder string = new StringBuilder();
+        StringBuilder devicesString = new StringBuilder();
         for (Devices device : Devices.values()){
-            // set attribute of the devices
-            string.append(device.getDeviceCurrentState().toString());
-        }
-        request.setAttribute("queryResult", string.toString());
+            // Create a format to display the device
+            devicesString.append("<div>")
+                    .append("Device: ").append(device.getName()).append("<br/>");
 
+            try {
+                devicesString.append("State: ").append(device.getDeviceCurrentState());
+            } catch (Exception e){
+                devicesString.append("State: N/A");
+            }
+
+            if (device.isChangeableState()) {
+                // The request from the button will be checked with a switch case using the value = "device.name" + "-" + "device.currentState"
+                devicesString.append("<form action=\"").append(request.getContextPath()).append("/outputRequest\" method=\"post\">")
+                        .append("<button class=\"btn_device\" name=\"btn_deviceToggle\" type=\"submit\" value=\"").append(device.getName()).append("-").append(device.getDeviceCurrentState()).append("\">")
+                        .append("Toggle State")
+                        .append("</button>")
+                        .append("</form>");
+            }
+
+            // Close this device section
+            devicesString.append("</div>");
+        }
+        // Send the device information to the user page
+        request.setAttribute("queryResult", devicesString.toString());
         request.getRequestDispatcher("/user.jsp").forward(request, response);
     }
 
@@ -32,3 +47,4 @@ public class UserPageServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/home.jsp");
     }
 }
+

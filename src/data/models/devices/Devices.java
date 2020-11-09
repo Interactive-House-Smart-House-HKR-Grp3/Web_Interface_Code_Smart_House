@@ -54,6 +54,8 @@ public enum Devices {
         this.doubleValue = 0;
     }
 
+    public String getName() { return name; }
+
     public int getIntValue() {
         return intValue;
     }

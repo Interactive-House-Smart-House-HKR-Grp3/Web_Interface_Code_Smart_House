@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
         String function = request.getParameter("btn_request");
         if (function.equalsIgnoreCase("login")) {
             // Authenticate the user then send them to their destination with the user attached
-           // if (Login.verifyLogin(request.getParameter("username"), request.getParameter("password"), 1)) {
+            // if (Login.verifyLogin(request.getParameter("username"), request.getParameter("password"), 1)) {
             if (Login.loginValidation(request.getParameter("username"), request.getParameter("password"))) {
                 // Send the user to their destination
                 request.getRequestDispatcher("/userPage").forward(request, response);
