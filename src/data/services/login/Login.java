@@ -22,7 +22,7 @@ public class Login {
      * @param password login credentials
      */
     public Login(String account, String password) throws MqttException {
-
+        // TODO: implementation with server/db, when db is set
         int flag = 0;
         while (flag < 3) { // Three possible tries to login.
             if (loginValidation(account, password)) {

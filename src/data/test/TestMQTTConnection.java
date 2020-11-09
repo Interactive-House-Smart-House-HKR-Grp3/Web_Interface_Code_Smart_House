@@ -1,13 +1,9 @@
 package data.test;
 
 import data.models.devices.Devices;
-import data.models.mqtt_topics.smart_house.SMHOutputTopics;
 import data.models.statistics.StatisticsData;
-import data.services.local.RequestManager;
 import data.services.login.Login;
-import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.*;
 
@@ -15,6 +11,10 @@ import static data.models.devices.Devices.*;
 import static data.models.user.UserAccount.USER;
 
 /**
+ * Used ONLY for testing new features that doesn't have an UI feature implemented yet.
+ * Once that the feature is implemented, it will not be able to be tested here anymore.
+ * Future testing should be done through the UI.
+ *
  * Test if the client object can connect to the broker and read/update from/to topics
  * that are currently open by the physical-house.
  */
@@ -81,7 +81,7 @@ public class TestMQTTConnection {
     }
 
     /**
-     * Here are checked different components and their mock data.
+     * Here are checked different components and their mock or live data.
      */
     private static void displayMockData() throws MqttException {
 

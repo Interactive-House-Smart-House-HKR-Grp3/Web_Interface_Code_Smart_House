@@ -1,7 +1,6 @@
 package data.models.devices;
 
 import data.models.mqtt_topics.smart_house.SMHOutputTopics;
-import data.services.local.RequestManager;
 import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -116,7 +115,9 @@ public enum Devices {
             }
         }
         MQTTConnectionHandler.mqttClient.publish(topicName,
-                new MqttMessage((changeStateTo == 1 ? "true" : "false").getBytes()));
+                new MqttMessage((changeStateTo == 1 ? "true" :
+                        changeStateTo == 2 ? "false" :
+                                String.valueOf(changeStateTo)).getBytes()));
     }
 
     /**
