@@ -1,6 +1,6 @@
 package data.models.statistics;
 
-import data.services.local.DeviceController;
+import data.services.local.RequestManager;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.Date;
@@ -96,14 +96,30 @@ public enum StatisticsData {
         this.newStatisticsArrived = newStatisticsArrived;
     }
 
+    /**
+     * This method should be used to request statistics for a particular StatisticsData
+     * device-specific object.
+     * @param periodIndex the period code:
+     *                    1 = last 24 hours,
+     *                    2 = last week,
+     *                    3 = last month (30 days).
+     * @return this specific statisticData obj, containing the new statistics. to retrieve
+     * the statistics in their correct format, you need to consider the type.
+     * @throws MqttException when the mqtt connection is not working.
+     */
     public StatisticsData requestStatistics(int periodIndex) throws MqttException {
-        this.newStatisticsArrived = false;
-        DeviceController controller = DeviceController.getInstance();
+        this.newStatisticsArrived = false; // signal for the new statistics request.
+        // It will be turned true by the listener, when the statistics are read.
+
+        RequestManager controller = RequestManager.getInstance();
         return controller.requestStatistics(this, periodIndex);
     }
 
     public enum Type {
-        EVENT_BASED,
-        AVERAGE_DATA
+        EVENT_BASED, // when an event is happening, will be publish by the smart house, on its particular topic.
+        // This will be read by the server and a new record created in the database, specifying the device, the
+        // 'current date(time), and the value (mostly state).
+
+        AVERAGE_DATA // Every new hour, the server should store only the average value of that previous hour
     }
 }

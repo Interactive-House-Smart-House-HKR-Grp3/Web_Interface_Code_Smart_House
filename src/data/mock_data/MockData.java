@@ -59,9 +59,9 @@ public class MockData {
             // 1 or 2 states
             for (StatisticsData statisticsData :
                     List.of(StatisticsData.WATER_LEAKAGE, StatisticsData.WINDOW, StatisticsData.STOVE,
-                    StatisticsData.DOOR, StatisticsData.FAN, StatisticsData.ELECTRICITY_CONSUMPTION, StatisticsData.INDOOR_HEATING,
-                    StatisticsData.LOFT_HEATING, StatisticsData.TWILIGHT, StatisticsData.POWER_CUT, StatisticsData.INDOOR_LIGHT,
-                    StatisticsData.OUTDOOR_LIGHT, StatisticsData.AUTO_MODE)) {
+                            StatisticsData.DOOR, StatisticsData.FAN, StatisticsData.ELECTRICITY_CONSUMPTION, StatisticsData.INDOOR_HEATING,
+                            StatisticsData.LOFT_HEATING, StatisticsData.TWILIGHT, StatisticsData.POWER_CUT, StatisticsData.INDOOR_LIGHT,
+                            StatisticsData.OUTDOOR_LIGHT, StatisticsData.AUTO_MODE)) {
                 statisticsData.setEventBasedStatistics(mockEventBasedStatistics(statisticsPeriod, 3));
             }
 

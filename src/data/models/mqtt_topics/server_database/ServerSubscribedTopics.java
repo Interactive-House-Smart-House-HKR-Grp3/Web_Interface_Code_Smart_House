@@ -35,7 +35,7 @@ package data.models.mqtt_topics.server_database;
  */
 public enum ServerSubscribedTopics {
 
-    /*1*/  FIRE_ALARM("fire_alarm"), //
+    /*1*/  FIRE_ALARM("fire_alarm"),
     /*2*/  BURGLAR_ALARM("burglar_alarm"),
     /*3*/  WATER_LEAKAGE("water_leakage"),
     /*4*/  INDOOR_TEMPERATURE("indoor_temperature"),

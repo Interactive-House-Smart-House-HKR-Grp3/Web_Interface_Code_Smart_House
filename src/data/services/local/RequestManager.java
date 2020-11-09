@@ -9,18 +9,31 @@ import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-public class DeviceController implements DataLogic {
+/**
+ * Used to publish state or statistics requests on the corresponding mqtt topics.
+ * For this, is using a MQTTConnectionHandler instance.
+ */
+public class RequestManager implements DataLogic {
 
     private final MQTTConnectionHandler conn = MQTTConnectionHandler.getInstance();
-    private static DeviceController deviceController;
+    private static RequestManager requestManager;
 
-    public static DeviceController getInstance() throws MqttException {
-        return (deviceController == null ? new DeviceController() : deviceController);
+    public static RequestManager getInstance() throws MqttException {
+        return (requestManager == null ? new RequestManager() : requestManager);
     }
 
-    public DeviceController() throws MqttException {
+    public RequestManager() throws MqttException {
     }
 
+    /**
+     * Publishes a message containing the new user required state for a particular
+     * device, on it's corresponding 'cmd' topic.
+     * @param device to change the state of
+     * @param nextState a state code:
+     *                  1 = "true"
+     *                  2 = "false"
+     * @throws MqttException when mqtt connection errors.
+     */
     @Override
     public void changeStateTo(Devices device, int nextState) throws MqttException {
         switch (device) {
@@ -39,6 +52,15 @@ public class DeviceController implements DataLogic {
         }
     }
 
+    /**
+     * The AUTO-MODE feature can take two different types of requests:
+     * change state or set a temp mark value.
+     *
+     * @param nextState can contain:
+     *                  change state (1 or 2)
+     *                  set a temperature mark (5 to 25, Celsius)
+     * @throws MqttException when mqtt connection error.
+     */
     private void handleAMRequest (int nextState) throws MqttException {
         if(nextState > 2){ // then is about the Celsius value the AM to be set at;
             conn.getClient().publish(SMHOutputTopics.AUTO_MODE_TEMPERATURE_MARK.getTopicRegisteredName(),
@@ -49,6 +71,15 @@ public class DeviceController implements DataLogic {
         }
     }
 
+    /**
+     * A FAN device can request two different types of requests:
+     * change the state, or set a speed.
+     *
+     * @param nextState can contain:
+     *                  change state (1 or 2)
+     *                  set a speed (3 to 7, representing 5 speeds)
+     * @throws MqttException
+     */
     private void handleFanRequest (int nextState) throws MqttException {
         if(nextState > 2){ // then is about the speed ( 3 = speed 1; 4 = speed2; ... 7 = speed 5);
             conn.getClient().publish(SMHOutputTopics.FAN_SPEED.getTopicRegisteredName(),
@@ -59,14 +90,34 @@ public class DeviceController implements DataLogic {
         }
     }
 
+    /**
+     * Requires device specific statistics on  the corresponding topic,
+     * waits for the new statistics to be read/set,
+     * and returns the statistics with the data set.
+     * @param statisticsData requested.
+     * @param periodCode reflects the period:
+     *                   1 = last 24 hours,
+     *                   2 = last week,
+     *                   3 = last month.
+     * @return statisticsData that has been updated with the last statistics.
+     * @throws MqttException when mqtt errors.
+     */
     @Override
     public StatisticsData requestStatistics(StatisticsData statisticsData, int periodCode) throws MqttException {
-        String topic = getServerPublishingTopic(statisticsData);
-        conn.getClient().publish(topic, new MqttMessage(String.valueOf(periodCode).getBytes()));
+        String topic = getServerPublishingTopic(statisticsData); // get the corresponding topic
+        conn.getClient().publish(topic, new MqttMessage(String.valueOf(periodCode).getBytes())); // publish the request
+        // waits until the listener corresponding case
+        // sets the newStatisticsArrived to true
         while(!statisticsData.isNewStatisticsArrived()){}
+
         return statisticsData;
     }
 
+    /**
+     * Checks the match between the statistics and the corresponding topic.
+     * @param statisticsData required.
+     * @return the corresponding topic String value.
+     */
     private String getServerPublishingTopic(StatisticsData statisticsData){
         String topic = "";
         for (ServerRequestsTopics topics: ServerRequestsTopics.values()){
@@ -74,7 +125,7 @@ public class DeviceController implements DataLogic {
                 topic = topics.getTopicRegisteredName();
             }
         }
-        // In case the for loop is not working
+        // In case the loop is not working
     /*    switch (statisticsData){
             case FIRE_ALARM -> topic = ServerRequestsTopics.FIRE_ALARM.getTopicRegisteredName();
             case BURGLAR_ALARM-> topic = ServerRequestsTopics.BURGLAR_ALARM.getTopicRegisteredName();

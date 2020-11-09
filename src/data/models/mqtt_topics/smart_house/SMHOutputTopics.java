@@ -2,8 +2,7 @@ package data.models.mqtt_topics.smart_house;
 
 /**
  * These topics will be used to make
- * requests to the smart house
- * The values will be published as strings.
+ * requests to the smart house.
  */
 public enum SMHOutputTopics {
     // Send here true/false as a string to turn on/off the indoor light
