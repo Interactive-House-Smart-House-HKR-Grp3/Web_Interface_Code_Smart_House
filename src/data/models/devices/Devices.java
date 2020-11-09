@@ -52,7 +52,7 @@ public enum Devices {
         this.changeableState = changeableState;
         this.statisticsProvider = statisticsProvider;
         this.statisticsFormat = statisticsFormat;
-        this.deviceCurrentState = null;
+        this.deviceCurrentState = State.NOT_IMPLEMENTED;
         this.intValue = 0;
         this.doubleValue = 0;
     }
@@ -153,7 +153,8 @@ public enum Devices {
         ARMED,
         TRIGGERED,
         OPEN,
-        CLOSED
+        CLOSED,
+        NOT_IMPLEMENTED
     }
 
     /**
