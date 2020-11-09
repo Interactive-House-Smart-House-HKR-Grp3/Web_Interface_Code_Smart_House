@@ -16,7 +16,8 @@ public class LoginServlet extends HttpServlet {
         String function = request.getParameter("btn_request");
         if (function.equalsIgnoreCase("login")) {
             // Authenticate the user then send them to their destination with the user attached
-            if (Login.verifyLogin(request.getParameter("username"), request.getParameter("password"), 1)) {
+           // if (Login.verifyLogin(request.getParameter("username"), request.getParameter("password"), 1)) {
+            if (Login.loginValidation(request.getParameter("username"), request.getParameter("password"))) {
                 // Send the user to their destination
                 request.getRequestDispatcher("/userPage").forward(request, response);
             } else {
@@ -25,7 +26,8 @@ public class LoginServlet extends HttpServlet {
             }
         } else {
             if (request.getParameter("username").length() > 0 && request.getParameter("password").length() > 0 && request.getParameter("name").length() > 0 && request.getParameter("email").length() > 0) {
-                if (Login.registerNewAccount(request.getParameter("username"), request.getParameter("password"), request.getParameter("name"), request.getParameter("email"), 1)){
+                //if (Login.registerNewAccount(request.getParameter("username"), request.getParameter("password"), request.getParameter("name"), request.getParameter("email"), 1)){
+                if (Login.registerNewAccount(request.getParameter("username"), request.getParameter("password"), request.getParameter("name"), request.getParameter("email"))){
                     // Send the new user to their destination
                     request.getRequestDispatcher("/userPage").forward(request, response);
                 } else {

@@ -45,7 +45,7 @@ public class TestMQTTConnection {
             Scanner in = new Scanner(System.in);
             System.out.println("Enter an account name: ");
             String account = in.nextLine();
-            validAccount = Login.registerNewAccount(account, null, null);
+            validAccount = Login.registerNewAccount(account, null, null, null);
             System.out.println(!validAccount ? "Please try another account name." : "Valid registration!");
         } while (!validAccount);
         displayMockData();
