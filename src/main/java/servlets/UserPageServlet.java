@@ -17,7 +17,7 @@ public class UserPageServlet extends HttpServlet {
         StringBuilder devicesString = new StringBuilder();
         for (Devices device : Devices.values()){
             // Create a format to display the device
-            devicesString.append("<div class=\"device-container\">")
+            devicesString.append("<div class=\"device-container-").append(69420).append("\">")
                     .append("Device: ").append(device.getName()).append("<br/>");
 
             try {
