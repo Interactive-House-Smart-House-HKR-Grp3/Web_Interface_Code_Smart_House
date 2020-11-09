@@ -11,16 +11,24 @@ import java.util.Map;
 
 import static data.models.statistics.StatisticsData.*;
 
+/**
+ * This is a listener set for each subscription to a topic on which
+ * the server is publishing and the web is listening.
+ *
+ * When a new MqttMessage is published on those topic, the listener
+ * will take the corresponding actions.
+ */
 public class MQTTServerListener implements IMqttMessageListener {
 
+    /**
+     * Every new message published will come with two attributes: the topic and the message.
+     * @param topic on which the new message was published
+     * @param mqttMessage published
+     */
     @Override
     public void messageArrived(String topic, MqttMessage mqttMessage) {
 
         switch (topic) {
-            // var1 represents the topic
-            // var2 represents the message
-            // based on the topic and value, take the required action
-
             /*1*/
             case "web/statistics/fire_alarm" -> updateDeviceStatistics(FIRE_ALARM, mqttMessage);
             /*2*/
@@ -61,6 +69,11 @@ public class MQTTServerListener implements IMqttMessageListener {
         System.out.println("\u001b[33m************************************************\u001b[0m");
     }
 
+    /**
+     * Is splitting the possibilities in two: event_based, or average hourly data.
+     * @param device specific statistics
+     * @param statisticsData received from server
+     */
     private void updateDeviceStatistics(StatisticsData device, MqttMessage statisticsData) {
         switch (device.getType()) {
             case EVENT_BASED -> updateEventBasedStatistics(device, statisticsData);
@@ -69,6 +82,13 @@ public class MQTTServerListener implements IMqttMessageListener {
         device.setNewStatisticsArrived(true);
     }
 
+    /**
+     * Handles the event based statistics by setting the receiver statistics on the corresponding
+     * attribute.
+     *
+     * @param device the statistics type.
+     * @param statisticsData received from the server
+     */
     private void updateEventBasedStatistics(StatisticsData device, MqttMessage statisticsData) {
         Gson gson = new Gson();
         Map<Date, Integer> statistics = gson.fromJson(String.valueOf(statisticsData), Map.class);
@@ -79,6 +99,13 @@ public class MQTTServerListener implements IMqttMessageListener {
         }
     }
 
+    /**
+     * Handles the avg data based statistics by setting the receiver statistics on the corresponding
+     * attribute.
+     *
+     * @param device the statistics type
+     * @param statisticsData receiver from the server
+     */
     private void updateAverageDataBasedStatistics(StatisticsData device, MqttMessage statisticsData) {
         Gson gson = new Gson();
         if (List.of(INDOOR_TEMPERATURE, OUTDOOR_TEMPERATURE).contains(device)) { // 'double' values

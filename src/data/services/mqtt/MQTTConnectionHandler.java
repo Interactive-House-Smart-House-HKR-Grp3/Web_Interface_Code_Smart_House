@@ -7,9 +7,12 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+/**
+ * Instantiate a valid mqtt client that is invoked to publish to, or read from, the mqtt topics.
+ */
 public class MQTTConnectionHandler {
 
-    private static MQTTConnectionHandler connectionHandler;
+    private static MQTTConnectionHandler connectionHandler; // used for handling requests
 
     private MqttClient client;
 
@@ -21,11 +24,17 @@ public class MQTTConnectionHandler {
     }
 
     public MQTTConnectionHandler() throws MqttException {
-        connectMqtt();
+        connectMqtt(); // create connection
 
-        subscribeToSHTopics();
-        subscribeToServerTopics();
-/*
+        subscribeToSHTopics(); // subscribe to the smart house topics
+        subscribeToServerTopics(); // subscribe to the server topics
+
+/*  TODO: Testing area !
+
+        client.publish("bulb1", "test message", qos=0, retain=True); // when a client subscribes to this topic,
+        it will receive the last value published, automatically.
+
+
         // Testing read / publish  ...
         //changeStatesToClose();
         while (client.isConnected()) {
@@ -76,8 +85,10 @@ public class MQTTConnectionHandler {
         }*/
     }
 
+    /**
+     * Instantiate a valid client
+     */
     public void connectMqtt() {
-
         try {
             final String CLIENT_ID = "Web_Interface";
             final String broker = "tcp://smart-mqtthive.duckdns.org:1883";
@@ -93,6 +104,11 @@ public class MQTTConnectionHandler {
         }
     }
 
+    /**
+     * Subscribes the mqtt client to all the 'gui' topics on which the smart house
+     * publishes, and the web listen.
+     * @throws MqttException when mqtt error
+     */
     private void subscribeToSHTopics() throws MqttException {
         for (SMHSubscribedTopics topic : SMHSubscribedTopics.values()) {
             client.subscribe(topic.getTopicRegisteredName(), new MQTTSHListener());
@@ -100,6 +116,11 @@ public class MQTTConnectionHandler {
         }
     }
 
+    /**
+     * Subscribes the mqtt client to all the 'statistics' topics on which the server
+     * publishes and the web listen.
+     * @throws MqttException when mqtt error
+     */
     private void subscribeToServerTopics() throws MqttException {
         for (ServerSubscribedTopics topic : ServerSubscribedTopics.values()) {
             client.subscribe(topic.getTopicRegisteredName(), new MQTTServerListener());
@@ -107,6 +128,10 @@ public class MQTTConnectionHandler {
         }
     }
 
+    /**
+     * Used only for incipient tests.
+     * @throws MqttException when mqtt error
+     */
     private void changeStatesToClose() throws MqttException {
         for (SMHSubscribedTopics topic : SMHSubscribedTopics.values()) {
             publish(topic.getTopicRegisteredName(), "false");
@@ -114,12 +139,22 @@ public class MQTTConnectionHandler {
         }
     }
 
+    /**
+     * Takes a topic and a message string and publish it.
+     * @param topic to publish to.
+     * @param message to be wrapped in an mqtt message and published.
+     * @throws MqttException when mqtt error.
+     */
     public void publish(String topic, String message) throws MqttException {
         if (client.isConnected()) {
             client.publish(topic, new MqttMessage(message.getBytes()));
         }
     }
 
+    /**
+     * Used by the static instance to manage user requests implying mqtt trafficked data.
+     * @return a valid Mqtt client object.
+     */
     public MqttClient getClient() {
         return client;
     }

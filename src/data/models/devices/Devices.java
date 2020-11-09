@@ -1,6 +1,6 @@
 package data.models.devices;
 
-import data.services.local.DeviceController;
+import data.services.local.RequestManager;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.List;
@@ -17,20 +17,20 @@ public enum Devices {
     /*1*/  FIRE_ALARM("FIRE_ALARM", false, true, StatisticsFormat.EVENT),
     /*2*/  BURGLAR_ALARM("BURGLAR_ALARM", true, true, StatisticsFormat.EVENT),
     /*3*/  WATER_LEAKAGE("WATER_LEAKAGE", false, true, StatisticsFormat.EVENT),
-    /*4*/  INDOOR_TEMPERATURE("INDOOR_TEMPERATURE", false, true, StatisticsFormat.HOURLY_AVERAGE/*?*/),
-    /*5*/  OUTDOOR_TEMPERATURE("OUTDOOR_TEMPERATURE", false, true, StatisticsFormat.HOURLY_AVERAGE/*?*/),
-    /*6*/  WINDOW("WINDOW", false, true, StatisticsFormat.EVENT/*?*/),
-    /*7*/  DOOR("DOOR", false, true, StatisticsFormat.EVENT/*? or an daily average ? ... */),
-    /*8*/  ELECTRICITY_CONSUMPTION("ELECTRICITY_CONSUMPTION", false, true, StatisticsFormat.HOURLY_AVERAGE/*?*/),
+    /*4*/  INDOOR_TEMPERATURE("INDOOR_TEMPERATURE", false, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*5*/  OUTDOOR_TEMPERATURE("OUTDOOR_TEMPERATURE", false, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*6*/  WINDOW("WINDOW", false, true, StatisticsFormat.EVENT),
+    /*7*/  DOOR("DOOR", false, true, StatisticsFormat.EVENT),
+    /*8*/  ELECTRICITY_CONSUMPTION("ELECTRICITY_CONSUMPTION", false, true, StatisticsFormat.HOURLY_AVERAGE),
     /*9*/  TWILIGHT("TWILIGHT", false, true, StatisticsFormat.EVENT),
     /*10*/ POWER_CUT("POWER_CUT", false, true, StatisticsFormat.EVENT),
-    /*11*/ INDOOR_LIGHT("INDOOR_LIGHT", true, true, StatisticsFormat.HOURLY_AVERAGE/*?*/),
-    /*12*/ OUTDOOR_LIGHT("OUTDOOR_LIGHT", true, true, StatisticsFormat.HOURLY_AVERAGE/*?*/),
-    /*13*/ STOVE("STOVE", false, true, StatisticsFormat.EVENT/*?*/),
-    /*14*/ FAN("FAN", true, true, StatisticsFormat.EVENT/*?*/),
-    /*16*/ HEATING_INDOOR("HEATING_INDOOR", true, true, StatisticsFormat.EVENT/*?*/),
-    /*17*/ HEATING_LOFT("HEATING_LOFT", true, true, StatisticsFormat.EVENT/*?*/),
-    /*18*/ AUTO_MODE("AUTO_MODE", true, true, StatisticsFormat.EVENT/*?*/)
+    /*11*/ INDOOR_LIGHT("INDOOR_LIGHT", true, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*12*/ OUTDOOR_LIGHT("OUTDOOR_LIGHT", true, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*13*/ STOVE("STOVE", false, true, StatisticsFormat.EVENT),
+    /*14*/ FAN("FAN", true, true, StatisticsFormat.EVENT),
+    /*16*/ HEATING_INDOOR("HEATING_INDOOR", true, true, StatisticsFormat.EVENT),
+    /*17*/ HEATING_LOFT("HEATING_LOFT", true, true, StatisticsFormat.EVENT),
+    /*18*/ AUTO_MODE("AUTO_MODE", true, true, StatisticsFormat.EVENT)
     ;
 
     // Final attributes, reflecting the Communication Protocol agreements
@@ -82,11 +82,26 @@ public enum Devices {
         return deviceCurrentState;
     }
 
+    /**
+     * Used to publish a new state request for a particular device.
+     * This method should be called through a device object that needs
+     * to change its state.
+     *
+     * @param changeStateTo a state code representing the new desired state:
+     *                      1 = ON, OPEN,
+     *                      2 = OFF, CLOSED,
+     *                      3 = TRIGGERED.
+     * @throws MqttException when the mqtt connection is not functioning properly.
+     */
     public void changeStateTo(int changeStateTo) throws MqttException {
-        DeviceController controller = DeviceController.getInstance();
+        RequestManager controller = RequestManager.getInstance();
         controller.changeStateTo(this, changeStateTo);
     }
 
+    /**
+     * Used internally to convert the state code to a corresponding State value.
+     * @param changeStateTo the new state code.
+     */
     public void setDeviceCurrentState(int changeStateTo){
         this.deviceCurrentState = changeStateTo == 1 ?
                 (List.of(DOOR, WINDOW).contains( this) ? State.OPEN :

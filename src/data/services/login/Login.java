@@ -2,7 +2,6 @@ package data.services.login;
 
 import data.mock_data.MockData;
 import data.mock_data.MockUserAccount;
-import data.services.local.DeviceController;
 import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -25,7 +24,7 @@ public class Login {
     public Login(String account, String password) throws MqttException {
 
         int flag = 0;
-        while (flag < 3) {// Three possible tries to login.
+        while (flag < 3) { // Three possible tries to login.
             if (loginValidation(account, password)) {
                 MQTTConnectionHandler connectionHandler = MQTTConnectionHandler.getInstance();
                 break;
