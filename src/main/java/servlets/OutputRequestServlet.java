@@ -30,6 +30,8 @@ public class OutputRequestServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            default:
+                System.out.print("Device state not found!");
         }
 
         // Send the user back to the user page to view the devices
