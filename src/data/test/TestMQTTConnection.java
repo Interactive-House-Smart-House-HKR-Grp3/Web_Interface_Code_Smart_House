@@ -183,18 +183,7 @@ public class TestMQTTConnection {
      *                  2 = off.
      */
     private static void changeState(Devices device, int stateCode) throws MqttException {
-        String topicName = null;
-
-        for (SMHOutputTopics topic: SMHOutputTopics.values()){
-            if(topic.name().equals(device.name())){
-                topicName = topic.getTopicRegisteredName();
-                break;
-            }
-        }
-        MQTTConnectionHandler.mqttClient.publish(topicName,
-                new MqttMessage((stateCode == 1 ? "true" : "false").getBytes()));
-
-        // device.changeStateTo(stateCode);
+        device.changeStateTo(stateCode);
         System.out.println("\u001B[34m" + device.name() + " state is: " + device.getDeviceCurrentState() + "\u001B[0m");
     }
 

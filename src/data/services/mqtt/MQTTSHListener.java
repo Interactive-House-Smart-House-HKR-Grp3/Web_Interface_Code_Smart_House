@@ -79,6 +79,7 @@ public class MQTTSHListener implements IMqttMessageListener {
         device.setDeviceCurrentState(isON ? 1 : 2);
         System.out.println("For: " + device.name() + ", new state is -> " + device.getDeviceCurrentState());
         System.out.println("Device check:\n" + device.toString());
+        device.setNewStateRead(true);
     }
 
 }

@@ -1,7 +1,10 @@
 package data.models.devices;
 
+import data.models.mqtt_topics.smart_house.SMHOutputTopics;
 import data.services.local.RequestManager;
+import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.List;
 
@@ -43,6 +46,7 @@ public enum Devices {
     private State deviceCurrentState;
     private int intValue;
     private double doubleValue;
+    private boolean newStateRead;
 
     Devices(String name, boolean changeableState, boolean statisticsProvider, StatisticsFormat statisticsFormat) {
         this.name = name;
@@ -52,6 +56,14 @@ public enum Devices {
         this.deviceCurrentState = null;
         this.intValue = 0;
         this.doubleValue = 0;
+    }
+
+    public boolean isNewStateRead() {
+        return newStateRead;
+    }
+
+    public void setNewStateRead(boolean newStateRead) {
+        this.newStateRead = newStateRead;
     }
 
     public String getName() { return name; }
@@ -96,8 +108,14 @@ public enum Devices {
      * @throws MqttException when the mqtt connection is not functioning properly.
      */
     public void changeStateTo(int changeStateTo) throws MqttException {
-        RequestManager controller = RequestManager.getInstance();
-        controller.changeStateTo(this, changeStateTo);
+        this.setNewStateRead(false);
+        for (SMHOutputTopics topic: SMHOutputTopics.values()){
+            if (this.name().equals(topic.name())){
+                MQTTConnectionHandler.mqttClient.publish(topic.getTopicRegisteredName(),
+                        new MqttMessage((changeStateTo == 1 ? "true" : "false").getBytes()));
+            }
+        }
+
     }
 
     /**
