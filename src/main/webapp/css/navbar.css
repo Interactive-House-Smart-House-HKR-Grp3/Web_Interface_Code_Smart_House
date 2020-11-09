@@ -119,7 +119,7 @@ ul {
   color: var(--text-grey);
 }
 
-/* ------- Resize Viewport depending on device screen -------*/
+/* ------- Rezise Viewport depending on device screen -------*/
 
 /*      Called If Viewport > 883        */
 @media only screen and (max-width: 883px) {
