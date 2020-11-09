@@ -1,4 +1,4 @@
-package data.test;
+package data.mock.test;
 
 import data.models.devices.Devices;
 import data.models.statistics.StatisticsData;

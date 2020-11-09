@@ -1,6 +1,5 @@
 package main.java.servlets;
 
-import data.mock_data.MockData;
 import data.models.devices.Devices;
 
 import javax.servlet.ServletException;

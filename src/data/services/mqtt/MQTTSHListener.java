@@ -1,7 +1,6 @@
 package data.services.mqtt;
 
 import data.models.devices.Devices;
-import data.test.TestMQTTConnection;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
