@@ -24,10 +24,10 @@ public class UserPageServlet extends HttpServlet {
             // Create a format to display the device
             devicesString.append("<div class=\"device-item device-item-").append(deviceNumber).append("\">")
                     .append("<h3 class=\"device-title\">")
-                    .append(device.getName());
+                    .append(device.name());
 
             // Makes sure that the layouts are unique for each device that needs to be
-            switch (device.getName()) {
+            switch (device.name()) {
 
                 // TODO create different layouts for each device
 
@@ -58,12 +58,11 @@ public class UserPageServlet extends HttpServlet {
                     if (device.isChangeableState()) {
                         // The request from the button will be checked with a switch case using the value = "device.name" + "-" + "device.currentState"
                         devicesString.append("<form action=\"").append(request.getContextPath()).append("/outputRequest\" method=\"post\">")
-                                .append("<button class=\"btn btn-device-toggle\" name=\"btn_deviceToggle\" type=\"submit\" value=\"").append(device.getName()).append("-").append(device.getDeviceCurrentState()).append("\">")
+                                .append("<button class=\"btn btn-device-toggle\" name=\"btn_deviceToggle\" type=\"submit\" value=\"").append(device.name()).append("-").append(device.getDeviceCurrentState()).append("\">")
                                 .append("Toggle State")
                                 .append("</button>")
                                 .append("</form>");
                     }
-
                     break;
                 }
             }

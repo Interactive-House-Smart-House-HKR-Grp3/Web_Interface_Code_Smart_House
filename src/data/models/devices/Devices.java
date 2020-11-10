@@ -16,27 +16,26 @@ import java.util.List;
  * there are not, and can be set or changed according to the context.
  */
 public enum Devices {
-    /*1*/  FIRE_ALARM("FIRE_ALARM", false, true, StatisticsFormat.EVENT),
-    /*2*/  BURGLAR_ALARM("BURGLAR_ALARM", true, true, StatisticsFormat.EVENT),
-    /*3*/  WATER_LEAKAGE("WATER_LEAKAGE", false, true, StatisticsFormat.EVENT),
-    /*4*/  INDOOR_TEMPERATURE("INDOOR_TEMPERATURE", false, true, StatisticsFormat.HOURLY_AVERAGE),
-    /*5*/  OUTDOOR_TEMPERATURE("OUTDOOR_TEMPERATURE", false, true, StatisticsFormat.HOURLY_AVERAGE),
-    /*6*/  WINDOW("WINDOW", false, true, StatisticsFormat.EVENT),
-    /*7*/  DOOR("DOOR", false, true, StatisticsFormat.EVENT),
-    /*8*/  ELECTRICITY_CONSUMPTION("ELECTRICITY_CONSUMPTION", false, true, StatisticsFormat.HOURLY_AVERAGE),
-    /*9*/  TWILIGHT("TWILIGHT", false, true, StatisticsFormat.EVENT),
-    /*10*/ POWER_CUT("POWER_CUT", false, true, StatisticsFormat.EVENT),
-    /*11*/ INDOOR_LIGHT("INDOOR_LIGHT", true, true, StatisticsFormat.HOURLY_AVERAGE),
-    /*12*/ OUTDOOR_LIGHT("OUTDOOR_LIGHT", true, true, StatisticsFormat.HOURLY_AVERAGE),
-    /*13*/ STOVE("STOVE", false, true, StatisticsFormat.EVENT),
-    /*14*/ FAN("FAN", true, true, StatisticsFormat.EVENT),
-    /*16*/ HEATING_INDOOR("HEATING_INDOOR", true, true, StatisticsFormat.EVENT),
-    /*17*/ HEATING_LOFT("HEATING_LOFT", true, true, StatisticsFormat.EVENT),
-    /*18*/ AUTO_MODE("AUTO_MODE", true, true, StatisticsFormat.EVENT)
+    /*1*/  FIRE_ALARM(false, true, StatisticsFormat.EVENT),
+    /*2*/  BURGLAR_ALARM(true, true, StatisticsFormat.EVENT),
+    /*3*/  WATER_LEAKAGE(false, true, StatisticsFormat.EVENT),
+    /*4*/  INDOOR_TEMPERATURE(false, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*5*/  OUTDOOR_TEMPERATURE(false, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*6*/  WINDOW(false, true, StatisticsFormat.EVENT),
+    /*7*/  DOOR(false, true, StatisticsFormat.EVENT),
+    /*8*/  ELECTRICITY_CONSUMPTION(false, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*9*/  TWILIGHT(false, true, StatisticsFormat.EVENT),
+    /*10*/ POWER_CUT(false, true, StatisticsFormat.EVENT),
+    /*11*/ INDOOR_LIGHT(true, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*12*/ OUTDOOR_LIGHT(true, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*13*/ STOVE(false, true, StatisticsFormat.EVENT),
+    /*14*/ FAN(true, true, StatisticsFormat.EVENT),
+    /*16*/ HEATING_INDOOR(true, true, StatisticsFormat.EVENT),
+    /*17*/ HEATING_LOFT(true, true, StatisticsFormat.EVENT),
+    /*18*/ AUTO_MODE(true, true, StatisticsFormat.EVENT)
     ;
 
     // Final attributes, reflecting the Communication Protocol agreements
-    private final String name;
     private final boolean changeableState;
     private final boolean statisticsProvider;
     private final StatisticsFormat statisticsFormat;
@@ -47,8 +46,7 @@ public enum Devices {
     private double doubleValue;
     private boolean newStateRead;
 
-    Devices(String name, boolean changeableState, boolean statisticsProvider, StatisticsFormat statisticsFormat) {
-        this.name = name;
+    Devices(boolean changeableState, boolean statisticsProvider, StatisticsFormat statisticsFormat) {
         this.changeableState = changeableState;
         this.statisticsProvider = statisticsProvider;
         this.statisticsFormat = statisticsFormat;
@@ -64,8 +62,6 @@ public enum Devices {
     public void setNewStateRead(boolean newStateRead) {
         this.newStateRead = newStateRead;
     }
-
-    public String getName() { return name; }
 
     public int getIntValue() {
         return intValue;
@@ -137,7 +133,7 @@ public enum Devices {
 
     @Override
     public String toString() {
-        return this.name + ":" +
+        return this.name() + ":" +
                 "\n    deviceCurrentState = " + deviceCurrentState +
                 (intValue != 0 ? ("\n    intValue = " + intValue) : "") +
                 (doubleValue != 0 ? ("\n    doubleValue = " + doubleValue) : "") +
