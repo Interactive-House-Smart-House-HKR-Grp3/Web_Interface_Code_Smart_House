@@ -14,19 +14,29 @@ import java.util.concurrent.TimeUnit;
 @WebServlet(name = "OutputRequestServlet", urlPatterns = "/outputRequest")
 public class OutputRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: send a MQTT query to the server with the device requesting
+        // Get the device and its current state to get the appropriate request
         String requestedDevice = request.getParameter("btn_deviceToggle");
+        String currentState = "null";
+        try {
+            String[] requestSplit = request.getParameter("btn_deviceToggle").split("-");
+            requestedDevice = requestSplit[0];
+            currentState = requestSplit[1];
+        } catch (Exception e){
+            System.out.print("Split failed!");
+
+        }
+
+        // Using the split string, send the request
         switch (requestedDevice) {
-            case "INDOOR_LIGHT-ON":
+            case "INDOOR_LIGHT":
                 try {
-                    Devices.INDOOR_LIGHT.changeStateTo(2);
-                } catch (MqttException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "INDOOR_LIGHT-OFF":
-                try {
-                    Devices.INDOOR_LIGHT.changeStateTo(1);
+                    if (currentState.equalsIgnoreCase("ON")) {
+                        Devices.INDOOR_LIGHT.changeStateTo(2);
+                    } else if (currentState.equalsIgnoreCase("OFF")) {
+                        Devices.INDOOR_LIGHT.changeStateTo(1);
+                    } else {
+                        Devices.INDOOR_LIGHT.changeStateTo(1);
+                    }
                 } catch (MqttException e) {
                     e.printStackTrace();
                 }
@@ -37,7 +47,7 @@ public class OutputRequestServlet extends HttpServlet {
 
         // TODO: Temp fix, should have listener later maybe?
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.MILLISECONDS.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

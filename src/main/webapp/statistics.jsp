@@ -11,6 +11,10 @@
     <title>Statistics</title>
 </head>
 <body>
+    <br/>
+    <h1>This is a placeholder for the statistics page for the devices</h1>
+    <br/>
+    <br/>
     <form action="${pageContext.request.contextPath}/button" method="post">
         <button name="button" type="submit" value="userPage">Back</button>
     </form>

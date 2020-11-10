@@ -35,12 +35,12 @@ public class UserPageServlet extends HttpServlet {
                 // A device not found will take this layout
                 default: {
 
-                    if (device.isChangeableState()) {
+                    if (device.isStatisticsProvider()) {
                         // The statistics button
                         // *** MUST BE INSIDE THE H3 TAG ***
-                        // TODO send the device to the statistics page somehow
-                        devicesString.append("<form class=\"form-btn\" action=\"${pageContext.request.contextPath}/button\" method=\"post\">\n" +
-                                "<button class=\"btn btn-statistics\" name=\"btn_device_statistics\" type=\"submit\" value=\"statistics\">\n" +
+                        // TODO resolve sending the user to a statistics page specific to this device
+                        devicesString.append("<form class=\"form-btn\" action=\"").append(request.getContextPath()).append("/button\" method=\"post\">\n" +
+                                "<button class=\"btn btn-statistics\" name=\"button\" type=\"submit\" value=\"statistics\">\n" +
                                 "<i class=\"fas fa-chart-pie\"></i>\n" +
                                 "</button>\n" +
                                 "</form>");
