@@ -29,9 +29,10 @@
 </head>
 
 <!-- Java variables -->
-    <%
-        String query = (String) request.getAttribute("queryResult");
-    %>
+<%
+    // TODO: Activate a listener to devices
+    String query = (String) request.getAttribute("queryResult");
+%>
 
 <header>
     <!-- ------------- NAVIGATION ------------- -->
