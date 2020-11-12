@@ -1,4 +1,4 @@
-package main.java.servlets;
+package main.java.servlets.pages;
 
 import data.models.devices.Devices;
 
@@ -9,16 +9,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "UserPageServlet", urlPatterns = "/userPage")
+@WebServlet(name = "UserPageServlet", urlPatterns = "/dashboard")
 public class UserPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // TODO: change to a response and redirect the user, the userPage formatter will handle filling in the data
+        // TODO: Have a listener on the UserPage to update the data
+
+        request.setAttribute("queryResult", populatePage(request));
+        request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/home.jsp");
+    }
+
+    // TODO: Move this to the userPageFormatter to be used without redirecting the user.
+    public String populatePage(HttpServletRequest request){
         // Query for the devices
         StringBuilder devicesString = new StringBuilder();
 
         int deviceNumber = 0;
         for (Devices device : Devices.values()) {
-
             deviceNumber++;
 
             // Create a format to display the device
@@ -28,9 +40,7 @@ public class UserPageServlet extends HttpServlet {
 
             // Makes sure that the layouts are unique for each device that needs to be
             switch (device.name()) {
-
                 // TODO create different layouts for each device
-
 
                 // A device not found will take this layout
                 default: {
@@ -71,12 +81,7 @@ public class UserPageServlet extends HttpServlet {
             devicesString.append("</div>");
         }
         // Send the device information to the user page
-        request.setAttribute("queryResult", devicesString.toString());
-        request.getRequestDispatcher("/user.jsp").forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/home.jsp");
+        return devicesString.toString();
     }
 }
 

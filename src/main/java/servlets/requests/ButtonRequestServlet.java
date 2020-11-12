@@ -1,4 +1,4 @@
-package main.java.servlets;
+package main.java.servlets.requests;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +15,9 @@ public class ButtonRequestServlet extends HttpServlet {
         if (button.equalsIgnoreCase("statistics")){
             // Send the user to their destination
             request.getRequestDispatcher("/statisticsPage").forward(request, response);
-        } else if (button.equalsIgnoreCase("userPage")){
+        } else if (button.equalsIgnoreCase("dashboard")){
             // Send the user to their destination
-            request.getRequestDispatcher("/userPage").forward(request, response);
+            request.getRequestDispatcher("/dashboard").forward(request, response);
         } else if (button.equalsIgnoreCase("logout")){
             // Send the user to their destination
             request.getRequestDispatcher("/homePage").forward(request, response);

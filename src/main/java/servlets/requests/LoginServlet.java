@@ -1,4 +1,4 @@
-package main.java.servlets;
+package main.java.servlets.requests;
 
 import data.services.login.Login;
 import data.services.mqtt.MQTTConnectionHandler;
@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
                 }
 
                 // Send the user to their destination
-                request.getRequestDispatcher("/userPage").forward(request, response);
+                request.getRequestDispatcher("/dashboard").forward(request, response);
             } else {
                 System.err.println("Incorrect Username or Password!");
                 request.getRequestDispatcher("/homePage").forward(request, response);
@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
                     }
 
                     // Send the new user to their destination
-                    request.getRequestDispatcher("/userPage").forward(request, response);
+                    request.getRequestDispatcher("/dashboard").forward(request, response);
                 } else {
                     System.err.println("Username is already take!");
                     request.getRequestDispatcher("/homePage").forward(request, response);

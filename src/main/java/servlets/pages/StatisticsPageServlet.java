@@ -1,4 +1,4 @@
-package main.java.servlets;
+package main.java.servlets.pages;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,8 @@ import java.io.IOException;
 public class StatisticsPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // TODO: Retrieve the device statistics requested to be viewed, add it as parameters
+        // TODO: Retrieve the device statistics requested to be viewed, add it as parameters (this should be handled by a statisticsPageFormatter like how the UserPage does it)
+        // TODO: Change to sending using a response method
 
         request.getRequestDispatcher("/statistics.jsp").forward(request, response);
     }

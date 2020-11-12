@@ -1,4 +1,4 @@
-package main.java.servlets;
+package main.java.servlets.requests;
 
 import data.models.devices.Devices;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -52,7 +52,7 @@ public class OutputRequestServlet extends HttpServlet {
             e.printStackTrace();
         }
         // Send the user back to the user page to view the devices
-        request.getRequestDispatcher("/userPage").forward(request, response);
+        request.getRequestDispatcher("/dashboard").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

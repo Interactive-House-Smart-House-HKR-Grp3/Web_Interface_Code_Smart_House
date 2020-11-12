@@ -16,7 +16,7 @@
     <br/>
     <br/>
     <form action="${pageContext.request.contextPath}/button" method="post">
-        <button name="button" type="submit" value="userPage">Back</button>
+        <button name="button" type="submit" value="dashboard">Back</button>
     </form>
     <br/>
     <form action="${pageContext.request.contextPath}/button" method="post">
