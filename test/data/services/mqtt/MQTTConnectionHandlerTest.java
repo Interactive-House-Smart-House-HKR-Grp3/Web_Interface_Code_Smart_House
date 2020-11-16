@@ -29,6 +29,7 @@ class MQTTConnectionHandlerTest {
     void publish() throws MqttException, InterruptedException {
         Thread.sleep(1000);
         instance.getClient().publish(INDOOR_LIGHT.getTopicRegisteredName(), new MqttMessage("true".getBytes()));
+        Thread.sleep(1000);
         assertEquals(Devices.State.ON, Devices.INDOOR_LIGHT.getDeviceCurrentState());
     }
 

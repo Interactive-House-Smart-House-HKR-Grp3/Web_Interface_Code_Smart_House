@@ -34,7 +34,7 @@ public enum ServerRequestsTopics {
     /*17*/ AUTO_MODE("auto_mode"),
 
     /*18*/ USER("user"),
-    /*19*/ CREATE_NEW_USER("create_new_user")
+    /*19*/ REGISTER_USER("register_user")
     ;
 
     private final static String WEB_RESPONSE= "web/request/";

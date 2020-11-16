@@ -14,6 +14,11 @@ class MQTTSHListenerTest {
     void messageArrived() throws MqttException {
         MQTTConnectionHandler instance = MQTTConnectionHandler.getInstance();
         instance.getClient().publish(INDOOR_LIGHT.getTopicRegisteredName(), new MqttMessage("false".getBytes()));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         assertEquals(Devices.State.OFF, Devices.INDOOR_LIGHT.getDeviceCurrentState());
     }
 }

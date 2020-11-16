@@ -2,6 +2,7 @@ package data.services.mqtt;
 
 import com.google.gson.Gson;
 import data.models.statistics.StatisticsData;
+import data.models.user.UserAccount;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -10,11 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 import static data.models.statistics.StatisticsData.*;
+import static data.models.user.UserAccount.USER;
 
 /**
  * This is a listener set for each subscription to a topic on which
  * the server is publishing and the web is listening.
- *
+ * <p>
  * When a new MqttMessage is published on those topic, the listener
  * will take the corresponding actions.
  */
@@ -22,7 +24,8 @@ public class MQTTServerListener implements IMqttMessageListener {
 
     /**
      * Every new message published will come with two attributes: the topic and the message.
-     * @param topic on which the new message was published
+     *
+     * @param topic       on which the new message was published
      * @param mqttMessage published
      */
     @Override
@@ -62,15 +65,39 @@ public class MQTTServerListener implements IMqttMessageListener {
             case "web/statistics/outdoor_light" -> updateDeviceStatistics(OUTDOOR_LIGHT, mqttMessage);
             /*17*/
             case "web/statistics/auto_mode" -> updateDeviceStatistics(AUTO_MODE, mqttMessage);
+            /*18*/
+            case "web/statistics/user" -> setUserCredentials(mqttMessage);
+            /*19*/
+            case "web/statistics/registration" -> registerUserCredentials(mqttMessage);
 
             default -> throw new IllegalStateException("Unexpected value: " + topic);
         }
         System.out.println("\u001b[33m************************************************\u001b[0m");
     }
 
+    private void registerUserCredentials(MqttMessage mqttMessage) {
+        USER.setUserSet(mqttMessage.toString().equals("true"));
+    }
+
+    private void setUserCredentials(MqttMessage mqttMessage) {
+        String[] userCredentials = new Gson().fromJson(mqttMessage.toString(), String[].class);
+        if (userCredentials.length == 4) {
+            USER.setAccountName(userCredentials[0]);
+            USER.setPassword(userCredentials[1]);
+            USER.setName(userCredentials[2]);
+            USER.setEmailAddress(userCredentials[3]);
+            USER.setUserSet(true);
+        } else if (userCredentials.length == 1){
+            if (userCredentials[0].equals("true")){
+                USER.setUserSet(true);
+            }
+        }
+    }
+
     /**
      * Is splitting the possibilities in two: event_based, or average hourly data.
-     * @param device specific statistics
+     *
+     * @param device         specific statistics
      * @param statisticsData received from server
      */
     private void updateDeviceStatistics(StatisticsData device, MqttMessage statisticsData) {
@@ -85,7 +112,7 @@ public class MQTTServerListener implements IMqttMessageListener {
      * Handles the event based statistics by setting the receiver statistics on the corresponding
      * attribute.
      *
-     * @param device the statistics type.
+     * @param device         the statistics type.
      * @param statisticsData received from the server
      */
     private void updateEventBasedStatistics(StatisticsData device, MqttMessage statisticsData) {
@@ -102,7 +129,7 @@ public class MQTTServerListener implements IMqttMessageListener {
      * Handles the avg data based statistics by setting the receiver statistics on the corresponding
      * attribute.
      *
-     * @param device the statistics type
+     * @param device         the statistics type
      * @param statisticsData receiver from the server
      */
     private void updateAverageDataBasedStatistics(StatisticsData device, MqttMessage statisticsData) {

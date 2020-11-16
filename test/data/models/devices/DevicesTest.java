@@ -43,6 +43,6 @@ class DevicesTest {
 
     @Test
     void getStatisticsFormat() {
-        assertEquals(Devices.StatisticsFormat.HOURLY_AVERAGE, INDOOR_LIGHT.getStatisticsFormat());
+        assertEquals(Devices.StatisticsFormat.EVENT, INDOOR_LIGHT.getStatisticsFormat());
     }
 }

@@ -24,7 +24,7 @@ public class TestMQTTConnection {
         System.out.println("H E L L O !\n" +
                 "\n1]    Test using mock user and mqtt connection" +
                 "\n2]    Test using mock user,devices, statistics" +
-                "\n3]    Register new account" +
+                "\n3]    Register new mock account" +
                 "\n5]    EXIT!");
         int testingOption = new Scanner(System.in).nextInt();
         if (testingOption == 1) {

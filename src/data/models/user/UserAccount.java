@@ -7,6 +7,15 @@ public enum UserAccount {
     private String password;
     private String name;
     private String emailAddress;
+    private boolean userSet;
+
+    public boolean isUserSet() {
+        return userSet;
+    }
+
+    public void setUserSet(boolean userSet) {
+        this.userSet = userSet;
+    }
 
     public String getAccountName() {
         return accountName;
