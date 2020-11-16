@@ -81,16 +81,12 @@ public class MQTTServerListener implements IMqttMessageListener {
 
     private void setUserCredentials(MqttMessage mqttMessage) {
         String[] userCredentials = new Gson().fromJson(mqttMessage.toString(), String[].class);
-        if (userCredentials.length == 4) {
+        if (userCredentials[0] != null) {
             USER.setAccountName(userCredentials[0]);
             USER.setPassword(userCredentials[1]);
             USER.setName(userCredentials[2]);
             USER.setEmailAddress(userCredentials[3]);
             USER.setUserSet(true);
-        } else if (userCredentials.length == 1){
-            if (userCredentials[0].equals("true")){
-                USER.setUserSet(true);
-            }
         }
     }
 
