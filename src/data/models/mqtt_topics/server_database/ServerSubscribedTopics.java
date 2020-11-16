@@ -53,7 +53,8 @@ public enum ServerSubscribedTopics {
     /*16*/ OUTDOOR_LIGHT("outdoor_light"),
     /*17*/ AUTO_MODE("auto_mode"),
 
-    /*18*/ USER("user")
+    /*18*/ USER("user"),
+    /*19*/ REGISTRATION("registration")
     ;
     private final static String WEB_REQUEST = "web/statistics/";
     private final String topicRegisteredName;

@@ -26,8 +26,8 @@ public enum Devices {
     /*8*/  ELECTRICITY_CONSUMPTION(false, true, StatisticsFormat.HOURLY_AVERAGE),
     /*9*/  TWILIGHT(false, true, StatisticsFormat.EVENT),
     /*10*/ POWER_CUT(false, true, StatisticsFormat.EVENT),
-    /*11*/ INDOOR_LIGHT(true, true, StatisticsFormat.HOURLY_AVERAGE),
-    /*12*/ OUTDOOR_LIGHT(true, true, StatisticsFormat.HOURLY_AVERAGE),
+    /*11*/ INDOOR_LIGHT(true, true, StatisticsFormat.EVENT),
+    /*12*/ OUTDOOR_LIGHT(true, true, StatisticsFormat.EVENT),
     /*13*/ STOVE(false, true, StatisticsFormat.EVENT),
     /*14*/ FAN(true, true, StatisticsFormat.EVENT),
     /*16*/ HEATING_INDOOR(true, true, StatisticsFormat.EVENT),
@@ -111,9 +111,7 @@ public enum Devices {
             }
         }
         MQTTConnectionHandler.mqttClient.publish(topicName,
-                new MqttMessage((changeStateTo == 1 ? "true" :
-                        changeStateTo == 2 ? "false" :
-                                String.valueOf(changeStateTo)).getBytes()));
+                new MqttMessage((changeStateTo == 1 ? "true" : "false").getBytes()));
     }
 
     /**
@@ -125,6 +123,8 @@ public enum Devices {
                 (List.of(DOOR, WINDOW).contains( this) ? State.OPEN :
                         List.of(BURGLAR_ALARM, FIRE_ALARM).contains(this) ? State.ARMED : State.ON) :
                 (List.of(DOOR, WINDOW).contains( this) ? State.CLOSED : State.OFF);
+
+        // for twilight, check the values. If less than 400 night. if passes 400, day.
     }
 
     public StatisticsFormat getStatisticsFormat() {
@@ -147,6 +147,8 @@ public enum Devices {
         ON,
         OFF,
         ARMED,
+        DAY,
+        NIGHT,
         TRIGGERED,
         OPEN,
         CLOSED,
