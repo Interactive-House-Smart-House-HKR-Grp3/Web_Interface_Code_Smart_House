@@ -47,17 +47,15 @@ public class TestMQTTLoginRegistration {
         String accountName;
         String password;
         Date currentTime = Calendar.getInstance().getTime();
-        Date loginValidationPeriod = new Date(currentTime.getTime() + 4000);
+        Date loginValidationPeriod = new Date(currentTime.getTime() + 5000);
         do {
             System.out.print("accountName = ");
             accountName = in.nextLine();
 
             System.out.print("password = ");
             password = in.nextLine();
-            boolean registration = Login.userLogin(mqttConnectionHandler.getClient(), accountName, password);
-            if (registration) {
+            if (Login.userLogin(mqttConnectionHandler.getClient(), accountName, password)) {
                 System.out.println(USER.toString());
-
                 return true;
             }
             currentTime = Calendar.getInstance().getTime();
@@ -98,13 +96,13 @@ public class TestMQTTLoginRegistration {
 
 class Login {
     public static boolean userLogin(MqttClient client, String accountName, String password) throws MqttException {
-        String[] userLogin = {"accountName", "password"};
+        String[] userLogin = {accountName, password};
         Gson gson = new Gson();
         USER.setUserSet(false);
         client.publish(ServerRequestsTopics.USER.getTopicRegisteredName(),
                 new MqttMessage(gson.toJson(userLogin).getBytes()));
         Date currentTime = Calendar.getInstance().getTime();
-        Date loginValidationPeriod = new Date(currentTime.getTime() + 5000);
+        Date loginValidationPeriod = new Date(currentTime.getTime() + 4000);
         while (!USER.isUserSet()) {
             if (currentTime.compareTo(loginValidationPeriod) > 0) {
                 break;
