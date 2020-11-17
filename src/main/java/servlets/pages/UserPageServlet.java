@@ -33,17 +33,22 @@ public class UserPageServlet extends HttpServlet {
         for (Devices device : Devices.values()) {
             deviceNumber++;
 
-            // Create a format to display the device
-            devicesString.append("<div class=\"device-item device-item-").append(deviceNumber).append("\">")
-                    .append("<h3 class=\"device-title\">")
-                    .append(device.name());
-
             // Makes sure that the layouts are unique for each device that needs to be
             switch (device.name()) {
                 // TODO create different layouts for each device
 
                 // A device not found will take this layout
                 default: {
+                    // This categorizes the devices into sections
+                    devicesString.append("<section id=\"lights\">");
+
+                    // This is needed for every device
+                    devicesString.append("<div class=\"devices-container\">");
+
+                    // Create a format to display the device
+                    devicesString.append("<div class=\"device-item device-item-").append(deviceNumber).append("\">")
+                            .append("<h3 class=\"device-title\">")
+                            .append(device.name());
 
                     if (device.isStatisticsProvider()) {
                         // The statistics button
@@ -78,7 +83,7 @@ public class UserPageServlet extends HttpServlet {
             }
 
             // Close this device section
-            devicesString.append("</div>");
+            devicesString.append("</div>").append("</div>").append("</section>");
         }
         // Send the device information to the user page
         return devicesString.toString();

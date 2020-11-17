@@ -24,6 +24,9 @@ body {
   --Josefin: "Josefin", cursive;
   --Lexend: "Lexend", cursive;
   --Livvic: "Livvic", cursive;
+      --ScopeOne: 'ScopeOne', cursive;
+    --UnicaOne: 'UnicaOne', cursive;
+    --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
 
   /*  Colors */
   --text-grey: #3f4954;
@@ -37,26 +40,29 @@ body {
 /* ------- Global Classes ------- */
 
 h1 {
-  font-family: var(--Lexend);
+  font-family: var(--ScopeOne);
   font-size: 2.5rem;
 }
 
 h2 {
-  font-family: var(--Lexend);
+  font-family: var(--UnicaOne);
 }
 
 h3 {
-  font-family: var(--Abel);
+  font-family: var(--ScopeOne);
   font-size: 1.3rem;
 }
 
 button.btn {
   border: none;
   border-radius: 2rem;
-  padding: 1rem 3rem;
+  padding: 0.6rem 1.5rem;
   font-size: 1rem;
-  font-family: var(--Livvic);
+  font-family: var(--YanoneKaffeesatz);
   cursor: pointer;
+  margin: 5px;
+  background-image: var(--Risky-Concreate);
+
 }
 
 /* ------- Intro Section ------- */

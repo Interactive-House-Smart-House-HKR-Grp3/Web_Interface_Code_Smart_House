@@ -41,6 +41,35 @@ function closeModal (modal) {
     enableScroll();
 }
 
+
+// ----------- Login | Registration Page ---------- 
+
+const login = document.getElementById('title-login');
+const name = document.getElementById('form-name');
+const email = document.getElementById('form-email');
+const registerBtn = document.getElementById('btn-register');
+
+const register = document.getElementById('title-register');
+const loginBtn = document.getElementById('btn-login');
+
+// This is an onclick as above but in jquery
+$(login).click(function() {
+  $(loginBtn).show("slow");
+
+  $(name).hide("slow");
+  $(email).hide("slow");
+  $(registerBtn).hide("slow");
+});
+
+$(register).click(function() {
+  $(name).show("slow");
+  $(email).show("slow");
+  $(registerBtn).show("slow");
+
+  $(loginBtn).hide("slow");
+});
+
+
 // The following is code relating to disbling and enabling scrolling
 
 // left: 37, up: 38, right: 39, down: 40,
