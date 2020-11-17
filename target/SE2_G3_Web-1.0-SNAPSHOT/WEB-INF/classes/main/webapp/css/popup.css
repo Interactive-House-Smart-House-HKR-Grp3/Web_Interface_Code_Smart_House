@@ -9,12 +9,21 @@
     --Josefin: 'Josefin', cursive;
     --Lexend: 'Lexend', cursive;
     --Livvic: 'Livvic', cursive;
+    --ScopeOne: 'ScopeOne', cursive;
+    --UnicaOne: 'UnicaOne', cursive;
+    --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
 
     /*  Colors */
     --text-grey: #3f4954;
+    --color-white: #F2F2F2; 
+    --color-accent: #42FFB7;
+    --color-green: #44C4BF;
+    --color-green-blue: #4789C7;
+    --color-light-blue: #494ECE;
+    --color-dark-blue: #4B13D6;
 
     /* Gradients */
-    --Amy-Crisp: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+    --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
 }
 
 /* ------- Global Classes ------- */
@@ -34,6 +43,16 @@ ul{
     flex-wrap: wrap;
 }
 
+.txt-in{
+    font-family: var(--YanoneKaffeesatz);
+    border-radius: 5px;
+    border: var(--color-accent);
+}
+
+.form-txt{
+    font-family: var(--YanoneKaffeesatz);
+}
+
 /* ------- Pop-up ------- */
 .modal{
     position: fixed;
@@ -47,6 +66,7 @@ ul{
     background-color: white;
     width: 500px;
     max-width: 50%;
+    border-radius: 15px;
 }
 
 .modal.active {
@@ -55,31 +75,103 @@ ul{
 }
 
 .modal-header{
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .modal-header .title{
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-weight: bold;
+    font-family: var(--UnicaOne);
+    text-align: center;
+    align-items: center;
+
 }
 
-.modal-header .btn-login-close{
+.modal-header .title-login:hover {
+    background: var(--color-accent);
+    color: white;
+    cursor: pointer;
+}
+
+
+.modal-header .title-register:hover {
+    background: var(--color-accent);
+    color: white;
+    cursor: pointer;
+}
+
+.btn-login-close{
+    margin-left: auto;
+    margin-right: 15px;
+    display: block;
     cursor: pointer;
     border: none;
     outline: none;
     background: none;
     font-size: 1.25rem;
     font-weight: bold;
+    background: var(--text-grey);
+    border-radius: 50%;
+    margin-top: -15px;
+    color: var(--color-white);
+}
+
+.btn-login-close:hover {
+    color: var(--color-accent);
 }
 
 
 .modal-body{
+    background: var(--color-white);
     padding: 10px 15px;
+    text-align: center;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
+
+.modal-body .form-section{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-body .form-name, .form-email, .btn_login_register {
+    display: none;
+}
+
+.modal-body .txt-username{
+    margin-right: 5px;
+}
+
+.modal-body .txt-password{
+    margin-right: 6px;
+}
+
+.modal-body .txt-name{
+    margin-right: 22px;
+}
+
+.modal-body .txt-email{
+    margin-right: 18px;
+}
+
+.modal-body .popup-btn {
+    border: none;
+  border-radius: 2rem;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  font-family: var(--YanoneKaffeesatz);
+  cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-image: var(--Risky-Concreate);
+}
+
+.modal-body .popup-btn:hover {
+    background: var(--color-accent);
+    color: white;
+}
+
 
 #overlay{
     position: fixed;

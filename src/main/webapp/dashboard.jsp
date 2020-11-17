@@ -1,5 +1,6 @@
 <!-- Uncomment this when inside the jsp as it's needed for encoding -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,10 +30,9 @@
 </head>
 
 <!-- Java variables -->
-<%
-    // TODO: Activate a listener to devices
-    String query = (String) request.getAttribute("queryResult");
-%>
+    <%
+        String query = (String) request.getAttribute("queryResult");
+    %>
 
 <header>
     <!-- ------------- NAVIGATION ------------- -->
@@ -41,7 +41,7 @@
 
             <div class="nav-brand">
                 <a href="#">
-                    <img class="brand-logo" src="./assets/vectors/simple_icons/027-smart home.svg" width="50">
+                    <img class="brand-logo" src="./assets/vectors/3D_icons/006-home automation.svg" width="50">
                     <span class="brand-brandname">Höme</span>
                 </a>
             </div>
@@ -56,10 +56,7 @@
             </div>
 
             <div>
-                <ul class="nav-items">
-                    <li class="nav-link">
-                        <a href="#info">Info</a>
-                    </li>
+                <ul class="nav-items" id="nav-bar">
                     <li class="nav-link">
                         <a href="#alarms">Alarms</a>
                     </li>
@@ -84,39 +81,51 @@
 <!-- The Java Script file that controls the navbar-->
 <script src="./js/navbar.js"></script>
 
+<!--  ------------- The skipTutorial() is inside the dashboard.js  -->
+<body onload="skipTutorial()">
 
-<body>
 <!-- ------------- Account Pop-up  ------------- -->
 <div class="modal" id="modal">
+    <button data-modal-close class="btn-login-close">&times;</button>
     <div class="modal-header">
-        <div class="title">Welcome user_name</div>
-        <button data-modal-close class="btn-login-close">&times;</button>
+        <div class="title">Welcome Höme</div>
     </div>
     <div class="modal-body">
+        <button class="popup-btn btn-info" id="btn-info">
+            See Info
+        </button>
         <form action="${pageContext.request.contextPath}/button" method="post">
-            <button name="button" class="btn-logout" type="submit" value="logout">Logout</button>
+            <button name="button" class="popup-btn btn-logout" type="submit" value="logout">Logout</button>
         </form>
+
     </div>
 </div>
 <div id="overlay"></div>
+
 <!-- Popup Script -->
 <script src="./js/popup.js"></script>
 
 <!-- The Contents of the page -->
-<main>
+<main id="contents">
 
     <!-- The Intro Section -->
     <section class="site-intro" id="info">
 
-        <!-- TODO: Create a 1 time tutorial message if it's the first time visiting this page  -->
         <div class="site-about">
             <h3>Dashboard</h3>
-            <h1>Welcome Höme user_name</h1>
+            <h1>Welcome Höme user_name!</h1>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam blanditiis, inventore assumenda
-                distinctio molestiae vitae adipisci repellendus quae pariatur qui ipsa! Quibusdam quia fugit
-                incidunt nobis praesentium earum, cum voluptas.
+                This is your Dashboard, from here you will be able to control your Höme® and see all your available devices.
             </p>
+
+            <p>
+                Please take a second to read this tutorial as it will guide you on how to control your Höme® as well give some friendly tips!
+            </p>
+
+            <p>
+                Once you're ready click the button below.
+            </p>
+            <button class="btn btn-learn" id="btn-learn">Get Started</button>
         </div>
     </section>
 
@@ -128,13 +137,15 @@
     <section id="devices">
         <div class="devices-container">
             <!-- Uncomment this when populating it within the jsp -->
-            <%=query%>
+             <%=query%>
 
             <!-- Delete this part when inside the jsp as it's for design testing purposes only -->
         </div>
     </section>
 
 </main>
+
+<script src="./js/dashboard.js"></script>
 </body>
 
 </html>

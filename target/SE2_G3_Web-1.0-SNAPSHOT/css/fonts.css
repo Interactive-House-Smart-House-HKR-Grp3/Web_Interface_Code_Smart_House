@@ -22,3 +22,18 @@
     font-family: Livvic;
     src: url('../assets/fonts/Livvic/Livvic-Regular.ttf');
 }
+
+@font-face {
+    font-family: ScopeOne;
+    src: url('../assets/fonts/Scope_One/ScopeOne-Regular.ttf');
+}
+
+@font-face {
+    font-family: UnicaOne;
+    src: url('../assets/fonts/Unica_One/UnicaOne-Regular.ttf');
+}
+
+@font-face {
+    font-family: YanoneKaffeesatz;
+    src: url('../assets/fonts/Yanone_Kaffeesatz/YanoneKaffeesatz-VariableFont_wght.ttf');
+}

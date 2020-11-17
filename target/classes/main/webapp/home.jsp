@@ -1,6 +1,7 @@
 <!-- Uncomment this when inside the jsp as it's needed for encoding -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +36,7 @@
 
             <div class="nav-brand">
                 <a href="#">
-                    <img class="brand-logo" src="./assets/vectors/simple_icons/027-smart home.svg" width="50">
+                    <img class="brand-logo" src="./assets/vectors/3D_icons/047-automation.svg" width="50">
                     <span class="brand-brandname">Höme</span>
                 </a>
             </div>
@@ -76,32 +77,51 @@
 <body>
 <!-- ------------- Login Pop-up  ------------- -->
 <div class="modal" id="modal">
+
+    <button data-modal-close class="btn-login-close">&times;</button>
+
     <div class="modal-header">
-        <div class="title">Please Login or Register</div>
-        <button data-modal-close class="btn-login-close">&times;</button>
+        <div class="title title-login" id="title-login">Login</div>
+        <div class="title title-register" id="title-register">Register</div>
     </div>
+
     <div class="modal-body">
-        <form action="${pageContext.request.contextPath}/login" method="post">
-            <div>
-                Username: <input type="text" name="username">
-            </div>
-            <div>
-                Password: <input type="password" name="password">
+        <form class="modal-form" action="${pageContext.request.contextPath}/login" method="post">
+
+            <div class="form-section form-username">
+                        <span class="form-txt txt-username">
+                            Username:
+                        </span>
+                <input class="txt-in" type="text" name="username">
             </div>
 
-            <button class="btn_login_login" name="btn_request" type="submit" value="login">
-                Login
+            <div class="form-section form-password">
+                        <span class="form-txt txt-password">
+                            Password:
+                        </span>
+                <input class="txt-in" type="password" name="password">
+            </div>
+
+            <div class="form-section form-name" id="form-name">
+                        <span class="form-txt txt-name">
+                            Name:
+                        </span>
+                <input class="txt-in" type="text" name="name">
+            </div>
+
+            <div class="form-section form-email" id="form-email">
+                        <span class="form-txt txt-email">
+                            Email:
+                        </span>
+                <input class="txt-in" type="text" name="email">
+            </div>
+
+            <button class="popup-btn btn_login_register" name="btn_request" type="submit" value="register" id="btn-register">
+                Register
             </button>
 
-            <div>
-                Name: <input type="text" name="name">
-            </div>
-            <div>
-                Email: <input type="text" name="email">
-            </div>
-
-            <button class="btn_login_register" name="btn_request" type="submit" value="register">
-                Register
+            <button class="popup-btn btn_login_login" name="btn_request" type="submit" value="login" id="btn-login">
+                Login
             </button>
         </form>
     </div>
@@ -133,7 +153,6 @@
     </section>
 
 
-    <!-- TODO: No section past this comment is visible *** MUST *** create scrollbar -->
     <div id="features">
         <h3>Features</h3>
         <h2>Freedom of Choice</h2>
