@@ -9,9 +9,18 @@
   --Josefin: "Josefin", cursive;
   --Lexend: "Lexend", cursive;
   --Livvic: "Livvic", cursive;
+      --ScopeOne: 'ScopeOne', cursive;
+    --UnicaOne: 'UnicaOne', cursive;
+    --YanoneKaffeesatz: 'YanoneKaffeesatz', cursive;
 
-  /*  Colors */
-  --text-grey: #3f4954;
+      /*  Colors */
+    --text-grey: #3f4954;
+    --color-white: #F2F2F2; 
+    --color-accent: #42FFB7;
+    --color-green: #44C4BF;
+    --color-green-blue: #4789C7;
+    --color-light-blue: #494ECE;
+    --color-dark-blue: #4B13D6;
 
   /* Gradients */
   --Amy-Crisp: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
@@ -40,7 +49,7 @@ ul {
   z-index: 1;
   min-height: 88px;
   height: 0;
-  background: white;
+  background: var(--color-white);
   padding: 0 3rem;
   position: fixed;
   width: 100%;
@@ -84,13 +93,13 @@ ul {
 
 .nav .nav-items .nav-link {
   padding: 1.6rem 1rem;
-  font-family: var(--Abel);
+  font-family: var(--ScopeOne);
   font-size: 1.1rem;
   position: relative;
 }
 
 .nav .nav-items .nav-link:hover {
-  background-color: palegreen;
+  background-color: var(--color-accent);
 }
 
 .nav .nav-items .nav-link:hover a {
@@ -106,6 +115,10 @@ ul {
   padding: 1.4rem;
   text-align: center;
   font-size: 2.5rem;
+}
+
+.nav-bar .user:hover {
+  color: var(--color-accent);
 }
 
 .nav .icons {
