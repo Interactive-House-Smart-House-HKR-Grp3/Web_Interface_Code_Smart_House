@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ButtonServlet", urlPatterns = "/button")
+@WebServlet(name = "ButtonRequestServlet", urlPatterns = "/button")
 public class ButtonRequestServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String button = request.getParameter("button");
 
@@ -27,6 +28,7 @@ public class ButtonRequestServlet extends HttpServlet {
         }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("A request has been made to /button without pressing a button...");
         response.sendRedirect(request.getContextPath() + "/home.jsp");

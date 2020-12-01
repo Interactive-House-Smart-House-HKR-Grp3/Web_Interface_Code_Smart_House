@@ -7,34 +7,41 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "UserPageServlet", urlPatterns = "/dashboard")
-public class UserPageServlet extends HttpServlet {
+public class DashboardServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*
+        HttpSession session = request.getSession();
 
-        // TODO: change to a response and redirect the user, the userPage formatter will handle filling in the data
-        // TODO: Have a listener on the UserPage to update the data
+        Devices[] devices = new Devices[Devices.values().length];
+        for (int i = 0; i < Devices.values().length; i++){
+            devices[i] = (Devices) session.getAttribute(Devices.values()[i].name());
+        }
 
-        request.setAttribute("queryResult", populatePage(request));
+        request.setAttribute("queryResult", populatePage(devices, request));
+        */
         request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect(request.getContextPath() + "/home.jsp");
     }
 
-    // TODO: Move this to the userPageFormatter to be used without redirecting the user.
-    public String populatePage(HttpServletRequest request){
+    // This is called directly in the jsp instead
+
+    /*
+    public String populatePage(Devices[] devices, HttpServletRequest request){
         // Query for the devices
         StringBuilder devicesString = new StringBuilder();
 
-        int deviceNumber = 0;
-        for (Devices device : Devices.values()) {
-            deviceNumber++;
-
+        for (int i = 0; i < devices.length; i++) {
             // Makes sure that the layouts are unique for each device that needs to be
-            switch (device.name()) {
+            switch (devices[i].name()) {
                 // TODO create different layouts for each device
 
                 // A device not found will take this layout
@@ -46,11 +53,11 @@ public class UserPageServlet extends HttpServlet {
                     devicesString.append("<div class=\"devices-container\">");
 
                     // Create a format to display the device
-                    devicesString.append("<div class=\"device-item device-item-").append(deviceNumber).append("\">")
+                    devicesString.append("<div class=\"device-item device-item-").append(i).append("\">")
                             .append("<h3 class=\"device-title\">")
-                            .append(device.name());
+                            .append(devices[i].name());
 
-                    if (device.isStatisticsProvider()) {
+                    if (devices[i].isStatisticsProvider()) {
                         // The statistics button
                         // *** MUST BE INSIDE THE H3 TAG ***
                         // TODO resolve sending the user to a statistics page specific to this device
@@ -63,17 +70,17 @@ public class UserPageServlet extends HttpServlet {
                     devicesString.append("</h3>");
 
                     try {
-                        devicesString.append("<h6 class=\"device-state\">").append(device.getDeviceCurrentState()).append("</h6>");
+                        devicesString.append("<h6 class=\"device-state\">").append(devices[i].getDeviceCurrentState()).append("</h6>");
                     } catch (Exception e) {
                         devicesString.append("<h6 class=\"device-state\">").append("N/A").append("</h6>");
                     }
 
                     devicesString.append("<img class=\"img-device\" src=\"./assets/vectors/3D_icons/005-lamp.svg\">");
 
-                    if (device.isChangeableState()) {
+                    if (devices[i].isChangeableState()) {
                         // The request from the button will be checked with a switch case using the value = "device.name" + "-" + "device.currentState"
                         devicesString.append("<form action=\"").append(request.getContextPath()).append("/outputRequest\" method=\"post\">")
-                                .append("<button class=\"btn btn-device-toggle\" name=\"btn_deviceToggle\" type=\"submit\" value=\"").append(device.name()).append("-").append(device.getDeviceCurrentState()).append("\">")
+                                .append("<button class=\"btn btn-device-toggle\" name=\"btn_deviceToggle\" type=\"submit\" value=\"").append(devices[i].name()).append("-").append(devices[i].getDeviceCurrentState()).append("\">")
                                 .append("Toggle State")
                                 .append("</button>")
                                 .append("</form>");
@@ -88,5 +95,5 @@ public class UserPageServlet extends HttpServlet {
         // Send the device information to the user page
         return devicesString.toString();
     }
+    */
 }
-

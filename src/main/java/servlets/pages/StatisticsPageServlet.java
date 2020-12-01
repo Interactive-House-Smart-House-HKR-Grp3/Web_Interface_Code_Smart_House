@@ -9,6 +9,7 @@ import java.io.IOException;
 
 @WebServlet(name = "StatisticsPageServlet", urlPatterns = "/statisticsPage")
 public class StatisticsPageServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // TODO: Retrieve the device statistics requested to be viewed, add it as parameters (this should be handled by a statisticsPageFormatter like how the UserPage does it)
@@ -17,6 +18,7 @@ public class StatisticsPageServlet extends HttpServlet {
         request.getRequestDispatcher("/statistics.jsp").forward(request, response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect(request.getContextPath() + "/home.jsp");
     }

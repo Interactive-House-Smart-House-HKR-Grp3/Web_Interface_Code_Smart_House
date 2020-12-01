@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 @WebServlet(name = "OutputRequestServlet", urlPatterns = "/outputRequest")
 public class OutputRequestServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get the device and its current state to get the appropriate request
         String requestedDevice = request.getParameter("btn_deviceToggle");
@@ -55,6 +56,7 @@ public class OutputRequestServlet extends HttpServlet {
         request.getRequestDispatcher("/dashboard").forward(request, response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect(request.getContextPath() + "/home.jsp");
     }
