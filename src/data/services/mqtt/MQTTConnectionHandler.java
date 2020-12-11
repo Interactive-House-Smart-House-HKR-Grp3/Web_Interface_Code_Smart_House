@@ -1,7 +1,7 @@
 package data.services.mqtt;
 
 import data.models.mqtt_topics.server_database.ServerSubscribedTopics;
-import data.models.mqtt_topics.smart_house.SMHSubscribedTopics;
+import data.models.mqtt_topics.smart_house.SmartHouseSubscribedTopics;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -53,7 +53,7 @@ public class MQTTConnectionHandler {
      * @throws MqttException when mqtt error
      */
     private void subscribeToSHTopics() throws MqttException {
-        for (SMHSubscribedTopics topic : SMHSubscribedTopics.values()) {
+        for (SmartHouseSubscribedTopics topic : SmartHouseSubscribedTopics.values()) {
             mqttClient.subscribe(topic.getTopicRegisteredName(), new MQTTSHListener());
             System.out.println("Subscribed to: " + topic.getTopicRegisteredName());
         }
@@ -76,7 +76,7 @@ public class MQTTConnectionHandler {
      * @throws MqttException when mqtt error
      */
     private void changeStatesToClose() throws MqttException {
-        for (SMHSubscribedTopics topic : SMHSubscribedTopics.values()) {
+        for (SmartHouseSubscribedTopics topic : SmartHouseSubscribedTopics.values()) {
             publish(topic.getTopicRegisteredName(), "false");
             System.out.println("State changed to 'false' on : " + topic.getTopicRegisteredName());
         }

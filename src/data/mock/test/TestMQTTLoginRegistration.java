@@ -29,13 +29,10 @@ public class TestMQTTLoginRegistration {
                     "\n1]    Test Registration" +
                     "\n2]    Test Login" +
                     "\n5]    EXIT!");
-            int testingOption = new Scanner(System.in).nextInt();
-            if (testingOption == 1) {
-                System.out.println("Successful registration : " + testRegistration());
-            } else if (testingOption == 2) {
-                System.out.println("Successful login : " + testLogin());
-            } else {
-                System.exit(0);
+            switch (new Scanner(System.in).nextInt()){
+                case 1 -> System.out.println("Successful registration : " + testRegistration());
+                case 2 -> System.out.println("Successful login : " + testLogin());
+                default -> System.exit(0);
             }
             System.out.println("Repeat?\n1]    yes\n2]    no");
             boolean repeat = in.nextInt() == 2;

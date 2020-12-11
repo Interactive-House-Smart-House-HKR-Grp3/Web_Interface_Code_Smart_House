@@ -1,8 +1,8 @@
 package main.java.servlets.requests;
 
 import data.models.devices.Devices;
-import data.services.login.Login;
 import data.services.mqtt.MQTTConnectionHandler;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static data.services.login.Login.userLogin;
+import static data.services.login.Login.userRegistration;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
@@ -19,23 +22,31 @@ public class LoginServlet extends HttpServlet {
         String function = request.getParameter("btn_request");
         if (function.equalsIgnoreCase("login")) {
             // Authenticate the user then send them to their destination with the user attached
-            if (Login.loginValidation(request.getParameter("username"), request.getParameter("password"))) {
-                setupSessionAttributes();
-                // Send the user to their destination
-                request.getRequestDispatcher("/dashboard").forward(request, response);
-            } else {
-                System.err.println("Incorrect Username or Password!");
-                request.getRequestDispatcher("/homePage").forward(request, response);
+            try {
+                if (userLogin(request.getParameter("username"), request.getParameter("password"))) {
+                    setupSessionAttributes();
+                    // Send the user to their destination
+                    request.getRequestDispatcher("/dashboard").forward(request, response);
+                } else {
+                    System.err.println("Incorrect Username or Password!");
+                    request.getRequestDispatcher("/homePage").forward(request, response);
+                }
+            } catch (MqttException e) {
+                e.printStackTrace();
             }
         } else {
             if (request.getParameter("username").length() > 0 && request.getParameter("password").length() > 0 && request.getParameter("name").length() > 0 && request.getParameter("email").length() > 0) {
-                if (Login.registerNewAccount(request.getParameter("username"), request.getParameter("password"), request.getParameter("name"), request.getParameter("email"))){
-                    setupSessionAttributes();
-                    // Send the new user to their destination
-                    request.getRequestDispatcher("/dashboard").forward(request, response);
-                } else {
-                    System.err.println("Username is already take!");
-                    request.getRequestDispatcher("/homePage").forward(request, response);
+                try {
+                    if (userRegistration(request.getParameter("username"), request.getParameter("password"), request.getParameter("name"), request.getParameter("email"))){
+                        setupSessionAttributes();
+                        // Send the new user to their destination
+                        request.getRequestDispatcher("/dashboard").forward(request, response);
+                    } else {
+                        System.err.println("Username is already take!");
+                        request.getRequestDispatcher("/homePage").forward(request, response);
+                    }
+                } catch (MqttException e) {
+                    e.printStackTrace();
                 }
             } else {
                 System.err.println("Empty field for registration!");

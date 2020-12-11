@@ -1,3 +1,5 @@
+<%@ page import="data.models.devices.Devices" %>
+<%@ page import="java.util.ArrayList" %>
 <!-- Uncomment this when inside the jsp as it's needed for encoding -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -31,8 +33,82 @@
 
 <!-- Java variables -->
     <%
-        String query = (String) request.getAttribute("queryResult");
+        Devices[] devices = new Devices[Devices.values().length];
+
+        int count = 0;
+        for (Devices device : Devices.values()){
+            devices[count] = device;
+            count++;
+        }
+
+        StringBuilder devicesString = new StringBuilder();
+        for (int i = 0; i < devices.length; i++) {
+            // Makes sure that the layouts are unique for each device that needs to be
+            switch (devices[i].name()) {
+                // TODO create different layouts for each device
+
+                // A device not found will take this layout
+                default: {
+                    // This categorizes the devices into sections
+                    devicesString.append("<section id=\"lights\">");
+
+                    // This is needed for every device
+                    devicesString.append("<div class=\"devices-container\">");
+
+                    // Create a format to display the device
+                    devicesString.append("<div class=\"device-item device-item-").append(i).append("\">")
+                            .append("<h3 class=\"device-title\">")
+                            .append(devices[i].name());
+
+                    if (devices[i].isStatisticsProvider()) {
+                        // The statistics button
+                        // *** MUST BE INSIDE THE H3 TAG ***
+                        // TODO resolve sending the user to a statistics page specific to this device
+                        devicesString.append("<form class=\"form-btn\" action=\"").append(request.getContextPath()).append("/button\" method=\"post\">\n" +
+                                "<button class=\"btn btn-statistics\" name=\"button\" type=\"submit\" value=\"statistics\">\n" +
+                                "<i class=\"fas fa-chart-pie\"></i>\n" +
+                                "</button>\n" +
+                                "</form>");
+                    }
+                    devicesString.append("</h3>");
+
+                    // Wait for the state of the device to be read
+                    String currentState = devices[i].getDeviceCurrentState().toString();
+                    count = 0;
+                    while (!devices[i].isNewStateRead() && count < 10) {
+                        try {
+                            Thread.sleep(20);
+                            count++;
+                        } catch (Exception ignored) {}
+                    }
+
+                    try {
+                        devicesString.append("<h6 class=\"device-state\">").append(currentState).append("</h6>");
+                    } catch (Exception e) {
+                        devicesString.append("<h6 class=\"device-state\">").append("N/A").append("</h6>");
+                    }
+
+                    devicesString.append("<img class=\"img-device\" src=\"./assets/vectors/3D_icons/005-lamp.svg\">");
+
+                    if (devices[i].isChangeableState()) {
+                        // The request from the button will be checked with a switch case using the value = "device.name" + "-" + "device.currentState"
+                        devicesString.append("<form action=\"").append(request.getContextPath()).append("/outputRequest\" method=\"post\">")
+                                .append("<button class=\"btn btn-device-toggle\" name=\"btn_deviceToggle\" type=\"submit\" value=\"").append(devices[i].name()).append("-").append(currentState).append("\">")
+                                .append("Toggle State")
+                                .append("</button>")
+                                .append("</form>");
+                    }
+                    break;
+                }
+            }
+
+            // Close this device section
+            devicesString.append("</div>").append("</div>").append("</section>");
+        }
+        // Send the device information to the user page
+        String query = devicesString.toString();
     %>
+
 
 <header>
     <!-- ------------- NAVIGATION ------------- -->
@@ -146,6 +222,33 @@
 </main>
 
 <script src="./js/dashboard.js"></script>
+<script>
+    <%
+        // Run a script to update the variables with the subscriptions
+        // TODO: Write a java script code snippet which calls this commentated section every 5 seconds or so to update the variables used for the devices
+
+        // TODO: might have to write them in the java code above in a different manner? calling variables to be written instead of the code chunk?
+
+        // TODO: instead of '<6=query6>' have {$variable} for each device, which may update when the variable is updated here...
+
+        /*
+        for (Devices device : Devices.values()) {
+            // Send a request to get the current device state
+            device.getDeviceCurrentState();
+            int count = 0;
+            // Delay to try to allow for the state to be set for currently implemented devices
+            while (!device.isNewStateRead() && count < 50) {
+                try {
+                    Thread.sleep(20);
+                    count++;
+                } catch (Exception ignored) {
+                }
+            }
+        }
+        */
+    %>
+</script>
+
 </body>
 
 </html>
