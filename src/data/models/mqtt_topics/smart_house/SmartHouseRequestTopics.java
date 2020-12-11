@@ -4,7 +4,7 @@ package data.models.mqtt_topics.smart_house;
  * These topics will be used to make
  * requests to the smart house.
  */
-public enum SMHOutputTopics {
+public enum SmartHouseRequestTopics {
     // Send here true/false as a string to turn on/off the indoor light
     INDOOR_LIGHT("indoor_light"), /*boolean*/
 
@@ -38,7 +38,7 @@ public enum SMHOutputTopics {
     private final static String SMART_HOUSE_CMD = "smart_house/cmd/";
     private String topicRegisteredName;
 
-    SMHOutputTopics(String topicRegisteredName) {
+    SmartHouseRequestTopics(String topicRegisteredName) {
         this.topicRegisteredName = SMART_HOUSE_CMD + topicRegisteredName;
     }
 

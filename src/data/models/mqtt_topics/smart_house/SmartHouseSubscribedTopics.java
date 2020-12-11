@@ -7,7 +7,7 @@ package data.models.mqtt_topics.smart_house;
  * and needs to be parsed to it's
  * correct type.
  */
-public enum SMHSubscribedTopics {
+public enum SmartHouseSubscribedTopics {
     // Send here true/false as a string to turn on/off the indoor light
     INDOOR_LIGHT("indoor_light"), /*boolean*/
 
@@ -69,7 +69,7 @@ public enum SMHSubscribedTopics {
     private final String SMART_HOUSE_GUI = "smart_house/gui/";
     private final String TOPIC_REGISTERED_NAME;
 
-    SMHSubscribedTopics(String topicRegisteredName) {
+    SmartHouseSubscribedTopics(String topicRegisteredName) {
         this.TOPIC_REGISTERED_NAME = SMART_HOUSE_GUI + topicRegisteredName;
     }
 

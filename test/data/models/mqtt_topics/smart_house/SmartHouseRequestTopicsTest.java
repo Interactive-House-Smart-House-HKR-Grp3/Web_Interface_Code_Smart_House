@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SMHSubscribedTopicsTest {
+class SmartHouseRequestTopicsTest {
 
     @Test
     void getTopicRegisteredName() {
-        assertEquals("smart_house/gui/fan", SMHSubscribedTopics.FAN.getTopicRegisteredName());
+        assertEquals("smart_house/cmd/fan", SmartHouseRequestTopics.FAN.getTopicRegisteredName());
     }
 
 }
