@@ -1,6 +1,6 @@
 package data.models.statistics;
 
-import data.models.mqtt_topics.server_database.ServerRequestsTopics;
+import data.models.mqtt_topics.server_database.PublishToServer;
 import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -112,7 +112,7 @@ public enum StatisticsData {
      */
     public StatisticsData requestStatistics(int periodIndex) throws MqttException {
         String topicName = null;
-        for (ServerRequestsTopics topic : ServerRequestsTopics.values()) {
+        for (PublishToServer topic : PublishToServer.values()) {
             if (this.name().equals(topic.name())) {
                 topicName = topic.getTopicRegisteredName();
             }

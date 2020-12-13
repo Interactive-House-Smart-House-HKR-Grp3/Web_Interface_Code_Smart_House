@@ -1,7 +1,7 @@
 package data.services.mqtt;
 
-import data.models.mqtt_topics.server_database.ServerSubscribedTopics;
-import data.models.mqtt_topics.smart_house.SmartHouseSubscribedTopics;
+import data.models.mqtt_topics.server_database.ReadFromServer;
+import data.models.mqtt_topics.smart_house.ReadFromHouse;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -53,8 +53,8 @@ public class MQTTConnectionHandler {
      * @throws MqttException when mqtt error
      */
     private void subscribeToSHTopics() throws MqttException {
-        for (SmartHouseSubscribedTopics topic : SmartHouseSubscribedTopics.values()) {
-            mqttClient.subscribe(topic.getTopicRegisteredName(), new MQTTSHListener());
+        for (ReadFromHouse topic : ReadFromHouse.values()) {
+            mqttClient.subscribe(topic.getTopicRegisteredName(), new MQTTSmartHouseListener());
             System.out.println("Subscribed to: " + topic.getTopicRegisteredName());
         }
     }
@@ -65,7 +65,7 @@ public class MQTTConnectionHandler {
      * @throws MqttException when mqtt error
      */
     private void subscribeToServerTopics() throws MqttException {
-        for (ServerSubscribedTopics topic : ServerSubscribedTopics.values()) {
+        for (ReadFromServer topic : ReadFromServer.values()) {
             mqttClient.subscribe(topic.getTopicRegisteredName(), new MQTTServerListener());
             System.out.println("Subscribed to: " + topic.getTopicRegisteredName());
         }
@@ -76,7 +76,7 @@ public class MQTTConnectionHandler {
      * @throws MqttException when mqtt error
      */
     private void changeStatesToClose() throws MqttException {
-        for (SmartHouseSubscribedTopics topic : SmartHouseSubscribedTopics.values()) {
+        for (ReadFromHouse topic : ReadFromHouse.values()) {
             publish(topic.getTopicRegisteredName(), "false");
             System.out.println("State changed to 'false' on : " + topic.getTopicRegisteredName());
         }

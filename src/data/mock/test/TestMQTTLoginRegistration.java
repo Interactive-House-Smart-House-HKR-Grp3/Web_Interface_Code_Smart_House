@@ -1,7 +1,7 @@
 package data.mock.test;
 
 import com.google.gson.Gson;
-import data.models.mqtt_topics.server_database.ServerRequestsTopics;
+import data.models.mqtt_topics.server_database.PublishToServer;
 import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -96,7 +96,7 @@ class Login {
         String[] userLogin = {accountName, password};
         Gson gson = new Gson();
         USER.setUserSet(false);
-        client.publish(ServerRequestsTopics.USER.getTopicRegisteredName(),
+        client.publish(PublishToServer.USER.getTopicRegisteredName(),
                 new MqttMessage(gson.toJson(userLogin).getBytes()));
         Date currentTime = Calendar.getInstance().getTime();
         Date loginValidationPeriod = new Date(currentTime.getTime() + 4000);
@@ -113,7 +113,7 @@ class Login {
         Gson gson = new Gson();
         String[] userRegistrationCredentials = {accountName, password, userName, emailAddress};
         USER.setUserSet(false);
-        client.publish(ServerRequestsTopics.REGISTER_USER.getTopicRegisteredName(),
+        client.publish(PublishToServer.REGISTER_USER.getTopicRegisteredName(),
                 new MqttMessage(gson.toJson(userRegistrationCredentials).getBytes()));
         Date currentTime = Calendar.getInstance().getTime();
         Date loginValidationPeriod = new Date(currentTime.getTime() + 5000);

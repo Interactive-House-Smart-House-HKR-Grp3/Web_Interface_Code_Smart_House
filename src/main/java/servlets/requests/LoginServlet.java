@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("/dashboard").forward(request, response);
                 } else {
                     System.err.println("Incorrect Username or Password!");
+                    //setupSessionAttributes(); // TODO: Comment when the system is functional
                     request.getRequestDispatcher("/homePage").forward(request, response);
                 }
             } catch (MqttException e) {

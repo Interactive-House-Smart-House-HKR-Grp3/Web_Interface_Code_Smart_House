@@ -5,7 +5,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.jupiter.api.Test;
 
-import static data.models.mqtt_topics.smart_house.SmartHouseRequestTopics.INDOOR_LIGHT;
+import static data.models.mqtt_topics.smart_house.PublishToHouse.INDOOR_LIGHT;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MQTTConnectionHandlerTest {

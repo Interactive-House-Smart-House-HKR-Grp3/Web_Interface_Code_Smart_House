@@ -1,6 +1,6 @@
 package data.models.devices;
 
-import data.models.mqtt_topics.smart_house.SmartHouseRequestTopics;
+import data.models.mqtt_topics.smart_house.PublishToHouse;
 import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -110,7 +110,7 @@ public enum Devices {
     public void changeStateTo(int changeStateTo) throws MqttException {
         this.setNewStateRead(false);
         String topicName = null;
-        for (SmartHouseRequestTopics topic : SmartHouseRequestTopics.values()) {
+        for (PublishToHouse topic : PublishToHouse.values()) {
             if (this.name().equals(topic.name())) {
                 topicName = topic.getTopicRegisteredName();
             }
