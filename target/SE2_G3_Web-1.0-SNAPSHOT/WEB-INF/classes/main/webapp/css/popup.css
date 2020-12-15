@@ -85,7 +85,6 @@ ul{
     font-family: var(--UnicaOne);
     text-align: center;
     align-items: center;
-
 }
 
 .modal-header .title-login:hover {
@@ -172,6 +171,10 @@ ul{
     color: white;
 }
 
+.highlighted {
+    background: var(--color-accent);
+    color: white;
+}
 
 #overlay{
     position: fixed;
