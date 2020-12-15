@@ -12,6 +12,7 @@
     <meta name="description"
           content="With Höme® Dashboard you will be able to control your Höme® from the comfort of your browser">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Höme | Dashboard</title>
 
     <!-- Dependencies -->
@@ -40,72 +41,90 @@
             count++;
         }
 
-        StringBuilder devicesString = new StringBuilder();
+        // These are the Global Variables used in the devices section of the JSP
+        Double consumption = 0.0;
+        String dayNight = "";
+        String[] deviceStates = {
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error"
+        };
+        String[] devicesButton = {
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error",
+                "Error"
+        };
+        String imgDayNight = "";
+
+        int statisticsProviderCount = 0;
+
         for (int i = 0; i < devices.length; i++) {
-            // Makes sure that the layouts are unique for each device that needs to be
-            switch (devices[i].name()) {
-                // TODO create different layouts for each device
+            StringBuilder devicesString = new StringBuilder();
 
-                // A device not found will take this layout
-                default: {
-                    // This categorizes the devices into sections
-                    devicesString.append("<section id=\"lights\">");
-
-                    // This is needed for every device
-                    devicesString.append("<div class=\"devices-container\">");
-
-                    // Create a format to display the device
-                    devicesString.append("<div class=\"device-item device-item-").append(i).append("\">")
-                            .append("<h3 class=\"device-title\">")
-                            .append(devices[i].name());
-
-                    if (devices[i].isStatisticsProvider()) {
-                        // The statistics button
-                        // *** MUST BE INSIDE THE H3 TAG ***
-                        // TODO resolve sending the user to a statistics page specific to this device
-                        devicesString.append("<form class=\"form-btn\" action=\"").append(request.getContextPath()).append("/button\" method=\"post\">\n" +
-                                "<button class=\"btn btn-statistics\" name=\"button\" type=\"submit\" value=\"statistics\">\n" +
-                                "<i class=\"fas fa-chart-pie\"></i>\n" +
-                                "</button>\n" +
-                                "</form>");
-                    }
-                    devicesString.append("</h3>");
-
-                    // Wait for the state of the device to be read
-                    String currentState = devices[i].getDeviceCurrentState().toString();
-                    count = 0;
-                    while (!devices[i].isNewStateRead() && count < 10) {
-                        try {
-                            Thread.sleep(20);
-                            count++;
-                        } catch (Exception ignored) {}
-                    }
-
-                    try {
-                        devicesString.append("<h6 class=\"device-state\">").append(currentState).append("</h6>");
-                    } catch (Exception e) {
-                        devicesString.append("<h6 class=\"device-state\">").append("N/A").append("</h6>");
-                    }
-
-                    devicesString.append("<img class=\"img-device\" src=\"./assets/vectors/3D_icons/005-lamp.svg\">");
-
-                    if (devices[i].isChangeableState()) {
-                        // The request from the button will be checked with a switch case using the value = "device.name" + "-" + "device.currentState"
-                        devicesString.append("<form action=\"").append(request.getContextPath()).append("/outputRequest\" method=\"post\">")
-                                .append("<button class=\"btn btn-device-toggle\" name=\"btn_deviceToggle\" type=\"submit\" value=\"").append(devices[i].name()).append("-").append(currentState).append("\">")
-                                .append("Toggle State")
-                                .append("</button>")
-                                .append("</form>");
-                    }
+            switch (devices[i].name()){
+                case "TWILIGHT":{
+                    // TODO if day use sun image else use moon image
+                    imgDayNight = "sun"; // else moon
                     break;
                 }
             }
 
-            // Close this device section
-            devicesString.append("</div>").append("</div>").append("</section>");
+            if (devices[i].isStatisticsProvider()) {
+                statisticsProviderCount++;
+                // The statistics button
+                // TODO resolve sending the user to a statistics page specific to this device
+                devicesString.append("<form class=\"form-btn\" action=\"").append(request.getContextPath()).append("/button\" method=\"post\">\n" +
+                        "<button class=\"btn btn-statistics\" name=\"button\" type=\"submit\" value=\"statistics\">\n" +
+                        "<i class=\"fas fa-chart-pie\"></i>\n" +
+                        "</button>\n" +
+                        "</form>");
+            } else {
+                devicesString.append(" ");
+            }
+
+            // Wait for the state of the device to be read
+            String currentState = devices[i].getDeviceCurrentState().toString();
+            count = 0;
+            while (!devices[i].isNewStateRead() && count < 10) {
+                try {
+                    Thread.sleep(20);
+                    count++;
+                } catch (Exception ignored) {}
+            }
+
+            deviceStates[i] = currentState;
+            devicesButton[i] = devicesString.toString();
         }
-        // Send the device information to the user page
-        String query = devicesString.toString();
     %>
 
 <header>
@@ -155,8 +174,6 @@
 <!-- The Java Script file that controls the navbar-->
 <script src="./js/navbar.js"></script>
 
-<!--  ------------- The skipTutorial() is inside the dashboard.js  -->
-
 <!-- ------------- Account Pop-up  ------------- -->
 <div class="modal" id="modal">
     <button data-modal-close class="btn-login-close">&times;</button>
@@ -178,6 +195,7 @@
 <!-- Popup Script -->
 <script src="./js/popup.js"></script>
 
+<!--  ------------- The skipTutorial() is inside the dashboard.js  -->
 <body onload="skipTutorial()">
 
 <div class="header-padding"></div>
@@ -223,12 +241,17 @@
 
             <div class="img-status">
                 <i class="fas fa-charging-station"></i>
-                <h3>15 kW/Hr</h3>
+
+                <h3>
+                    <%=deviceStates[7]%>
+                </h3>
             </div>
 
             <div class="img-status">
-                <i class="fas fa-sun" id="twilightIcon"></i>
-                <h3 id="twilightText">Night</h3>
+                <i class="fas fa-<%=imgDayNight%>" id="twilightIcon"></i>
+                <h3 id="twilightText">
+                    <%=deviceStates[8]%>
+                </h3>
             </div>
         </div>
 
@@ -279,6 +302,262 @@
                 <p>your devices are hiding when you first start the website. Get them to come out using the previously mentioned devices section in the sidebar. Devices are the way you control your home. The following is an example of a device most devices are straight forward however, each device has a special icon on the top right (highlighted in red) clicking this button lets you discover more about the device and show some device statistics.</p>
 
                 <img src="./assets/images/Screenshot-device.jpg" alt="" srcset="">
+            </div>
+        </section>
+
+        <!-- This is the start of the devices -->
+        <!-- Each device requires a State and a Stats Button generated from above -->
+
+        <section id="alarms">
+            <div class="devices-container">
+
+                <div class="device-item device-item-2">
+                    <h3 class="device-title">Fire Alarm
+                        <%=devicesButton[0]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[0]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/042-fire alarm.svg">
+                </div>
+
+                <div class="device-item device-item-3">
+                    <h3 class="device-title">Housebreak Alarm
+                        <%=devicesButton[1]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[1]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/011-insurance.svg">
+                </div>
+
+                <div class="device-item device-item-3">
+                    <h3 class="device-title">Water Leakage
+                        <%=devicesButton[2]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[2]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/041-water tap.svg">
+                </div>
+
+                <div class="device-item device-item-4">
+                    <h3 class="device-title">Power Cut
+                        <%=devicesButton[9]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[9]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/008-power button.svg">
+                </div>
+
+            </div>
+        </section>
+
+        <section id="lights">
+            <div class="devices-container">
+
+                <div class="device-item device-item-1">
+                    <h3 class="device-title">Indoor Light
+                        <%=devicesButton[10]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[10]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/005-lamp.svg">
+
+                    <div class="device-controls">
+                        <button class="btn btn-device-toggle">
+                            Toggle State
+                        </button>
+                    </div>
+                </div>
+
+                <div class="device-item device-item-2">
+                    <h3 class="device-title">Outdoor Light
+                        <%=devicesButton[11]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[11]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/044-lamp.svg">
+
+                    <div class="device-controls">
+                        <button class="btn btn-device-toggle">
+                            Toggle State
+                        </button>
+                    </div>
+                </div>
+
+                <div class="device-item device-item-3">
+                    <h3 class="device-title">Auto Lights
+                        <%=devicesButton[17]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[17]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/050-automation.svg">
+
+                    <div class="device-controls">
+                        <button class="btn btn-device-toggle">
+                            Toggle State
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="temperatures">
+            <div class="devices-container">
+
+                <div class="device-item device-item-1">
+                    <h3 class="device-title">Indoor Temp
+                        <%=devicesButton[3]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[3]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/014-temperature.svg">
+                </div>
+
+                <div class="device-item device-item-2">
+                    <h3 class="device-title">Outdoor Temp
+                        <%=devicesButton[4]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[4]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/036-garage.svg">
+                </div>
+
+                <div class="device-item device-item-3">
+                    <h3 class="device-title">Heating Indoor
+                        <%=devicesButton[15]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[15]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/simple_icons/002-smartphone.svg">
+
+                    <div class="device-controls">
+                        <button class="btn btn-device-toggle">
+                            Toggle State
+                        </button>
+                    </div>
+                </div>
+
+                <div class="device-item device-item-4">
+                    <h3 class="device-title">Heating Loft
+                        <%=devicesButton[16]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[16]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/007-air conditioner.svg">
+
+                    <div class="device-controls">
+                        <button class="btn btn-device-toggle">
+                            Toggle State
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="misc">
+            <div class="devices-container">
+
+                <div class="device-item device-item-1">
+                    <h3 class="device-title">Door
+                        <%=devicesButton[6]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[6]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/039-smart%20door.svg">
+
+                    <div class="device-controls">
+                        <button class="btn btn-device-toggle">
+                            Toggle State
+                        </button>
+                    </div>
+                </div>
+
+                <div class="device-item device-item-1">
+                    <h3 class="device-title">Stove
+                        <%=devicesButton[12]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[12]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/009-solar panel.svg">
+
+                    <div class="device-controls">
+                        <button class="btn btn-device-toggle">
+                            Toggle State
+                        </button>
+                    </div>
+                </div>
+
+                <div class="device-item device-item-2">
+                    <h3 class="device-title">Window
+                        <%=devicesButton[5]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[5]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/033-window.svg">
+
+                    <div class="device-controls">
+                        <button class="btn btn-device-toggle">
+                            Toggle State
+                        </button>
+                    </div>
+                </div>
+
+                <div class="device-item device-item-3">
+                    <h3 class="device-title">Fan
+                        <%=devicesButton[13]%>
+                    </h3>
+
+                    <h4 class="device-state">
+                        <%=deviceStates[13]%>
+                    </h4>
+
+                    <img class="img-device" src="./assets/vectors/3D_icons/043-fan.svg">
+
+                    <div class="device-controls">
+                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                    </div>
+                </div>
             </div>
         </section>
 
