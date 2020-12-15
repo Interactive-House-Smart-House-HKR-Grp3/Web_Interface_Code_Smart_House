@@ -25,7 +25,7 @@ closeModalButtons.forEach(button => {
 
 function openModal (modal) {
     if (modal == null) return;
-
+    
     modal.classList.add('active');
     overlay.classList.add('active');
 
@@ -56,12 +56,20 @@ const loginBtn = document.getElementById('btn-login');
 $(login).click(function() {
   $(loginBtn).show("slow");
 
+  // Makes sure that the current tab is highlighted
+  $(login).addClass("highlighted");
+  $(register).removeClass("highlighted");
+
   $(name).hide("slow");
   $(email).hide("slow");
   $(registerBtn).hide("slow");
 });
 
 $(register).click(function() {
+  // Makes sure that the current tab is highlighted
+  $(register).addClass("highlighted");
+  $(login).removeClass("highlighted");
+
   $(name).show("slow");
   $(email).show("slow");
   $(registerBtn).show("slow");
@@ -69,8 +77,11 @@ $(register).click(function() {
   $(loginBtn).hide("slow");
 });
 
+function highlightLogin() {
+  $(login).addClass("highlighted");
+}
 
-// The following is code relating to disbling and enabling scrolling
+// The following is code relating to disabling and enabling scrolling
 
 // left: 37, up: 38, right: 39, down: 40,
 // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36

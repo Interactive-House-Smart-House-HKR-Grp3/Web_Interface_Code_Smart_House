@@ -1,7 +1,7 @@
 const learnBtn = document.getElementById('btn-learn');
-const devices = document.getElementById('devices');
 const info = document.getElementById('info');
 const infoBtn = document.getElementById('btn-info');
+const tutorialBtn = document.getElementById('btn-tutorial')
 
 $(learnBtn).click(function (){
     hideTutorial();
@@ -11,28 +11,31 @@ $(infoBtn).click(function (){
     showTutorial();
 });
 
+$(tutorialBtn).click(function (){
+  showTutorial();
+})
+
 // This is used by the btn-info
 function showTutorial() {
 
     // Deletes the cookie that skips the tutorial
     deleteCookie("skipTutorial");
 
-    $(info).show("slow");
-    $(devices).hide("fast", function hideNext() {
-        $(this).next("section").hide("fast", hideNext);
+    $(info).show("fast");
+    $(devicesAlarm).hide("slow", function hideNext() {
+        $(this).next("section").hide("slow", hideNext);
     });
 }
 
 // This is used by the btn-learn
 function hideTutorial(){
 
-    // Sets a cookie that will skip the tutorial for 1 day
-    setCookie("skipTutorial", "True", 1);
+    // Sets a cookie that will skip the tutorial for 5 days
+    setCookie("skipTutorial", "True", 5);
 
-    $(info).hide("slow");
-    $(devices).show("fast", function showNext() {
-        $(this).next("section").show("fast", showNext);
-    });
+    $(info).hide("fast");
+
+    showDevices();
 }
 
 // Sets a cookie with the name, the value, and days until expiration
@@ -74,5 +77,74 @@ function skipTutorial() {
       hideTutorial();
   } else {
       showTutorial();
+  }
+}
+
+// The sidebar section begins here
+const btnAlarm = document.getElementById('btn-alarm');
+const btnLight = document.getElementById('btn-light');
+const btnTemps = document.getElementById('btn-temp');
+const btnMisc = document.getElementById('btn-misc');
+
+const devicesAlarm = document.getElementById('alarms');
+const devicesLight = document.getElementById('lights');
+const devicesTemps = document.getElementById('temperatures');
+const devicesMisc = document.getElementById('misc');
+
+var devices = [false, false, false, false];
+
+$(btnAlarm).click(function (){
+  $(btnAlarm).toggleClass('clicked');
+  $(devicesAlarm).toggle('slow');
+
+  if(devices[0] == false){
+    devices[0] = devicesAlarm;
+  } else {
+    devices[0] = false;
+  }
+});
+
+$(btnLight).click(function (){
+    $(btnLight).toggleClass('clicked');
+    $(devicesLight).toggle('slow');
+
+    if(devices[1] == false){
+      devices[1] = devicesLight;
+    } else {
+      devices[1] = false;
+    };
+});
+
+$(btnTemps).click(function (){
+  $(btnTemps).toggleClass('clicked');
+  $(devicesTemps).toggle('slow');
+
+  if(devices[2] == false){
+      devices[2] = devicesTemps;
+    } else {
+      devices[2] = false;
+    }
+})
+
+$(btnMisc).click(function (){
+  $(btnMisc).toggleClass('clicked');
+  $(devicesMisc).toggle('slow');
+
+  if(devices[3] == false){
+    devices[3] = devicesMisc;
+  } else {
+    devices[3] = false;
+  }
+})
+
+function showDevices() {
+
+  for (let index = 0; index < devices.length; index++) {
+
+    if(devices[index] != false){
+      $(devices[index]).show("slow");
+    } else{
+      $(devices[index]).hide();
+    }
   }
 }

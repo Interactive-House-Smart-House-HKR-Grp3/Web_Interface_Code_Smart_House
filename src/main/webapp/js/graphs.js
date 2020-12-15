@@ -1,3 +1,8 @@
+Chart.defaults.global.defaultFontFamily = 'UnicaOne';
+Chart.defaults.global.tooltips.backgroundColor = '#44C4BF';
+Chart.defaults.global.animation.easing = 'easeInOutQuad';
+
+
 const ctx = document.getElementById('chart-electricity').getContext('2d');
                         const myChart = new Chart(ctx, {
                             type: 'line', // bar, horizontalBar, pie, line, doughnut, polarArea
@@ -8,16 +13,15 @@ const ctx = document.getElementById('chart-electricity').getContext('2d');
                                 datasets: [
 
                                     {
-
-                                        label: "My First dataset",
+                                        label: "Electricity Consumption",
 
                                         fill: false,
 
                                         lineTension: 0.1,
 
-                                        backgroundColor: "rgba(75, 192, 192, 0.4)",
+                                        backgroundColor: "rgba(252, 207, 3, 0.4)",
 
-                                        borderColor: "rgba(75, 192, 192, 1)",
+                                        borderColor: "rgba(252, 207, 3, 1)",
 
                                         borderCapStyle: 'butt',
 
@@ -27,7 +31,7 @@ const ctx = document.getElementById('chart-electricity').getContext('2d');
 
                                         borderJoinStyle: 'miter',
 
-                                        pointBorderColor: "rgba(75,192,192,1)",
+                                        pointBorderColor: "rgba(252, 207, 3,1)",
 
                                         pointBackgroundColor: "#fff",
 
@@ -40,7 +44,6 @@ const ctx = document.getElementById('chart-electricity').getContext('2d');
                                         data: data,
 
                                     }
-
                                 ]
                             },
                             options: {
@@ -53,12 +56,7 @@ const ctx = document.getElementById('chart-electricity').getContext('2d');
                                 },
 
                                 layout: {
-                                    padding: {
-                                        left: 50,
-                                        right: 50,
-                                        top: 0,
-                                        bottom: 50
-                                    }
+                                    
                                 },
 
                                 legend: {

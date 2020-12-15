@@ -74,9 +74,11 @@ button.btn:hover {
 }
 
 .graph-container {
-  border: solid;
-  border-width: 5px;
+  background: var(--color-white);
+  padding: 5px;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
   border-radius: 15px;
-  padding-top: 25vh;
   width: 80%;
+  max-width: 750px;
+  min-height: 20%;
 }

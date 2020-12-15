@@ -36,6 +36,9 @@ body {
     --color-light-blue: #494ECE;
     --color-dark-blue: #4B13D6;
 
+    /* Variables */
+    --size-header: 90px;
+
     /* Gradients */
     --Risky-Concreate: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
 }
@@ -73,11 +76,142 @@ button.btn:hover {
   background-color: var(--color-accent);
 }
 
+input.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  margin: 5px;
+  border-radius: 15px;
+  background: #d3d3d3;
+  opacity: 0.5;
+  outline: none;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+input.slider:hover {
+  opacity: 1;
+}
+
+input.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--color-dark-blue);
+  cursor: pointer;
+}
+
+input.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--color-dark-blue);
+  cursor: pointer;
+}
+
+main {
+  width: 100%;
+  height: calc(100% - var(--size-header));
+  background: url(../assets/images/background_abstract.png);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.header-padding {
+  height: var(--size-header);
+  background: linear-gradient(to left, rgba(68, 196, 191, 0.98), rgba(73, 78, 206, 0.98));
+}
+
+p {
+  font-family: var(--YanoneKaffeesatz);
+  letter-spacing: 2px;
+}
+
+/* ------- Side Bar ------- */
+.window-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.sidebar {
+  background: #F5F6FF;
+  box-shadow: 10px 0px 15px rgba(0, 0, 0, 0.3);
+  padding-top: 100px;
+  max-width: 275px;
+  min-width: 275px;
+  height: calc(100vh - var(--size-header));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-grey);
+}
+
+.sidebar-padding {
+  width: 100%;
+  height: 2px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #3f4954;
+}
+
+.sidebar button {
+  width: 125px;
+}
+
+.sidebar .controls-devices {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 10px 10px;
+}
+
+.sidebar .img-btn {
+  text-align: center;
+  padding: 5px;
+  font-size: 2rem;
+} 
+
+.sidebar .img-btn:hover {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 20px;
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar .controls-status {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  width: 100%;
+  height: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.sidebar h3 {
+  font-size: 1rem;
+}
+
 /* ------- Intro Section ------- */
 main .site-intro {
   background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
   background-size: cover;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,11 +243,27 @@ main .site-intro .btn:hover {
 }
 
 /* ------- Devices Lists ------- */
-#devices {
+
+#status {
   display: none;
-  background: url("../assets/images/background_abstract.png");
-  background-repeat: no-repeat;
-  background-position: right;
+}
+
+#alarms {
+  display: none;
+
+}
+
+#lights {
+  display: none;
+
+}
+
+#temperatures {
+    display: none;
+}
+
+#misc {
+    display: none;
 }
 
 .devices-container {
@@ -170,4 +320,39 @@ main .btn-device-toggle {
 
 main .btn-device-toggle:hover {
   background: var(--color-accent);
+}
+
+/* -------- Classes called by JS -------- */ 
+
+.clicked {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 20px;
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: white;
+}
+
+/* -------- Responsive Media Calls --------*/
+@media (max-width: 900px) {
+  body {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    min-width: 30%;
+  }
+}
+
+@media (max-width: 550px){
+  .sidebar {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .nav .nav-items {
+    visibility: hidden;
+  }
 }

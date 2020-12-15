@@ -1,7 +1,5 @@
 <%@ page import="data.models.devices.Devices" %>
 <%@ page import="java.util.ArrayList" %>
-<!-- Uncomment this when inside the jsp as it's needed for encoding -->
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +107,6 @@
         String query = devicesString.toString();
     %>
 
-
 <header>
     <!-- ------------- NAVIGATION ------------- -->
     <nav class="nav">
@@ -120,15 +117,6 @@
                     <img class="brand-logo" src="./assets/vectors/3D_icons/006-home automation.svg" width="50">
                     <span class="brand-brandname">Höme</span>
                 </a>
-            </div>
-
-            <!-- ------------- Menu used if screen <= 750px  ------------- -->
-            <div class="menu">
-                <div class="icons">
-                    <span>
-                        <i class="fas fa-bars"></i>
-                    </span>
-                </div>
             </div>
 
             <div>
@@ -148,6 +136,15 @@
                 </ul>
             </div>
 
+            <!-- ------------- Menu used if screen <= 750px  ------------- -->
+            <div class="menu">
+                <div class="icons">
+                    <span>
+                        <i class="fas fa-bars"></i>
+                    </span>
+                </div>
+            </div>
+
             <button data-modal-target="#modal" class="user">
                 <i class="fas fa-user-circle"></i>
             </button>
@@ -158,7 +155,6 @@
 <script src="./js/navbar.js"></script>
 
 <!--  ------------- The skipTutorial() is inside the dashboard.js  -->
-<body onload="skipTutorial()">
 
 <!-- ------------- Account Pop-up  ------------- -->
 <div class="modal" id="modal">
@@ -181,47 +177,118 @@
 <!-- Popup Script -->
 <script src="./js/popup.js"></script>
 
-<!-- The Contents of the page -->
-<main id="contents">
+<body onload="skipTutorial()">
 
-    <!-- The Intro Section -->
-    <section class="site-intro" id="info">
+<div class="header-padding"></div>
 
-        <div class="site-about">
-            <h3>Dashboard</h3>
-            <h1>Welcome Höme user_name!</h1>
-            <p>
-                This is your Dashboard, from here you will be able to control your Höme® and see all your available devices.
-            </p>
+<section class="window-container">
+    <section class="sidebar">
 
-            <p>
-                Please take a second to read this tutorial as it will guide you on how to control your Höme® as well give some friendly tips!
-            </p>
+        <h2>Controls</h2>
+        <button class="btn" id="btn-tutorial">
+            See Tutorial
+        </button>
 
-            <p>
-                Once you're ready click the button below.
-            </p>
-            <button class="btn btn-learn" id="btn-learn">Get Started</button>
+        <div class="sidebar-padding"></div>
+
+
+        <h2>Devices</h2>
+        <div class="controls-devices">
+            <div class="img-btn" id="btn-alarm">
+                <i class="fas fa-bell"></i>
+                <h3>Alarms</h3>
+            </div>
+
+            <div class="img-btn" id="btn-light">
+                <i class="far fa-lightbulb"></i>
+                <h3>Lights</h3>
+            </div>
+
+            <div class="img-btn" id="btn-temp">
+                <i class="fas fa-thermometer-full"></i>
+                <h3>Temps</h3>
+            </div>
+
+            <div class="img-btn" id="btn-misc">
+                <i class="fas fa-database"></i>
+                <h3>Misc.</h3>
+            </div>
         </div>
+
+        <div class="sidebar-padding"></div>
+
+        <h2>Höme Status</h2>
+        <div class="controls-status">
+
+            <div class="img-status">
+                <i class="fas fa-charging-station"></i>
+                <h3>15 kW/Hr</h3>
+            </div>
+
+            <div class="img-status">
+                <i class="fas fa-sun" id="twilightIcon"></i>
+                <h3 id="twilightText">Night</h3>
+            </div>
+        </div>
+
     </section>
 
-    <!-- TODO: A floating status should show if the house has power -->
-    <!-- TODO: A floating status should show the house electricity consumption -->
-    <!-- TODO: A floating status should show if it is day or night out -->
+    <!-- The Contents of the page -->
+    <main id="contents">
 
-    <!-- TODO: divide the devices into their categories  -->
-    <section id="devices">
-        <div class="devices-container">
-            <!-- Uncomment this when populating it within the jsp -->
-             <%=query%>
+        <!-- The Intro Section -->
+        <section class="site-intro" id="info">
 
-            <!-- Delete this part when inside the jsp as it's for design testing purposes only -->
-        </div>
-    </section>
+            <div class="site-about">
+                <h3>Dashboard</h3>
+                <h1>Welcome Höme user_name!</h1>
+                <p>
+                    This is your Dashboard, from here you will be able to control your Höme® and see all your
+                    available
+                    devices.
+                </p>
 
-</main>
+                <p>
+                    Please take a second to read this tutorial as it will guide you on how to control your Höme® as
+                    well
+                    give some friendly tips!
+                </p>
+
+                <h2>
+                    Once you're ready click the button below.
+                </h2>
+                <button class="btn btn-learn" id="btn-learn">Get Started</button>
+
+                <div class="section-padding"></div>
+
+                <h2>The sidebar</h2>
+                <p>The side bar is the place where the website will interact with you. The sidebar contains three main sections which will be described in parts below the sidebar is made for ease and will resize with your browser window</p>
+
+                <img src="./assets/images/Screenshot-Sidebar.jpg" alt="" srcset="">
+
+                <h3 class="red">Controls</h3>
+                <p>The controls section is shown in the screenshot highlighted in red and is located at  the top of the sidebar. This section is responsible for the controls used to control the website as of the version of the website there is only one control in this section. Clicking this "See tutorial" button will reopen this tutorial at anytime. </p>
+
+                <h3 class="blue">Devices</h3>
+                <p>The blue section in the screen shot shows the devices list. These 4 buttons will toggle which device categories you would be able to see turn one of them on or all at the same time! the choice is yours!</p>
+
+                <img src="./assets/images/Screenshot-sidebar-devices.jpg" alt="devices screenshot" srcset="">
+
+                <h2>Your Devices</h2>
+                <p>your devices are hiding when you first start the website. Get them to come out using the previously mentioned devices section in the sidebar. Devices are the way you control your home. The following is an example of a device most devices are straight forward however, each device has a special icon on the top right (highlighted in red) clicking this button lets you discover more about the device and show some device statistics.</p>
+
+                <img src="./assets/images/Screenshot-device.jpg" alt="" srcset="">
+            </div>
+        </section>
+
+    </main>
+</section>
 
 <script src="./js/dashboard.js"></script>
+</body>
+
+</html>
+
 <script>
     <%
         // Run a script to update the variables with the subscriptions
@@ -249,6 +316,3 @@
     %>
 </script>
 
-</body>
-
-</html>
