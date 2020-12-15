@@ -281,7 +281,7 @@
                 <img src="./assets/images/Screenshot-device.jpg" alt="" srcset="">
             </div>
         </section>
-
+        <%=query%>
     </main>
 </section>
 
