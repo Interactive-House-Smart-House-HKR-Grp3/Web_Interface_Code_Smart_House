@@ -23,7 +23,12 @@ public class LoginServlet extends HttpServlet {
         if (function.equalsIgnoreCase("login")) {
             // Authenticate the user then send them to their destination with the user attached
             try {
-                if (userLogin(request.getParameter("username"), request.getParameter("password"))) {
+                if (request.getParameter("username").equalsIgnoreCase("Debug")){
+                    // TODO: Need to call the mock data generation method
+                    // TODO: Need to set a session attribute to check if mock is being used
+                    request.getRequestDispatcher("/dashboard").forward(request, response);
+                }
+                else if (userLogin(request.getParameter("username"), request.getParameter("password"))) {
                     setupSessionAttributes();
                     // Send the user to their destination
                     request.getRequestDispatcher("/dashboard").forward(request, response);
