@@ -1,5 +1,6 @@
 package main.java.servlets.requests;
 
+import data.mock.mock_data.MockData;
 import data.models.devices.Devices;
 import data.services.mqtt.MQTTConnectionHandler;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static data.services.login.Login.userLogin;
@@ -18,14 +20,16 @@ import static data.services.login.Login.userRegistration;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().setAttribute("Debug", false);
         // Check if the user is trying to login or register a new user
         String function = request.getParameter("btn_request");
         if (function.equalsIgnoreCase("login")) {
             // Authenticate the user then send them to their destination with the user attached
             try {
                 if (request.getParameter("username").equalsIgnoreCase("Debug")){
-                    // TODO: Need to call the mock data generation method
-                    // TODO: Need to set a session attribute to check if mock is being used
+                    // Generate mock data to be used for testing purposes rather than calling the server
+                    new MockData("debug", "pass", 2);
+                    request.getSession().setAttribute("Debug", true);
                     request.getRequestDispatcher("/dashboard").forward(request, response);
                 }
                 else if (userLogin(request.getParameter("username"), request.getParameter("password"))) {

@@ -377,9 +377,11 @@
                     <img class="img-device" src="./assets/vectors/3D_icons/005-lamp.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
-                            Toggle State
-                        </button>
+                        <form class="modal-form" action="${pageContext.request.contextPath}/outputRequest" method="post">
+                            <button class="btn btn-device-toggle" name="btn_deviceToggle" value="INDOOR_LIGHT-<%=deviceStates[10]%>" type="submit">
+                                Toggle State
+                            </button>
+                        </form>
                     </div>
                 </div>
 
@@ -571,12 +573,14 @@
 
 <script>
     <%
+        // TODO: Need to implement mock and online functionality seperately, check session variable "Insert name here" to see what mode it is in
+
         // Run a script to update the variables with the subscriptions
         // TODO: Write a java script code snippet which calls this commentated section every 5 seconds or so to update the variables used for the devices
 
-        // TODO: might have to write them in the java code above in a different manner? calling variables to be written instead of the code chunk?
+        // TODO: Using the java variables, call an update for all of the devices
 
-        // TODO: instead of '<6=query6>' have {$variable} for each device, which may update when the variable is updated here...
+        // TODO: Remove any sleep methods to retrieve data, since this is now dynamic
 
         /*
         for (Devices device : Devices.values()) {

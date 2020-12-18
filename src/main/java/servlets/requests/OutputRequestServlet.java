@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 @WebServlet(name = "OutputRequestServlet", urlPatterns = "/outputRequest")
 public class OutputRequestServlet extends HttpServlet {
@@ -27,16 +26,32 @@ public class OutputRequestServlet extends HttpServlet {
 
         }
 
+        // Check if the user is in debug mode?
+        boolean debug = (boolean) request.getSession().getAttribute("Debug");
+        System.out.println("Debug mode = " + debug);
+        // TODO: Add all the possible devices to change the state of
         // Using the split string, send the request
         switch (requestedDevice) {
             case "INDOOR_LIGHT":
                 try {
                     if (currentState.equalsIgnoreCase("ON")) {
-                        Devices.INDOOR_LIGHT.changeStateTo(2);
+                        if (debug){
+                            Devices.INDOOR_LIGHT.setDeviceCurrentState(2);
+                        } else {
+                            Devices.INDOOR_LIGHT.changeStateTo(2);
+                        }
                     } else if (currentState.equalsIgnoreCase("OFF")) {
-                        Devices.INDOOR_LIGHT.changeStateTo(1);
+                        if (debug){
+                            Devices.INDOOR_LIGHT.setDeviceCurrentState(1);
+                        } else {
+                            Devices.INDOOR_LIGHT.changeStateTo(1);
+                        }
                     } else {
-                        Devices.INDOOR_LIGHT.changeStateTo(1);
+                        if (debug){
+                            Devices.INDOOR_LIGHT.setDeviceCurrentState(1);
+                        } else {
+                            Devices.INDOOR_LIGHT.changeStateTo(1);
+                        }
                     }
                 } catch (MqttException e) {
                     e.printStackTrace();
@@ -46,13 +61,6 @@ public class OutputRequestServlet extends HttpServlet {
                 System.out.print("Device state not found!");
         }
 
-        // TODO: Temp fix, should have listener later maybe?
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Send the user back to the user page to view the devices
         request.getRequestDispatcher("/dashboard").forward(request, response);
     }
 

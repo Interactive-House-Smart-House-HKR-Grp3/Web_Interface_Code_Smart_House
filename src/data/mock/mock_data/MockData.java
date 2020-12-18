@@ -208,12 +208,21 @@ public class MockData {
      * @param password valid
      */
     private void setUserAccount(String accountName, String password) {
-        for (MockUserAccount account : MockUserAccount.values()) {
-            if (account.getACCOUNT_NAME().equals(accountName) && account.getPASSWORD().equals(password)) {
-                USER.setAccountName(account.getACCOUNT_NAME());
-                USER.setEmailAddress(account.getEMAIL());
-                USER.setName(account.getNAME());
-                USER.setPassword(account.getPASSWORD());
+        if (accountName.equalsIgnoreCase("debug")){
+            MockUserAccount account = MockUserAccount.MOCK_USER_1;
+            USER.setAccountName(account.getACCOUNT_NAME());
+            USER.setEmailAddress(account.getEMAIL());
+            USER.setName(account.getNAME());
+            USER.setPassword(account.getPASSWORD());
+        }
+        else {
+            for (MockUserAccount account : MockUserAccount.values()) {
+                if (account.getACCOUNT_NAME().equals(accountName) && account.getPASSWORD().equals(password)) {
+                    USER.setAccountName(account.getACCOUNT_NAME());
+                    USER.setEmailAddress(account.getEMAIL());
+                    USER.setName(account.getNAME());
+                    USER.setPassword(account.getPASSWORD());
+                }
             }
         }
     }
