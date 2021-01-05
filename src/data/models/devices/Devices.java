@@ -30,9 +30,9 @@ public enum Devices {
     /*12*/ OUTDOOR_LIGHT(true, true, StatisticsFormat.EVENT, Category.LIGHTS),
     /*13*/ STOVE(false, true, StatisticsFormat.EVENT, Category.MISC),
     /*14*/ FAN(true, true, StatisticsFormat.EVENT, Category.MISC),
-    /*16*/ HEATING_INDOOR(true, true, StatisticsFormat.EVENT, Category.TEMPERATURES),
-    /*17*/ HEATING_LOFT(true, true, StatisticsFormat.EVENT, Category.TEMPERATURES),
-    /*18*/ AUTO_MODE(true, true, StatisticsFormat.EVENT, Category.LIGHTS);
+    /*15*/ HEATING_INDOOR(true, true, StatisticsFormat.EVENT, Category.TEMPERATURES),
+    /*16*/ HEATING_LOFT(true, true, StatisticsFormat.EVENT, Category.TEMPERATURES),
+    /*17*/ AUTO_MODE(true, true, StatisticsFormat.EVENT, Category.LIGHTS);
 
     // Final attributes, reflecting the Communication Protocol agreements
     private final boolean changeableState;
@@ -45,6 +45,9 @@ public enum Devices {
     private int intValue;
     private double doubleValue;
     private boolean newStateRead;
+
+    // Attribute used to navigate to the devices statistics page
+    private String statisticsURL;
 
     Devices(boolean changeableState, boolean statisticsProvider, StatisticsFormat statisticsFormat, Category category) {
         this.changeableState = changeableState;
@@ -94,6 +97,14 @@ public enum Devices {
 
     public State getDeviceCurrentState() {
         return deviceCurrentState;
+    }
+
+    public void setStatisticsURL(String url){
+        statisticsURL = url;
+    }
+
+    public String getStatisticsURL(){
+        return statisticsURL;
     }
 
     /**
