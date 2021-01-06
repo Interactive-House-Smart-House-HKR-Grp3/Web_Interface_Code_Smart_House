@@ -43,7 +43,7 @@
         HashMap<String, String> devicesStates = new HashMap<>();
         session = request.getSession();
 
-        System.out.println("----- Devices read from session attributes-----");
+        System.out.println("----- Devices read from session attributes -----");
         for (Devices device : Devices.values()){
             devicesStates.put(device.name(), session.getAttribute(device.name()).toString());
             System.out.println(device.name() + ": State = " + session.getAttribute(device.name()).toString());
@@ -56,16 +56,7 @@
                     break;
                 }
             }
-
-            // Set the statistics button to the device
-            if (device.isStatisticsProvider()) {
-                String devicesString = "<form class=\"form-btn\" action=\"" + request.getContextPath() + "/button\" method=\"post\">\n" +
-                        "<button class=\"btn btn-statistics\" name=\"button\" type=\"submit\" value=\"statistics\">\n" +
-                        "<i class=\"fas fa-chart-pie\"></i>\n" +
-                        "</button>\n" +
-                        "</form>";
-                device.setStatisticsURL(devicesString);
-            }
+            // TODO: Hard code statistics providing link with button
         }
         System.out.println("----- ===== ===== ===== ===== ===== -----");
     %>
@@ -255,7 +246,11 @@
 
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Fire Alarm
-                        <%=Devices.FIRE_ALARM.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -267,7 +262,11 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Housebreak Alarm
-                        <%=Devices.BURGLAR_ALARM.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -279,7 +278,11 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Water Leakage
-                        <%=Devices.WATER_LEAKAGE.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -291,7 +294,11 @@
 
                 <div class="device-item device-item-4">
                     <h3 class="device-title">Power Cut
-                        <%=Devices.POWER_CUT.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -309,7 +316,11 @@
 
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Indoor Light
-                        <%=Devices.INDOOR_LIGHT.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -327,7 +338,11 @@
 
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Outdoor Light
-                        <%=Devices.OUTDOOR_LIGHT.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -345,7 +360,11 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Auto Lights
-                        <%=Devices.AUTO_MODE.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -368,7 +387,11 @@
 
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Indoor Temp
-                        <%=Devices.INDOOR_TEMPERATURE.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -380,7 +403,11 @@
 
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Outdoor Temp
-                        <%=Devices.OUTDOOR_TEMPERATURE.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -392,7 +419,11 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Heating Indoor
-                        <%=Devices.HEATING_INDOOR.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -410,7 +441,11 @@
 
                 <div class="device-item device-item-4">
                     <h3 class="device-title">Heating Loft
-                        <%=Devices.HEATING_LOFT.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -433,7 +468,11 @@
 
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Door
-                        <%=Devices.DOOR.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -451,7 +490,11 @@
 
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Stove
-                        <%=Devices.STOVE.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -469,7 +512,11 @@
 
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Window
-                        <%=Devices.WINDOW.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -487,7 +534,11 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Fan
-                        <%=Devices.FAN.getStatisticsURL()%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
@@ -521,6 +572,7 @@
 
             success: function () {
                 alert("Success");
+                getDeviceStates();
             },
 
             error: function() {

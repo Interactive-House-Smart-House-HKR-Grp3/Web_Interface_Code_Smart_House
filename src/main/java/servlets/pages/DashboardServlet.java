@@ -19,12 +19,11 @@ public class DashboardServlet extends HttpServlet {
             device.getDeviceCurrentState(); // Call to initialize and get what the state of the devices are
         }
         // Once all requests placed, wait for a shared timeout of 10 sec... with a error print if 10 seconds pass
-        int count = 0;
         long timeout = System.currentTimeMillis() + 1000; // 10 sec max wait time
         while (System.currentTimeMillis() < timeout){
             boolean finished = true;
             for (Devices device : Devices.values()){
-                if (!device.isNewStateRead())
+                if (device.isNewStateRead())
                     finished = false;
             }
             if (finished)
@@ -39,10 +38,6 @@ public class DashboardServlet extends HttpServlet {
             System.out.println(device.name() + ": State = " + state.toString());
         }
         System.out.println("----- ===== ===== ===== ===== ===== -----");
-
-        // TODO
-        // TODO: Then have the jsp hard coded call each device according to the session attribute for each specific device
-        // TODO
 
         request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
     }

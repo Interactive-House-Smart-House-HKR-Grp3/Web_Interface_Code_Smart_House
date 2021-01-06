@@ -71,23 +71,23 @@ public class LoginServlet extends HttpServlet {
     private void setupSessionAttributes(){
         // Call an initial request for the device states
         try {
-            // TODO: Is this still needed? Instantiate connection
             MQTTConnectionHandler.getInstance();
         } catch (Exception ignored) {}
 
         for (Devices device : Devices.values()){
             // Send a request to get the current device state
             device.getDeviceCurrentState();
-            int count = 0;
-            if (device.name().equalsIgnoreCase("indoor_light")) {
-                // Delay to try to allow for the state to be set for currently implemented devices
-                while (!device.isNewStateRead() && count < 50) {
-                    try {
-                        Thread.sleep(20);
-                        count++;
-                    } catch (Exception ignored) {}
-                }
+        }
+        // Wait for a timeout to see that the devices get a chance to update
+        long timeout = System.currentTimeMillis() + 1000; // 10 sec max wait time
+        while (System.currentTimeMillis() < timeout){
+            boolean finished = true;
+            for (Devices device : Devices.values()){
+                if (!device.isNewStateRead())
+                    finished = false;
             }
+            if (finished)
+                break;
         }
     }
 }

@@ -1,5 +1,6 @@
 <%@ page import="data.models.devices.Devices" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -33,98 +34,31 @@
 
 <!-- Java variables -->
     <%
-        Devices[] devices = new Devices[Devices.values().length];
-
-        int count = 0;
-        for (Devices device : Devices.values()){
-            devices[count] = device;
-            count++;
-        }
-
         // These are the Global Variables used in the devices section of the JSP
         Double consumption = 0.0;
         String dayNight = "";
-        String[] deviceStates = {
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error"
-        };
-        String[] devicesButton = {
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error",
-                "Error"
-        };
         String imgDayNight = "";
 
-        int statisticsProviderCount = 0;
+        //  Store the device states to use
+        HashMap<String, String> devicesStates = new HashMap<>();
+        session = request.getSession();
 
-        for (int i = 0; i < devices.length; i++) {
-            StringBuilder devicesString = new StringBuilder();
+        System.out.println("----- Devices read from session attributes -----");
+        for (Devices device : Devices.values()){
+            devicesStates.put(device.name(), session.getAttribute(device.name()).toString());
+            System.out.println(device.name() + ": State = " + session.getAttribute(device.name()).toString());
 
-            switch (devices[i].name()){
+            // Set images
+            switch (device.name()){
                 case "TWILIGHT":{
                     // TODO if day use sun image else use moon image
                     imgDayNight = "sun"; // else moon
                     break;
                 }
             }
-
-            if (devices[i].isStatisticsProvider()) {
-                statisticsProviderCount++;
-                // The statistics button
-                // TODO resolve sending the user to a statistics page specific to this device
-                devicesString.append("<form class=\"form-btn\" action=\"").append(request.getContextPath()).append("/button\" method=\"post\">\n" +
-                        "<button class=\"btn btn-statistics\" name=\"button\" type=\"submit\" value=\"statistics\">\n" +
-                        "<i class=\"fas fa-chart-pie\"></i>\n" +
-                        "</button>\n" +
-                        "</form>");
-            } else {
-                devicesString.append(" ");
-            }
-
-            // Wait for the state of the device to be read
-            String currentState = devices[i].getDeviceCurrentState().toString();
-            count = 0;
-            while (!devices[i].isNewStateRead() && count < 10) {
-                try {
-                    Thread.sleep(20);
-                    count++;
-                } catch (Exception ignored) {}
-            }
-
-            deviceStates[i] = currentState;
-            devicesButton[i] = devicesString.toString();
+            // TODO: Hard code statistics providing link with button
         }
+        System.out.println("----- ===== ===== ===== ===== ===== -----");
     %>
 
 <header>
@@ -241,16 +175,15 @@
 
             <div class="img-status">
                 <i class="fas fa-charging-station"></i>
-
                 <h3>
-                    <%=deviceStates[7]%>
+                    <%=devicesStates.get(Devices.TWILIGHT.name())%>
                 </h3>
             </div>
 
             <div class="img-status">
                 <i class="fas fa-<%=imgDayNight%>" id="twilightIcon"></i>
                 <h3 id="twilightText">
-                    <%=deviceStates[8]%>
+                    <%=devicesStates.get(Devices.TWILIGHT.name())%>
                 </h3>
             </div>
         </div>
@@ -313,11 +246,15 @@
 
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Fire Alarm
-                        <%=devicesButton[0]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[0]%>
+                        <%=devicesStates.get(Devices.FIRE_ALARM.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/042-fire alarm.svg">
@@ -325,11 +262,15 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Housebreak Alarm
-                        <%=devicesButton[1]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[1]%>
+                        <%=devicesStates.get(Devices.BURGLAR_ALARM.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/011-insurance.svg">
@@ -337,11 +278,15 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Water Leakage
-                        <%=devicesButton[2]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[2]%>
+                        <%=devicesStates.get(Devices.WATER_LEAKAGE.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/041-water tap.svg">
@@ -349,11 +294,15 @@
 
                 <div class="device-item device-item-4">
                     <h3 class="device-title">Power Cut
-                        <%=devicesButton[9]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[9]%>
+                        <%=devicesStates.get(Devices.POWER_CUT.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/008-power button.svg">
@@ -367,17 +316,21 @@
 
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Indoor Light
-                        <%=devicesButton[10]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[10]%>
+                        <%=devicesStates.get(Devices.INDOOR_LIGHT.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/005-lamp.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
+                        <button class="btn btn-device-toggle" onclick="requestStateChange('INDOOR_LIGHT', '<%=devicesStates.get(Devices.INDOOR_LIGHT.name())%>')">
                             Toggle State
                         </button>
                     </div>
@@ -385,17 +338,21 @@
 
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Outdoor Light
-                        <%=devicesButton[11]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[11]%>
+                        <%=devicesStates.get(Devices.OUTDOOR_LIGHT.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/044-lamp.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
+                        <button class="btn btn-device-toggle" onclick="requestStateChange('OUTDOOR_LIGHT', '<%=devicesStates.get(Devices.OUTDOOR_LIGHT.name())%>')">
                             Toggle State
                         </button>
                     </div>
@@ -403,17 +360,21 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Auto Lights
-                        <%=devicesButton[17]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[17]%>
+                        <%=devicesStates.get(Devices.AUTO_MODE.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/050-automation.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
+                        <button class="btn btn-device-toggle" onclick="requestStateChange('AUTO_MODE', '<%=devicesStates.get(Devices.AUTO_MODE.name())%>')">
                             Toggle State
                         </button>
                     </div>
@@ -426,11 +387,15 @@
 
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Indoor Temp
-                        <%=devicesButton[3]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[3]%>
+                        <%=devicesStates.get(Devices.INDOOR_TEMPERATURE.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/014-temperature.svg">
@@ -438,11 +403,15 @@
 
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Outdoor Temp
-                        <%=devicesButton[4]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[4]%>
+                        <%=devicesStates.get(Devices.OUTDOOR_TEMPERATURE.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/036-garage.svg">
@@ -450,17 +419,21 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Heating Indoor
-                        <%=devicesButton[15]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[15]%>
+                        <%=devicesStates.get(Devices.HEATING_INDOOR.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/simple_icons/002-smartphone.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
+                        <button class="btn btn-device-toggle" onclick="requestStateChange('HEATING_INDOOR', '<%=devicesStates.get(Devices.HEATING_INDOOR.name())%>')">
                             Toggle State
                         </button>
                     </div>
@@ -468,17 +441,21 @@
 
                 <div class="device-item device-item-4">
                     <h3 class="device-title">Heating Loft
-                        <%=devicesButton[16]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[16]%>
+                        <%=devicesStates.get(Devices.HEATING_LOFT.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/007-air conditioner.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
+                        <button class="btn btn-device-toggle" onclick="requestStateChange('HEATING_LOFT', '<%=devicesStates.get(Devices.HEATING_LOFT.name())%>')">
                             Toggle State
                         </button>
                     </div>
@@ -491,17 +468,21 @@
 
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Door
-                        <%=devicesButton[6]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[6]%>
+                        <%=devicesStates.get(Devices.DOOR.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/039-smart%20door.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
+                        <button class="btn btn-device-toggle" onclick="requestStateChange('DOOR', '<%=devicesStates.get(Devices.DOOR.name())%>')">
                             Toggle State
                         </button>
                     </div>
@@ -509,17 +490,21 @@
 
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Stove
-                        <%=devicesButton[12]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[12]%>
+                        <%=devicesStates.get(Devices.STOVE.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/009-solar panel.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
+                        <button class="btn btn-device-toggle" onclick="requestStateChange('STOVE', '<%=devicesStates.get(Devices.STOVE.name())%>')">
                             Toggle State
                         </button>
                     </div>
@@ -527,17 +512,21 @@
 
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Window
-                        <%=devicesButton[5]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[5]%>
+                        <%=devicesStates.get(Devices.WINDOW.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/033-window.svg">
 
                     <div class="device-controls">
-                        <button class="btn btn-device-toggle">
+                        <button class="btn btn-device-toggle" onclick="requestStateChange('WINDOW', '<%=devicesStates.get(Devices.WINDOW.name())%>')">
                             Toggle State
                         </button>
                     </div>
@@ -545,11 +534,15 @@
 
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Fan
-                        <%=devicesButton[13]%>
+                        <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
+                        </form>
                     </h3>
 
                     <h4 class="device-state">
-                        <%=deviceStates[13]%>
+                        <%=devicesStates.get(Devices.FAN.name())%>
                     </h4>
 
                     <img class="img-device" src="./assets/vectors/3D_icons/043-fan.svg">
@@ -570,29 +563,37 @@
 </html>
 
 <script>
-    <%
-        // Run a script to update the variables with the subscriptions
-        // TODO: Write a java script code snippet which calls this commentated section every 5 seconds or so to update the variables used for the devices
+    // Function called to update the page dynamically with a state change request
+    function requestStateChange(device, state){
+        $.ajax({
+            url: "${pageContext.request.contextPath}/outputRequest",
+            type: "POST",
+            data: {btn_deviceToggle : device+"-"+state},
 
-        // TODO: might have to write them in the java code above in a different manner? calling variables to be written instead of the code chunk?
+            success: function () {
+                alert("Success");
+                getDeviceStates();
+            },
 
-        // TODO: instead of '<6=query6>' have {$variable} for each device, which may update when the variable is updated here...
-
-        /*
-        for (Devices device : Devices.values()) {
-            // Send a request to get the current device state
-            device.getDeviceCurrentState();
-            int count = 0;
-            // Delay to try to allow for the state to be set for currently implemented devices
-            while (!device.isNewStateRead() && count < 50) {
-                try {
-                    Thread.sleep(20);
-                    count++;
-                } catch (Exception ignored) {
-                }
+            error: function() {
+                alert ("Sorry, there was a problem!");
             }
+        });
+        return false;
+    }
+
+    // When the page is loaded, every 3 seconds call a function to update the state of the devices
+    $(document).ready(function() {
+        getDeviceStates()
+    });
+
+    function getDeviceStates() {
+        // Retrieve the device states and update the local variables to match
+        <%
+        for (Devices devices : Devices.values()){
+            devicesStates.replace(devices.name(), devices.getDeviceCurrentState().toString());
         }
-        */
-    %>
+        %>
+    }
 </script>
 

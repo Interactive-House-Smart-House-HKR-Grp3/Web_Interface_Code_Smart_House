@@ -46,9 +46,6 @@ public enum Devices {
     private double doubleValue;
     private boolean newStateRead;
 
-    // Attribute used to navigate to the devices statistics page
-    private String statisticsURL;
-
     Devices(boolean changeableState, boolean statisticsProvider, StatisticsFormat statisticsFormat, Category category) {
         this.changeableState = changeableState;
         this.statisticsProvider = statisticsProvider;
@@ -97,14 +94,6 @@ public enum Devices {
 
     public State getDeviceCurrentState() {
         return deviceCurrentState;
-    }
-
-    public void setStatisticsURL(String url){
-        statisticsURL = url;
-    }
-
-    public String getStatisticsURL(){
-        return statisticsURL;
     }
 
     /**
