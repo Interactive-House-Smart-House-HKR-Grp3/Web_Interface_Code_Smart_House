@@ -1,3 +1,9 @@
+<%@ page import="data.models.devices.Devices" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="data.models.statistics.StatisticsData" %>
 <!-- Uncomment this when inside the jsp as it's needed for encoding -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -25,6 +31,61 @@
     <link rel="stylesheet" href="./css/dropdown.css">
 
 </head>
+
+<%
+    // Java variable dump
+    Map<Date, Integer> data = null;
+
+    switch (((Devices)request.getSession().getAttribute("statisticsDevice")).name().toLowerCase()) {
+        case "fire_alarm":
+            data = StatisticsData.FIRE_ALARM.getEventBasedStatistics();
+            break;
+        case "burglar_alarm":
+            data = StatisticsData.BURGLAR_ALARM.getEventBasedStatistics();
+            break;
+        case "water_leakage":
+            data = StatisticsData.WATER_LEAKAGE.getEventBasedStatistics();
+            break;
+        case "power_cut":
+            data = StatisticsData.POWER_CUT.getEventBasedStatistics();
+            break;
+        case "indoor_light":
+            data = StatisticsData.INDOOR_LIGHT.getEventBasedStatistics();
+            break;
+        case "outdoor_light":
+            data = StatisticsData.OUTDOOR_LIGHT.getEventBasedStatistics();
+            break;
+        case "auto_mode":
+            data = StatisticsData.AUTO_MODE.getEventBasedStatistics();
+            break;
+        case "indoor_temperature":
+            data = StatisticsData.INDOOR_TEMPERATURE.getEventBasedStatistics();
+            break;
+        case "outdoor_temperature":
+            data = StatisticsData.OUTDOOR_TEMPERATURE.getEventBasedStatistics();
+            break;
+        case "heating_indoor":
+            data = StatisticsData.INDOOR_HEATING.getEventBasedStatistics();
+            break;
+        case "heating_loft":
+            data = StatisticsData.LOFT_HEATING.getEventBasedStatistics();
+            break;
+        case "door":
+            data = StatisticsData.DOOR.getEventBasedStatistics();
+            break;
+        case "stove":
+            data = StatisticsData.STOVE.getEventBasedStatistics();
+            break;
+        case "window":
+            data = StatisticsData.WINDOW.getEventBasedStatistics();
+            break;
+        case "fan":
+            data = StatisticsData.FAN.getEventBasedStatistics();
+            break;
+        default:
+            System.out.println("Unknown device attempted to load!");
+    }
+%>
 
 <header>
     <!-- ------------- NAVIGATION ------------- -->
@@ -109,6 +170,8 @@
     <!-- This is the script that uses the above injected code -->
     <script src="./js/chart.js"></script>
 </main>
+
+<%=data%>
 
 </body>
 

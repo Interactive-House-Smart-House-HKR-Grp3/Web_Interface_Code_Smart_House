@@ -28,7 +28,6 @@ public class OutputRequestServlet extends HttpServlet {
 
         // Check if the user is in debug mode?
         boolean debug = (boolean) request.getSession().getAttribute("Debug");
-        // TODO: Add all the possible devices to change the state of
         System.out.println("----- ----- ----- ----- -----");
         System.out.println("Debug mode = " + debug);
         // Using the split string, send the request

@@ -11,10 +11,6 @@ import java.io.IOException;
 public class StatisticsPageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        // TODO: Retrieve the device statistics requested to be viewed, add it as parameters (this should be handled by a statisticsPageFormatter like how the UserPage does it)
-        // TODO: Change to sending using a response method
-
         request.getRequestDispatcher("/statistics.jsp").forward(request, response);
     }
 

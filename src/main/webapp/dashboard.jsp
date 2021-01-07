@@ -247,7 +247,7 @@
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Fire Alarm
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.FIRE_ALARM.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -263,7 +263,7 @@
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Housebreak Alarm
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.BURGLAR_ALARM.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -279,7 +279,7 @@
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Water Leakage
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.WATER_LEAKAGE.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -295,7 +295,7 @@
                 <div class="device-item device-item-4">
                     <h3 class="device-title">Power Cut
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.POWER_CUT.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -317,7 +317,7 @@
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Indoor Light
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.INDOOR_LIGHT.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -339,7 +339,7 @@
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Outdoor Light
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.OUTDOOR_LIGHT.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -361,7 +361,7 @@
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Auto Lights
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.AUTO_MODE.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -388,7 +388,7 @@
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Indoor Temp
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.INDOOR_TEMPERATURE.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -404,7 +404,7 @@
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Outdoor Temp
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.OUTDOOR_TEMPERATURE.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -420,7 +420,7 @@
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Heating Indoor
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.HEATING_INDOOR.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -442,7 +442,7 @@
                 <div class="device-item device-item-4">
                     <h3 class="device-title">Heating Loft
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.HEATING_LOFT.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -469,7 +469,7 @@
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Door
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.DOOR.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -491,7 +491,7 @@
                 <div class="device-item device-item-1">
                     <h3 class="device-title">Stove
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.STOVE.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -513,7 +513,7 @@
                 <div class="device-item device-item-2">
                     <h3 class="device-title">Window
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.WINDOW.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
@@ -535,7 +535,7 @@
                 <div class="device-item device-item-3">
                     <h3 class="device-title">Fan
                         <form class="form-btn" action="${pageContext.request.contextPath}/button" method="post">
-                            <button class="btn btn-statistics" name="button" type="submit" value="statistics">
+                            <button class="btn btn-statistics" name="button" type="submit" value="statistics-${Devices.FAN.name()}">
                                 <i class="fas fa-chart-pie"></i>
                             </button>
                         </form>
